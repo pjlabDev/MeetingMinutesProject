@@ -1,0 +1,122 @@
+<body class="body">
+    <!-- Navbar donde se aloja el menú para navegar entre las distintas opciones -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top transparent">
+        <a class="navbar-brand" [routerLink]="['home']"><img style="width: 40px;" src="https://www.stickpng.com/assets/images/58bf1fa0e443f41d77c734c2.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/PedrassoxD/MeetingMinutesProject" routerLinkActive="active-link">Ayuda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['acercade']" routerLinkActive="acive-link">Sobre nosotros</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 10%;">
+        <router-outlet></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small mdb-color darkten-3 pt-0">
+
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Presentacion -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">Presentacion</h5>
+                    <p>Esto es una página dedicada a mostrar contenido a cerca del universo.</p>
+                    <p>El universo es un lugar extraordinario que no conocemos, un espacio en el que existen multitud de preguntas, del que aun no se conoce ni un 10% de el..</p>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">A cerca de</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <a [routerLink]="['noticias']">Misiones</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a [routerLink]="['contact']">Nosotros</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="https://www.nasa.gov/">Visita Nasa.gov</a>
+                            </p>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Detalles de contacto -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">Direccion</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <i class="fas fa-home mr-3"></i> Sevilla, Cantillana</p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fas fa-envelope mr-3"></i> pedroperlab@gmail.com</p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fas fa-phone mr-3"></i> +34 667 091 224</p>
+                        </li>
+                    </ul>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+                    <!-- Botones Redes Sociales -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">Sígueme</h5>
+
+                    <!-- GitHub -->
+                    <a href="https://www.github.com/PedrassoxD" type="button" class="btn-floating btn-fb">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <br>
+                    <!-- Twitter -->
+                    <a href="https://twitter.com/sniperpedrito?lang=es" type="button" class="btn-floating btn-tw">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <br>
+                    <!-- Google +-->
+                    <a href="https://accounts.google.com/ServiceLogin/signinchooser?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin" type="button"
+                        class="btn-floating btn-gplus">
+                        <i class="fab fa-google-plus-g"></i>
+                    </a>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+        </div>
+    </footer>
+</body>

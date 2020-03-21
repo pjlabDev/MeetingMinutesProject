@@ -1,0 +1,11 @@
+$backgPos: center center;
+$backAttach: fixed;
+$backgSize: cover;
+$backRep: no-repeat;
+.body {
+    background-attachment: fixed;
+    background-position: $backgPos;
+    background-attachment: $backAttach;
+    background-repeat: $backRep;
+    background-size: cover;
+}
