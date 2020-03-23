@@ -1,0 +1,9 @@
+<div class="container registrar">
+    <div *ngIf="isUserAdmin()">
+        <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/register" type="submit"><i class="fas fa-sign-out-alt"></i> Registrar</button>
+    </div>
+</div>
+<br><br>
+<div class="container home">
+    <h1>Bienvenid@, aqui tienes tus series de reuniones {{usuario.nombre}}</h1>
+</div>

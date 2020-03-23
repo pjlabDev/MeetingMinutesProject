@@ -1,0 +1,35 @@
+<div class="contaienr formularioLogin">
+    <h1>Log In</h1>
+    <div class="row justify-content-center">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div [hidden]="submitted">
+                <form [formGroup]="userForm" (ngSubmit)="userLogin(userForm)">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input id="nombre" type="text" class="form-control" formControlName="nombre" data-toggle="tooltip" data-placement="right" title="Nombre de usuario..." placeholder="Nombre de usuario...">
+                        <div class="alert alert-danger" *ngIf="(nombre.touched) && (nombre.invalid)" style="margin-top: 5px;">
+                            <span *ngIf="nombre.errors.required">El nombre es un campo requerido</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="clave">Clave</label>
+                        <input id="clave" type="password" class="form-control" formControlName="clave" data-toggle="tooltip" data-placement="right" title="Clave..." placeholder="Clave...">
+                        <div class="alert alert-danger" *ngIf="(clave.touched) && (clave.invalid)" style="margin-top: 5px;">
+                            <span *ngIf="clave.errors.required">La clave es un campo requerido</span>
+                            <span *ngIf="clave.errors.minlength">
+                            Longitud máxima de la contraseña: {{clave.errors.minlength.requiredLength}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="message" *ngIf="mensaje">
+                        <span>Nombre de usuario o contraseña incorrectos.</span>
+                    </div>
+                    <button [disabled]="!userForm.valid" type="submit" class="btn btn-success">Acceder</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+<div style="height: 20rem;"></div>

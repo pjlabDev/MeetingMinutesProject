@@ -1,0 +1,16 @@
+.message>span {
+    text-align: center;
+    color: red;
+}
+
+@media only screen and (max-width: 360px) {
+    .formularioLogin {
+        padding-top: 25%;
+    }
+}
+
+.formularioLogin {
+    h1 {
+        text-align: center;
+    }
+}

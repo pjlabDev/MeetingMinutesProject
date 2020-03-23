@@ -6,7 +6,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { AboutComponent } from './components/about/about.component';
 
 
-const routes: Routes = [ ];
+const routes: Routes = [
+  {path: 'login', component: LoginComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'acercade', component: AboutComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
