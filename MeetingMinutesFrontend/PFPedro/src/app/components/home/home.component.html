@@ -6,4 +6,18 @@
 <br><br>
 <div class="container home">
     <h1>Bienvenid@, aqui tienes tus series de reuniones {{usuario.nombre}}</h1>
+    <br>
+    <br>
+    <div class="offset-8" *ngIf="isUserAdmin()">
+        <button class="btn btn-success my-2 my-sm-0" routerLink="/addseriereunion" type="submit"><i class="fas fa-plus"></i> Crear nueva serie reunion</button>
+    </div>
+    <br>
+    <div *ngFor="let serie of serieReuniones">
+        <div class="row">
+            <div class="col">
+                <h3>{{serie.equipo}} - {{serie.nombre}}</h3>
+            </div>
+        </div>
+    </div>
 </div>
+<div style="height: 25rem;"></div>

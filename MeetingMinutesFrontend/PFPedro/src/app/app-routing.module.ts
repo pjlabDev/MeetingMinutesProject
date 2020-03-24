@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AboutComponent } from './components/about/about.component';
+import { NuevaseriereunionComponent } from './components/nuevaseriereunion/nuevaseriereunion.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'acercade', component: AboutComponent},
+  {path: 'addseriereunion', component: NuevaseriereunionComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

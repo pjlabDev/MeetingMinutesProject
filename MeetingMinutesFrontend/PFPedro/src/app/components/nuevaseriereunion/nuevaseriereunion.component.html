@@ -1,0 +1,26 @@
+<div class="container formRegister">
+    <form [formGroup]="newSerieReunionForm" method="POST">
+        <div class="form-group">
+            <label for="equipo">Equipo</label>
+            <input type="text" class="form-control" formControlName="equipo" id="correo" placeholder="Equipo...">
+            <div class="alert alert-danger" *ngIf="(equipo.touched) && (equipo.invalid)" style="margin-top: 5px;">
+                <span *ngIf="equipo.errors.required">El correo es un campo requerido</span>
+                <span *ngIf="equipo.errors.maxlength">
+                    Longitud máxima del nombre del equipo: {{nombre.errors.maxlength.requiredLength}}
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre" id="nombre" placeholder="Nombre...">
+            <div class="alert alert-danger" *ngIf="(nombre.touched) && (nombre.invalid)" style="margin-top: 5px;">
+                <span *ngIf="nombre.errors.required">El nombre es un campo requerido</span>
+                <span *ngIf="nombre.errors.maxlength">
+                    Longitud máxima del nombre de usuario: {{nombre.errors.maxlength.requiredLength}}
+                </span>
+            </div>
+        </div>
+        <br>
+        <button [disabled]="!newSerieReunionForm.valid" type="submit" class="btn btn-success">Añadir</button>
+    </form>
+</div>
