@@ -16,7 +16,7 @@ import com.pedro.modelo.Usuarios;
 @Repository
 public interface UserRepository extends JpaRepository<Usuarios, Integer>{
 	
-	@Query(value = "select * from usuarios where nombre like ?1 and clave like ?2", nativeQuery = true)
+	@Query(value = "SELECT * FROM usuarios WHERE nombre like ?1 and clave like ?2", nativeQuery = true)
 	Usuarios login(String nombre, String clave);
 	
 }

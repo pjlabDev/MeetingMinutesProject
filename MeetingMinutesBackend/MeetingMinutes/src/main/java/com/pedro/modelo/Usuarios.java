@@ -3,11 +3,18 @@
  */
 package com.pedro.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -20,24 +27,30 @@ import javax.validation.constraints.NotNull;
 public class Usuarios {
 
 	@Id
+	@Column(name = "codusu")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int CodUsu;
 
-	@Column(unique = true)
+	@Column(name = "nombre", unique = true)
 	@NotNull
 	private String Nombre;
 	
-	@Column(unique = true)
+	@Column(name = "correo", unique = true)
 	@NotNull
 	private String Correo;
 
-	@Column
+	@Column(name = "clave")
 	@NotNull
 	private String Clave;
 
-	@Column
+	@Column(name = "rol")
 	@NotNull
 	private Roles rol;
+	
+	@ManyToMany(cascade = CascadeType.DETACH)
+	@JoinTable(name = "usuario_seriereunion",
+			joinColumns = {@JoinColumn(name="id_usuario")}, inverseJoinColumns = {@JoinColumn(name = "id_seriereunion")})
+	private List<SerieReunion> serieReuniones;
 
 	/**
 	 * 
@@ -58,7 +71,9 @@ public class Usuarios {
 		this.rol = rol;
 	}
 
-	public Usuarios() {}
+	public Usuarios() {
+		this.serieReuniones = new ArrayList<SerieReunion>();
+	}
 
 	public int getCodUsu() {
 		return CodUsu;
