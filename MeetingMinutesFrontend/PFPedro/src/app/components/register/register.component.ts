@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
       alert('Usuario añadido con éxito.');
       this.registerForm.reset();
     }, error => {
-      console.log('Error al añadir', error);
+      console.log('Error al añadir usuario', error);
       this.mensajeError = true;
       setTimeout(() => {
         this.mensajeError = false;

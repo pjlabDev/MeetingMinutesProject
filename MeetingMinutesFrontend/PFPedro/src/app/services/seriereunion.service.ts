@@ -17,8 +17,8 @@ export class SeriereunionService {
       return this.http.get<SerieReunion>(`${this.baseUrl}` + 'seriereuniones/' + codusu);
   }
 
-  cerrarSerieReunion(codsreunion: number): Observable<any> {
-      return this.http.get<SerieReunion>(`${this.baseUrl}` + 'cerrar/' + codsreunion);
+  crearSerieReunion(reunion: SerieReunion, codusu: number): Observable<any> {
+      return this.http.post(`${this.baseUrl}` + 'addseriereunion/' + codusu, reunion);
   }
 
 
