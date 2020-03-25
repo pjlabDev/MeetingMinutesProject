@@ -14,6 +14,6 @@ import com.pedro.modelo.SerieReunion;
 public interface SerieReunionService {
 	
 	List<SerieReunion> getSerieReunionByUsuario(int codusu);
-	void cerrarSerieReunion(SerieReunion reunion);
+	void crearSerieReunion(SerieReunion reunion, int codusu);
 	
 }

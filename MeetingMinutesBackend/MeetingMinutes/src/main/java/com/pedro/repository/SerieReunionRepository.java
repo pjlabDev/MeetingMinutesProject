@@ -16,6 +16,6 @@ import com.pedro.modelo.SerieReunion;
  */
 public interface SerieReunionRepository extends JpaRepository<SerieReunion, Integer> {
 	
-	@Query(value = "SELECT * FROM serie_reunion JOIN usuario_seriereunion WHERE usuario_seriereunion.id_usuario like ?1 AND usuario_seriereunion.id_seriereunion = codsreunion AND cerrado = 0", nativeQuery = true)
+	@Query(value = "SELECT * FROM serie_reunion JOIN serie_reunion_usuarios WHERE serie_reunion_usuarios.usuarios_codusu like ?1 AND serie_reunion_usuarios.serie_reunion_codsreunion = codsreunion AND cerrado = 0", nativeQuery = true)
 	List<SerieReunion> getSerieReunionByUsuario(int codusu);
 }

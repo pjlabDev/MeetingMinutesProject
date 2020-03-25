@@ -3,6 +3,8 @@
  */
 package com.pedro.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,11 @@ public class UsuariosController {
 	@GetMapping("/login/{nombre}/{clave}")
 	public Usuarios login(@PathVariable String nombre, @PathVariable String clave) {
 		return us.login(nombre, clave);
+	}
+	
+	@GetMapping("/getusuarios")
+	public List<Usuarios> getAllUsuarios(){
+		return us.getAllUsuarios();
 	}
 	
 	@PostMapping("/addusuario")

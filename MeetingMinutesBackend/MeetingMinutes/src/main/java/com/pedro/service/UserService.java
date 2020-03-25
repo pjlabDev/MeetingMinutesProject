@@ -3,6 +3,8 @@
  */
 package com.pedro.service;
 
+import java.util.List;
+
 import com.pedro.modelo.Usuarios;
 
 /**
@@ -12,6 +14,7 @@ import com.pedro.modelo.Usuarios;
 public interface UserService {
 	
 	Usuarios login(String nombre, String clave);
+	List<Usuarios> getAllUsuarios();
 	void addUsuario(Usuarios usuario);
 	
 }

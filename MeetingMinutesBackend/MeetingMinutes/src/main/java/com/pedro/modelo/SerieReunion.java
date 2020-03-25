@@ -3,10 +3,8 @@
  */
 package com.pedro.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,8 +39,13 @@ public class SerieReunion {
 	@NotNull
 	private int Cerrado;
 	
-	@ManyToMany(cascade = CascadeType.DETACH, mappedBy = "serieReuniones")
-	private List<Usuarios> usuarios;
+//	@ManyToMany(cascade = CascadeType.DETACH)
+//	@JoinTable(name = "usuario_seriereunion",
+//			joinColumns = {@JoinColumn(name="id_usuario")}, inverseJoinColumns = {@JoinColumn(name = "id_seriereunion")})
+//	private List<Usuarios> usuarios;
+	@ManyToMany(targetEntity=Usuarios.class)
+	private Set<Usuarios> usuarios;
+	
 	
 	/**
 	 * 
@@ -53,11 +56,21 @@ public class SerieReunion {
 		this.Nombre = Nombre;
 	}
 	
-	public SerieReunion() {
-		
-		this.usuarios = new ArrayList<Usuarios>();
-		
+	public SerieReunion(String Equipo, String Nombre, Set<Usuarios> usuarios) {
+		this.Equipo = Equipo;
+		this.Nombre = Nombre;
+		this.usuarios = usuarios;
 	}
+	
+	public SerieReunion() {	}
+	
+//	public void addUsuarioReunion(Usuarios usuario) {
+//		if(this.usuarios == null) {
+//			this.usuarios = new ArrayList<>();
+//		}
+//		
+//		this.usuarios.add(usuario);
+//	}
 
 	public int getCodSReunion() {
 		return CodSReunion;
@@ -83,12 +96,29 @@ public class SerieReunion {
 		Nombre = nombre;
 	}
 
-	public List<Usuarios> getUsuarios() {
+	public int getCerrado() {
+		return Cerrado;
+	}
+
+	public void setCerrado(int cerrado) {
+		Cerrado = cerrado;
+	}
+
+	public Set<Usuarios> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuarios> usuarios) {
+	public void setUsuarios(Set<Usuarios> usuarios) {
 		this.usuarios = usuarios;
 	}
+
+//	public List<Usuarios> getUsuarios() {
+//		return usuarios;
+//	}
+//
+//	public void setUsuarios(List<Usuarios> usuarios) {
+//		this.usuarios = usuarios;
+//	}
+	
 	
 }

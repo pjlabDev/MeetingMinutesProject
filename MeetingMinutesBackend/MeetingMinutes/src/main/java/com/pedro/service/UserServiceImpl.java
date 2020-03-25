@@ -3,6 +3,8 @@
  */
 package com.pedro.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.login(nombre, clave);
 	}
 
+	@Override
+	public List<Usuarios> getAllUsuarios() {
+		return userRepository.getAllUsuarios();
+	}
+	
 	@Override
 	public void addUsuario(Usuarios usuario) {
 		userRepository.save(usuario);
