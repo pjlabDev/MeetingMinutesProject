@@ -14,8 +14,12 @@
     <br>
     <div *ngFor="let serie of serieReuniones">
         <div class="row">
-            <div class="col">
-                <h3>{{serie.equipo}} - {{serie.nombre}}</h3>
+            <div class="col-5">
+                <a [routerLink]="['/', 'seriereunion', serie.codSReunion]">
+                    <h3>{{serie.equipo}} - {{serie.nombre}}</h3>
+                    <hr>
+                </a>
+                <!-- <h3>{{serie.equipo}} - {{serie.nombre}}</h3> -->
             </div>
         </div>
     </div>

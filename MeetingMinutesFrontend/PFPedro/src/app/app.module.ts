@@ -10,6 +10,8 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AboutComponent } from './components/about/about.component';
 import { NuevaseriereunionComponent } from './components/nuevaseriereunion/nuevaseriereunion.component';
+import { SeriereunionComponent } from './components/seriereunion/seriereunion.component';
+import { ModifSerieReunionComponent } from './components/modif-serie-reunion/modif-serie-reunion.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { NuevaseriereunionComponent } from './components/nuevaseriereunion/nueva
     HomeComponent,
     RegisterComponent,
     AboutComponent,
-    NuevaseriereunionComponent
+    NuevaseriereunionComponent,
+    SeriereunionComponent,
+    ModifSerieReunionComponent
   ],
   imports: [
     BrowserModule,

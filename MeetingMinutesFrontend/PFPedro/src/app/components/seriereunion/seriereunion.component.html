@@ -1,0 +1,44 @@
+<div class="container titleSerieReunion">
+    <div class="row justify-content-center">
+        <div class="col-sm-3"></div>
+        <div class="col">
+            <h3 style="text-align: center;">{{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
+        </div>
+        <div class="col">
+            <button type="submit" [routerLink]="['/', 'modifseriereunion', serieReunion.codSReunion]"><i class="fas fa-cogs"></i></button>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <h3>Participantes de esta reunión</h3>
+    <div *ngFor="let user of usuarios">
+        {{user.nombre}} - {{user.rol}}
+    </div>
+</div>
+<div class="container styleSerieReunion">
+    <div class="row justify-content-center">
+        <div class="col-sm-2"></div>
+        <div class="col">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Reuniones</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Temas</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Items</button>
+        </div>
+    </div>
+
+</div>
+
+<br><br>
+
+<div class="card">
+    <div class="card-body">
+        Reuniones
+    </div>
+</div>
+
+<div style="height: 20rem;"></div>

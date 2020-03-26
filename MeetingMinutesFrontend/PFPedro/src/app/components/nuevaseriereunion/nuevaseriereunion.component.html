@@ -1,4 +1,4 @@
-<div class="container formRegister">
+<div class="container formNuevaSerieReunion">
     <form [formGroup]="newSerieReunionForm" (ngSubmit)="crearSerieReunion(newSerieReunionForm)" method="POST">
         <div class="form-group">
             <label for="equipo">Equipo</label>
@@ -23,20 +23,17 @@
         <div class="form-group">
             <label for="usuario">Asignar usuarios</label>
             <br>
-            <select class="form-control" id="usuario" formControlName="usuario">
+            <select multiple class="form-control" id="usuario" formControlName="usuario">
                 <option selected disabled></option>
                 <option *ngFor="let user of usuarios" value="{{user.codUsu}}">
                     {{user.nombre}}
                 </option>
             </select>
             <div class="alert alert-danger" *ngIf="(usuario.touched) && (usuario.invalid)" style="margin-top: 5px;">
-                <span *ngIf="usuario.errors.required">El rol es un campo requerido</span>
+                <span *ngIf="usuario.errors.required">Asignar al menos un participante.</span>
             </div>
         </div>
         <br>
-        <div *ngIf="mensajeError">
-            El usuario no se ha reconocido en la base de datos.
-        </div>
         <button [disabled]="!newSerieReunionForm.valid" type="submit" class="btn btn-success">Añadir</button>
     </form>
 </div>

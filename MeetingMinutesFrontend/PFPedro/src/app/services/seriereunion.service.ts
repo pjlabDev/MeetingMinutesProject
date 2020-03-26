@@ -17,8 +17,20 @@ export class SeriereunionService {
       return this.http.get<SerieReunion>(`${this.baseUrl}` + 'seriereuniones/' + codusu);
   }
 
-  crearSerieReunion(reunion: SerieReunion, codusu: number): Observable<any> {
-      return this.http.post(`${this.baseUrl}` + 'addseriereunion/' + codusu, reunion);
+  crearSerieReunion(reunion: SerieReunion, codsusu: number[]): Observable<any> {
+      return this.http.post(`${this.baseUrl}` + 'addseriereunion/' + codsusu, reunion);
+  }
+
+  getSerieReunionByCodReunion(codsreunion: number): Observable<SerieReunion> {
+    return this.http.get<SerieReunion>(`${this.baseUrl}` + 'sereunion/' + codsreunion);
+  }
+
+  modifSerieReunion(reunion: SerieReunion): Observable<any> {
+      return this.http.put(`${this.baseUrl}` + 'modifseriereunion/', reunion);
+  }
+
+  modifSerieReunionConInvitado(reunion: SerieReunion, codusu: number[]): Observable<any> {
+      return this.http.put(`${this.baseUrl}` + 'modifseriereunionconinvitado/' + codusu, reunion);
   }
 
 

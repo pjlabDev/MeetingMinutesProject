@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
-import { Usuario } from '../../clases/usuario';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -29,18 +29,21 @@ export class LoginComponent implements OnInit {
     this.api.loginUsuario(form.value.nombre, form.value.clave)
       .subscribe(data => {
         if (data === null) {
-          this.mensaje = true;
-          setTimeout(() => {
-            this.mensaje = false;
-          }, 3000);
+          Swal.fire({
+            icon: 'error',
+            title: 'Lo sentimos, ha ocurrido un problema al iniciar sesión',
+            text: 'Nombre de usuario o contraseña incorrectos.',
+          });
+          this.userForm.reset();
         } else {
           if (form.value.clave !== data.clave && form.value.nombre !== data.nombre) {
-              this.mensaje = true;
-              setTimeout(() => {
-              this.mensaje = false;
-            }, 3000);
+            Swal.fire({
+              icon: 'error',
+              title: 'Lo sentimos, ha ocurrido un problema al iniciar sesión',
+              text: 'Nombre de usuario o contraseña incorrectos.',
+            });
+            this.userForm.reset();
           } else {
-              console.log('Login correcto!!');
               this.router.navigate(['home']);
           }
         }

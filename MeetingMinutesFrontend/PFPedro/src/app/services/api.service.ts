@@ -49,4 +49,12 @@ export class ApiService {
       return this.http.get<Usuario>(`${this.baseUrl}` + 'getusuarios');
   }
 
+  getUsuariosNotInReunion(codsreunion: number): Observable<any> {
+      return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosnotinreunion/' + codsreunion);
+  }
+
+  getUsuariosInReunion(codsreunion: number): Observable<any> {
+    return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosinreunion/' + codsreunion);
+}
+
 }

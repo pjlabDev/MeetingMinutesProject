@@ -1,0 +1,16 @@
+.styleSerieReunion {
+    padding-top: 20%;
+}
+
+@media only screen and (max-width: 360px) {
+    .titleSerieReunion {
+        padding-top: 25%;
+    }
+    .styleSerieReunion {
+        padding-top: 20%;
+    }
+}
+
+.cajaReuniones {
+    border: 1px black;
+}

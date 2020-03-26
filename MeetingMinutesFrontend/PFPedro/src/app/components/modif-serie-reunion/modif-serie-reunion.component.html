@@ -1,0 +1,35 @@
+<div class="container formRegister">
+    <form [formGroup]="modifSerieReunionForm" #reunionform="ngForm" (ngSubmit)="modifSerieReunion(serieReunion, modifSerieReunionForm)">
+        <div class="form-group">
+            <label for="equipo">Equipo</label>
+            <input type="text" class="form-control" id="equipo" formControlName="equipo" required [(ngModel)]="serieReunion.equipo" name="equipo">
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre" required [(ngModel)]="serieReunion.nombre" name="nombre">
+        </div>
+        <span>¿Desea invitar más usuarios a la reunión?</span>
+        <div class="offset-2"></div>
+        <button class="btn btn-primary btn-sm" (click)="invitar = true" type="button">Si</button>
+        <div *ngIf="invitar">
+            <span>Mejor no</span>
+            <div class="offset-2"></div>
+            <button class="btn btn-primary btn-sm" (click)="invitar = false" type="button">No</button>
+        </div>
+        <div *ngIf="invitar" class="form-group">
+            <label for="participantes">Invitar participantes</label>
+            <select multiple class="form-control" id="participantes" formControlName="usuario" name="participantes">
+                <option disabled></option>
+                <option *ngFor="let user of usuarios" value="{{user.codUsu}}">
+                    {{user.nombre}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="cerrado">Cerrar Reunion (0 abierta, 1 cerrada)</label>
+            <input type="number" class="form-control" id="cerrado" formControlName="cerrado" [(ngModel)]="serieReunion.cerrado" name="cerrado" max="1" min="0">
+        </div>
+        <button [disabled]="!reunionform.valid" type="submit" class="btn btn-success">Modificar</button>
+    </form>
+</div>
+<div style="height: 25rem;"></div>
