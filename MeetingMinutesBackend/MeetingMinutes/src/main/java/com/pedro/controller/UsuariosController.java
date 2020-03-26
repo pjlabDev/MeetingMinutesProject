@@ -45,5 +45,15 @@ public class UsuariosController {
 		us.addUsuario(usuario);
 	}
 	
+	@GetMapping("/usuariosnotinreunion/{codsreunion}")
+	public List<Usuarios> getUsuariosNotInReunion(@PathVariable int codsreunion){
+		return us.getUsuariosNotInReunion(codsreunion);
+	}
+	
+	@GetMapping("/usuariosinreunion/{codsreunion}")
+	public List<Usuarios> getUsuariosInReunion(@PathVariable int codsreunion){
+		return us.getUsuariosInReunion(codsreunion);
+	}
+	
 
 }

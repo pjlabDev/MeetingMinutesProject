@@ -36,5 +36,15 @@ public class UserServiceImpl implements UserService {
 	public void addUsuario(Usuarios usuario) {
 		userRepository.save(usuario);
 	}
+
+	@Override
+	public List<Usuarios> getUsuariosNotInReunion(int codsreunion) {
+		return userRepository.getUsuariosNotInReunion(codsreunion);
+	}
+
+	@Override
+	public List<Usuarios> getUsuariosInReunion(int codsreunion) {
+		return userRepository.getUsuariosInReunion(codsreunion);
+	}
 	
 }

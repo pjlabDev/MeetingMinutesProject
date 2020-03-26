@@ -24,4 +24,10 @@ public interface UserRepository extends JpaRepository<Usuarios, Integer>{
 	@Query(value = "SELECT * FROM usuarios", nativeQuery = true)
 	List<Usuarios> getAllUsuarios();
 	
+	@Query(value = "SELECT * FROM usuarios WHERE codusu NOT IN(SELECT codusu FROM usuarios JOIN serie_reunion_usuarios WHERE serie_reunion_usuarios.usuarios_codusu = codusu AND serie_reunion_usuarios.serie_reunion_codsreunion like ?1)", nativeQuery = true)
+	List<Usuarios> getUsuariosNotInReunion(int codsreunion);
+	
+	@Query(value = "SELECT * FROM usuarios JOIN serie_reunion_usuarios WHERE serie_reunion_usuarios.usuarios_codusu = codusu AND serie_reunion_usuarios.serie_reunion_codsreunion like ?1", nativeQuery = true)
+	List<Usuarios> getUsuariosInReunion(int codsreunion);
+	
 }

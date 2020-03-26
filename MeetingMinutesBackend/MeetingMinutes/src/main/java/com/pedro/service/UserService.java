@@ -16,5 +16,7 @@ public interface UserService {
 	Usuarios login(String nombre, String clave);
 	List<Usuarios> getAllUsuarios();
 	void addUsuario(Usuarios usuario);
+	List<Usuarios> getUsuariosNotInReunion(int codsreunion);
+	List<Usuarios> getUsuariosInReunion(int codsreunion);
 	
 }

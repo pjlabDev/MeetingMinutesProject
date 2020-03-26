@@ -35,16 +35,64 @@ public class SerieReunionServiceImpl implements SerieReunionService {
 	}
 
 	@Override
-	public void crearSerieReunion(SerieReunion reunion, int codusu) {
-		Usuarios user = userR.findOne(codusu);
+	public void crearSerieReunion(SerieReunion reunion, int[] codusu) {
 		
 		Set<Usuarios> usuario = new HashSet<>();
-		usuario.add(user);
+		
+		for (int i : codusu) {			
+			Usuarios user = userR.findOne(i);
+			
+			usuario.add(user);
+		}
 		
 		SerieReunion reu = new SerieReunion(reunion.getEquipo(),reunion.getNombre(),usuario);
 		
 		srRepo.save(reu);
 		
-	}	
+	}
+
+	@Override
+	public SerieReunion getSerieReunionByCodReunion(int codsreunion) {
+		return srRepo.getSerieReunionByCodReunion(codsreunion);
+	}
+
+	@Override
+	public void modificarReunion(SerieReunion reunion) {
+		SerieReunion serieReunion = srRepo.findOne(reunion.getCodSReunion());
+		
+		if(serieReunion != null) {
+			
+			serieReunion.setEquipo(reunion.getEquipo());
+			serieReunion.setNombre(reunion.getNombre());
+			serieReunion.setCerrado(reunion.getCerrado());
+			srRepo.save(serieReunion);
+			
+		}
+		
+	}
+
+	@Override
+	public void modificarReunionInvitandoMasUsuarios(SerieReunion reunion, int[] codusu) {
+		
+		SerieReunion serieReunion = srRepo.findOne(reunion.getCodSReunion());
+		Set<Usuarios> usuario = reunion.getUsuarios();
+		
+		if(serieReunion != null) {
+			
+			for (int i : codusu) {
+				Usuarios user = userR.findOne(i);
+				
+				usuario.add(user);
+			}
+			
+			serieReunion.setEquipo(reunion.getEquipo());
+			serieReunion.setNombre(reunion.getNombre());
+			serieReunion.setCerrado(reunion.getCerrado());
+			serieReunion.setUsuarios(usuario);
+			srRepo.save(serieReunion);
+			
+		}
+		
+	}
 	
 }
