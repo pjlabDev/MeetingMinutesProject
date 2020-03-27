@@ -34,14 +34,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  isUserAdmin() {
-    if (this.usuario.rol === 'ADMINISTRADOR') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   get codsreunion() {
     return this.cerrarForm.get('codsreunion');
   }

@@ -16,7 +16,7 @@ export class SeriereunionComponent implements OnInit {
   usuarios: Usuario[];
   serieReunion: SerieReunion = new SerieReunion();
 
-  constructor(public route: ActivatedRoute, private sr: SeriereunionService, private api: ApiService) { }
+  constructor(public route: ActivatedRoute, private sr: SeriereunionService, public api: ApiService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {

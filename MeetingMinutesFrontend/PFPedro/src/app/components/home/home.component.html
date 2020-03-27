@@ -1,5 +1,5 @@
 <div class="container registrar">
-    <div *ngIf="isUserAdmin()">
+    <div *ngIf="api.isUserAdmin()">
         <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/register" type="submit"><i class="fas fa-sign-out-alt"></i> Registrar</button>
     </div>
 </div>
@@ -8,7 +8,7 @@
     <h1>Bienvenid@, aqui tienes tus series de reuniones {{usuario.nombre}}</h1>
     <br>
     <br>
-    <div class="offset-8" *ngIf="isUserAdmin()">
+    <div class="offset-8" *ngIf="api.isUserAdminAndJefe()">
         <button class="btn btn-success my-2 my-sm-0" routerLink="/addseriereunion" type="submit"><i class="fas fa-plus"></i> Crear nueva serie reunion</button>
     </div>
     <br>

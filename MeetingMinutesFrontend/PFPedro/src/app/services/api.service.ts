@@ -11,6 +11,7 @@ export class ApiService {
   private baseUrl = 'http://localhost:8080/';
 
   user: Usuario = new Usuario();
+  usuario: Usuario = new Usuario();
 
   constructor(private http: HttpClient) { }
 
@@ -55,6 +56,24 @@ export class ApiService {
 
   getUsuariosInReunion(codsreunion: number): Observable<any> {
     return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosinreunion/' + codsreunion);
-}
+  }
+
+  isUserAdmin() {
+    this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    if (this.usuario.rol === 'ADMINISTRADOR') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isUserAdminAndJefe() {
+    this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    if (this.usuario.rol === 'ADMINISTRADOR' || this.usuario.rol === 'JEFEREUNION') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }

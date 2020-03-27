@@ -4,7 +4,7 @@
         <div class="col">
             <h3 style="text-align: center;">{{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
         </div>
-        <div class="col">
+        <div *ngIf="api.isUserAdminAndJefe()" class="col">
             <button type="submit" [routerLink]="['/', 'modifseriereunion', serieReunion.codSReunion]"><i class="fas fa-cogs"></i></button>
         </div>
     </div>

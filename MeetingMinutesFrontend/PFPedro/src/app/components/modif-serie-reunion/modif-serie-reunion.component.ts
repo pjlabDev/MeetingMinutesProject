@@ -4,7 +4,7 @@ import { SeriereunionService } from '../../services/seriereunion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from '../../clases/usuario';
 import { ApiService } from '../../services/api.service';
-import { FormGroup, FormControl, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, NgForm, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,10 +20,10 @@ export class ModifSerieReunionComponent implements OnInit {
   invitar = false;
   codigos: number[];
   modifSerieReunionForm = new FormGroup({
-    equipo: new FormControl(''),
-    nombre: new FormControl(''),
+    equipo: new FormControl('', [Validators.required]),
+    nombre: new FormControl('', [Validators.required]),
     usuario: new FormControl(''),
-    cerrado: new FormControl('')
+    cerrado: new FormControl('', [Validators.required])
   });
 
   constructor(public route: ActivatedRoute, private sr: SeriereunionService, private api: ApiService, private router: Router) { }
