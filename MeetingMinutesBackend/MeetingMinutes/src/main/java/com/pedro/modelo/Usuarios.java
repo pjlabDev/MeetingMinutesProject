@@ -41,9 +41,6 @@ public class Usuarios {
 	@Column(name = "rol")
 	@NotNull
 	private Roles rol;
-	
-//	@ManyToMany(cascade = CascadeType.DETACH, mappedBy = "usuarios")
-//	private List<SerieReunion> serieReuniones;
 
 	/**
 	 * 

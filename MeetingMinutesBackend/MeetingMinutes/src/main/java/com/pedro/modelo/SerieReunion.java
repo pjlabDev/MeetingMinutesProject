@@ -39,10 +39,6 @@ public class SerieReunion {
 	@NotNull
 	private int Cerrado;
 	
-//	@ManyToMany(cascade = CascadeType.DETACH)
-//	@JoinTable(name = "usuario_seriereunion",
-//			joinColumns = {@JoinColumn(name="id_usuario")}, inverseJoinColumns = {@JoinColumn(name = "id_seriereunion")})
-//	private List<Usuarios> usuarios;
 	@ManyToMany(targetEntity=Usuarios.class)
 	private Set<Usuarios> usuarios;
 	
@@ -63,14 +59,6 @@ public class SerieReunion {
 	}
 	
 	public SerieReunion() {	}
-	
-//	public void addUsuarioReunion(Usuarios usuario) {
-//		if(this.usuarios == null) {
-//			this.usuarios = new ArrayList<>();
-//		}
-//		
-//		this.usuarios.add(usuario);
-//	}
 
 	public int getCodSReunion() {
 		return CodSReunion;
