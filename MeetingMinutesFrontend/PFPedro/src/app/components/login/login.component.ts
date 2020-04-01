@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
-import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     clave: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(private us: UsuarioService, private router: Router) { }
 
   ngOnInit() {
     this.submitted = false;
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
 
   userLogin(form: NgForm) {
-    this.api.loginUsuario(form.value.nombre, form.value.clave)
+    this.us.loginUsuario(form.value.nombre, form.value.clave)
       .subscribe(data => {
         if (data === null) {
           Swal.fire({

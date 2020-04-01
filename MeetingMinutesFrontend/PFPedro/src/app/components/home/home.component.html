@@ -1,5 +1,5 @@
 <div class="container registrar">
-    <div *ngIf="api.isUserAdmin()">
+    <div *ngIf="us.isUserAdmin()">
         <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/register" type="submit"><i class="fas fa-sign-out-alt"></i> Registrar</button>
     </div>
 </div>
@@ -8,13 +8,13 @@
     <h1>Bienvenid@, aqui tienes tus series de reuniones {{usuario.nombre}}</h1>
     <br>
     <br>
-    <div class="offset-8" *ngIf="api.isUserAdminAndJefe()">
+    <div class="offset-8" *ngIf="us.isUserAdminAndJefe()">
         <button class="btn btn-success my-2 my-sm-0" routerLink="/addseriereunion" type="submit"><i class="fas fa-plus"></i> Crear nueva serie reunion</button>
     </div>
     <br>
     <div *ngFor="let serie of serieReuniones">
         <div class="row">
-            <div class="col-5">
+            <div class="col-6">
                 <a [routerLink]="['/', 'seriereunion', serie.codSReunion]">
                     <h3>{{serie.equipo}} - {{serie.nombre}}</h3>
                     <hr>

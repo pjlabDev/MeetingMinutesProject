@@ -12,6 +12,7 @@ import { AboutComponent } from './components/about/about.component';
 import { NuevaseriereunionComponent } from './components/nuevaseriereunion/nuevaseriereunion.component';
 import { SeriereunionComponent } from './components/seriereunion/seriereunion.component';
 import { ModifSerieReunionComponent } from './components/modif-serie-reunion/modif-serie-reunion.component';
+import { NuevareunionComponent } from './components/nuevareunion/nuevareunion.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ModifSerieReunionComponent } from './components/modif-serie-reunion/mod
     AboutComponent,
     NuevaseriereunionComponent,
     SeriereunionComponent,
-    ModifSerieReunionComponent
+    ModifSerieReunionComponent,
+    NuevareunionComponent
   ],
   imports: [
     BrowserModule,

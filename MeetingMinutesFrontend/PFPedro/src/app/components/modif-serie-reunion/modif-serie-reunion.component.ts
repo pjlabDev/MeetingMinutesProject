@@ -3,9 +3,9 @@ import { SerieReunion } from '../../clases/serie-reunion';
 import { SeriereunionService } from '../../services/seriereunion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from '../../clases/usuario';
-import { ApiService } from '../../services/api.service';
 import { FormGroup, FormControl, NgForm, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-modif-serie-reunion',
@@ -26,7 +26,7 @@ export class ModifSerieReunionComponent implements OnInit {
     cerrado: new FormControl('', [Validators.required])
   });
 
-  constructor(public route: ActivatedRoute, private sr: SeriereunionService, private api: ApiService, private router: Router) { }
+  constructor(public route: ActivatedRoute, private sr: SeriereunionService, private us: UsuarioService, private router: Router) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
@@ -34,7 +34,7 @@ export class ModifSerieReunionComponent implements OnInit {
       this.sr.getSerieReunionByCodReunion(this.codsreunion).subscribe(data => {
           this.serieReunion = data;
       });
-      this.api.getUsuariosNotInReunion(this.codsreunion).subscribe(data => {
+      this.us.getUsuariosNotInReunion(this.codsreunion).subscribe(data => {
           this.usuarios = data;
       });
     });

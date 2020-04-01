@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
-import { ApiService } from '../../services/api.service';
 import { Usuario } from '../../clases/usuario';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     rol: new FormControl('', [Validators.required])
   });
 
-  constructor(private api: ApiService) { }
+  constructor(private us: UsuarioService) { }
 
   ngOnInit() {
   }
@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
 
     console.log(this.usuario);
 
-    this.api.addNewUsuario(this.usuario).subscribe(data => {
+    this.us.addNewUsuario(this.usuario).subscribe(data => {
       alert('Usuario añadido con éxito.');
       this.registerForm.reset();
     }, error => {

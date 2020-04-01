@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from './services/api.service';
 import { Router } from '@angular/router';
+import { UsuarioService } from './services/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'PFPedro';
 
-  constructor(public api: ApiService,
+  constructor(public us: UsuarioService,
               private router: Router) { }
 
 
   logout() {
-    this.api.logOut();
+    this.us.logOut();
     this.router.navigate(['login']);
   }
 

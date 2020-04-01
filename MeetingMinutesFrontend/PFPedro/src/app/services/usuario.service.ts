@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../clases/usuario';
@@ -6,7 +6,7 @@ import { Usuario } from '../clases/usuario';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class UsuarioService {
 
   private baseUrl = 'http://localhost:8080/';
 

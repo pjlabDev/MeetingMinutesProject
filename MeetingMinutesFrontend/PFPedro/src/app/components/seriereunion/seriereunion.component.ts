@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SeriereunionService } from '../../services/seriereunion.service';
 import { SerieReunion } from '../../clases/serie-reunion';
-import { ApiService } from '../../services/api.service';
 import { Usuario } from '../../clases/usuario';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-seriereunion',
@@ -16,7 +16,7 @@ export class SeriereunionComponent implements OnInit {
   usuarios: Usuario[];
   serieReunion: SerieReunion = new SerieReunion();
 
-  constructor(public route: ActivatedRoute, private sr: SeriereunionService, public api: ApiService) { }
+  constructor(public route: ActivatedRoute, private sr: SeriereunionService, public us: UsuarioService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
@@ -24,7 +24,7 @@ export class SeriereunionComponent implements OnInit {
       this.sr.getSerieReunionByCodReunion(this.codsreunion).subscribe(data => {
           this.serieReunion = data;
       });
-      this.api.getUsuariosInReunion(this.codsreunion).subscribe(data => {
+      this.us.getUsuariosInReunion(this.codsreunion).subscribe(data => {
         this.usuarios = data;
       });
     });

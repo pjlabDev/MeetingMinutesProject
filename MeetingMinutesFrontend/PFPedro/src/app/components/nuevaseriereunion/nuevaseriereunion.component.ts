@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Usuario } from '../../clases/usuario';
-import { ApiService } from '../../services/api.service';
 import { SeriereunionService } from '../../services/seriereunion.service';
 import { SerieReunion } from '../../clases/serie-reunion';
 import Swal from 'sweetalert2';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-nuevaseriereunion',
@@ -23,12 +23,12 @@ export class NuevaseriereunionComponent implements OnInit {
     usuario: new FormControl('', [Validators.required])
   });
 
-  constructor(private api: ApiService, private sr: SeriereunionService) {
+  constructor(private us: UsuarioService, private sr: SeriereunionService) {
     this.usuarios = [];
   }
 
   ngOnInit() {
-    this.api.getAllUsuarios().subscribe(data => {
+    this.us.getAllUsuarios().subscribe(data => {
       this.usuarios = data;
     });
   }

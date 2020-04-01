@@ -1,11 +1,11 @@
 <div class="container titleSerieReunion">
     <div class="row justify-content-center">
         <div class="col-sm-3"></div>
-        <div class="col">
+        <div class="col-6">
             <h3 style="text-align: center;">{{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
         </div>
-        <div *ngIf="api.isUserAdminAndJefe()" class="col">
-            <button type="submit" [routerLink]="['/', 'modifseriereunion', serieReunion.codSReunion]"><i class="fas fa-cogs"></i></button>
+        <div *ngIf="us.isUserAdminAndJefe()" class="col">
+            <a [routerLink]="['/', 'modifseriereunion', serieReunion.codSReunion]"><i class="fas fa-cogs fa-2x"></i></a>
         </div>
     </div>
 </div>
@@ -21,24 +21,33 @@
     <div class="row justify-content-center">
         <div class="col-sm-2"></div>
         <div class="col">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Reuniones</button>
+            <button type="button" class="btn btn-outline-primary">Reuniones</button>
         </div>
         <div class="col">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Temas</button>
+            <button type="button" class="btn btn-outline-primary">Temas</button>
         </div>
         <div class="col">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Items</button>
+            <button type="button" class="btn btn-outline-primary">Items</button>
         </div>
     </div>
-
 </div>
 
 <br><br>
-
-<div class="card">
-    <div class="card-body">
-        Reuniones
+<div class="container">
+    <div class="row">
+        <div class="col-9"></div>
+        <div class="col" *ngIf="us.isUserAdminAndJefe()">
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['/', 'addreunion', serieReunion.codSReunion]"><i class="fas fa-plus"></i> Crear nueva reunion</button>
+        </div>
     </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            Reuniones
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-outline-dark my-2 my-sm-0" routerLink="/home"><i class="fas fa-angle-left"></i> Volver</button>
 </div>
 
 <div style="height: 20rem;"></div>

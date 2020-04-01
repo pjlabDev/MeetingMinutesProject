@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../clases/usuario';
-import { LoginComponent } from '../login/login.component';
-import { ApiService } from '../../services/api.service';
 import { SerieReunion } from '../../clases/serie-reunion';
 import { SeriereunionService } from '../../services/seriereunion.service';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +18,13 @@ export class HomeComponent implements OnInit {
     codsreunion: new FormControl(''),
   });
 
-  constructor(public api: ApiService, public sr: SeriereunionService) {
+  constructor(public us: UsuarioService, public sr: SeriereunionService) {
     this.serieReuniones = [];
   }
 
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    this.api.isUserLoggedIn();
+    this.us.isUserLoggedIn();
     this.sr.getSerieReunionByUsuario(this.usuario.codUsu).subscribe(data => {
       this.serieReuniones = data;
       console.log(this.serieReuniones);
