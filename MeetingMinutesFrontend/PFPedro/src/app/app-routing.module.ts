@@ -8,6 +8,8 @@ import { NuevaseriereunionComponent } from './components/nuevaseriereunion/nueva
 import { SeriereunionComponent } from './components/seriereunion/seriereunion.component';
 import { ModifSerieReunionComponent } from './components/modif-serie-reunion/modif-serie-reunion.component';
 import { NuevareunionComponent } from './components/nuevareunion/nuevareunion.component';
+import { TemasComponent } from './components/temas/temas.component';
+import { ReunionComponent } from './components/reunion/reunion.component';
 
 
 const routes: Routes = [
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path: 'seriereunion/:id', component: SeriereunionComponent},
   {path: 'modifseriereunion/:id', component: ModifSerieReunionComponent},
   {path: 'addreunion/:id', component: NuevareunionComponent},
+  {path: 'temas', component: TemasComponent},
+  {path: 'reunion/:id/:idd', component: ReunionComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

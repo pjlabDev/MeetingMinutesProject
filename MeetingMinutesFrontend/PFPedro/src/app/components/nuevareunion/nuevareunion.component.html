@@ -1,8 +1,9 @@
 <div class="container formNuevaReunion">
+    <h3 style="text-align: center;">Reunion para: {{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
+    <br>
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title" style="text-align: center;">{{serieReunion.equipo}} - {{serieReunion.nombre}}</h4>
-            <form [formGroup]="nuevaReunionform" method="POST">
+            <form [formGroup]="nuevaReunionform" (ngSubmit)="crearReunion(nuevaReunionform)" method="POST">
                 <div class="row">
                     <div class="offset-5">
                         <button [disabled]="!nuevaReunionform.valid" type="submit" class="btn btn-success boton">Crear Reunión</button>
@@ -16,10 +17,6 @@
                     <label for="participantes">Participantes</label>
                     <input type="text" class="form-control col-sm-5" formControlName="participantes" id="participantes" placeholder="Separa los participantes con ';'">
                 </div>
-                <div class="form-group custom-file">
-                    <label for="archivos" class="custom-file-label col-sm-5">Archivos</label>
-                    <input type="file" class="custom-file-input col-sm-5" formControlName="archivos" id="archivos" placeholder="Seleccione un archivo...">
-                </div>
                 <br>
             </form>
         </div>
@@ -27,18 +24,9 @@
 </div>
 <br>
 <br>
+<app-temas></app-temas>
+<br>
 <div class="container">
-    <button class="btn btn-success my-2 my-sm-0" (click)="submittedTrue()"><i class="fas fa-plus"></i> Crear Temas</button>
-    <br>
-    <br>
-    <div *ngIf="submitted">
-        <form [formGroup]="nuevoTemaform" method="POST">
-            <div class="form-group">
-                <label for="titulo">Titulo</label>
-                <input type="text" class="form-control col-sm-5" formControlName="titulo" id="titulo" placeholder="Titulo...">
-            </div>
-            <button [disabled]="!nuevoTemaform.valid" type="submit" class="btn btn-success">Añadir</button>
-        </form>
-    </div>
+    <button type="submit" class="btn btn-light my-2 my-sm-0" [routerLink]="['/', 'seriereunion', codsreunion]">Cancelar</button>
 </div>
 <div style="height: 20rem;"></div>

@@ -21,10 +21,10 @@
     <div class="row justify-content-center">
         <div class="col-sm-2"></div>
         <div class="col">
-            <button type="button" class="btn btn-outline-primary">Reuniones</button>
+            <button type="button" class="btn btn-outline-primary" (click)="verReuniones()">Reuniones</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-outline-primary">Temas</button>
+            <button type="button" class="btn btn-outline-primary" (click)="verTemas()">Temas</button>
         </div>
         <div class="col">
             <button type="button" class="btn btn-outline-primary">Items</button>
@@ -41,9 +41,26 @@
         </div>
     </div>
     <br>
-    <div class="card">
-        <div class="card-body">
-            Reuniones
+    <div *ngIf="isReunion">
+        <div>
+            <div class="card">
+                <div class="card-body">
+                    <div *ngFor="let reu of reunion">
+                        <a [routerLink]="['/', 'reunion', codsreunion, reu.codReunion]">{{reu.fecha}}</a>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isTema">
+        <div *ngFor="let tem of temas">
+            <div class="card">
+                <div class="card-body">
+                    <span>{{tem.titulo}} <span class="label">{{tem.etiqueta}}</span></span>
+                </div>
+            </div>
+            <br>
         </div>
     </div>
     <br>

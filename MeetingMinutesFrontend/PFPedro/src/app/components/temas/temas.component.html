@@ -1,0 +1,32 @@
+<div class="container">
+    <button class="btn btn-success my-2 my-sm-0" (click)="submittedTrue()"><i class="fas fa-plus"></i> Crear Temas</button>
+    <br>
+    <br>
+    <div *ngIf="submitted">
+        <form [formGroup]="nuevoTemaform" (ngSubmit)="crearTema(nuevoTemaform)" method="POST">
+            <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input type="text" class="form-control col-sm-5" formControlName="titulo" id="titulo" placeholder="Titulo...">
+            </div>
+            <div class="form-group">
+                <label for="etiqueta">Etiqueta</label>
+                <select class="form-control col-sm-5" id="etiqueta" formControlName="etiqueta">
+                    <option value="ACTUAL">Actual</option>
+                    <option value="RECURRENTE">Recurrente</option>
+                </select>
+            </div>
+            <button [disabled]="!nuevoTemaform.valid" type="submit" class="btn btn-success">Añadir</button>
+            <button type="submit" class="btn btn-light" (click)="submitted = false">Cancelar</button>
+        </form>
+    </div>
+    <div *ngIf="existeTema">
+        <div *ngFor="let tem of temas">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>

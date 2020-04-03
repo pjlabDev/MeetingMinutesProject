@@ -1,31 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ReunionService } from '../../services/reunion.service';
+import { TemasService } from '../../services/temas.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { SeriereunionService } from '../../services/seriereunion.service';
 import { SerieReunion } from '../../clases/serie-reunion';
 import { Usuario } from '../../clases/usuario';
-import { TemasService } from '../../services/temas.service';
-import Swal from 'sweetalert2';
 import { Reunion } from '../../clases/reunion';
-import { ReunionService } from '../../services/reunion.service';
 
 @Component({
-  selector: 'app-nuevareunion',
-  templateUrl: './nuevareunion.component.html',
-  styleUrls: ['./nuevareunion.component.scss']
+  selector: 'app-reunion',
+  templateUrl: './reunion.component.html',
+  styleUrls: ['./reunion.component.scss']
 })
-export class NuevareunionComponent implements OnInit {
+export class ReunionComponent implements OnInit {
 
-  nuevaReunionform = new FormGroup({
-    fecha: new FormControl('', [Validators.required]),
-    participantes: new FormControl('', [Validators.required])
-  });
-
+  reunion: Reunion = new Reunion();
   serieReunion: SerieReunion = new SerieReunion();
   usuarios: Usuario[];
   codsreunion: number;
-  reunion: Reunion = new Reunion();
+  codreunion: number;
 
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
               public ts: TemasService, public rs: ReunionService, public router: Router) { }
@@ -33,11 +27,14 @@ export class NuevareunionComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
+      this.codreunion = parseInt(response.get('idd'), 10);
       this.getSerieReunionById(this.codsreunion);
       this.getUsuariosBySerieReunion(this.codsreunion);
+      this.rs.getReunionByCodReunion(this.codreunion).subscribe(data => {
+        this.reunion = data;
+      });
     });
   }
-
 
   getSerieReunionById(id: number) {
     this.sr.getSerieReunionByCodReunion(id).subscribe(data => {
@@ -52,30 +49,6 @@ export class NuevareunionComponent implements OnInit {
       this.usuarios = data;
     }, error => {
       console.log('Error al recibir usuarios', error);
-    });
-  }
-
-  crearReunion(form: NgForm) {
-    this.reunion.fecha = form.value.fecha;
-    this.reunion.participantes = form.value.participantes;
-    this.rs.crearReunion(this.reunion, this.codsreunion).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Tema creado con éxito.',
-        showConfirmButton: false,
-        timer: 1500
-      });
-      this.nuevaReunionform.reset();
-      this.router.navigate(['/', 'seriereunion', this.codsreunion]);
-    }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Lo sentimos, ha ocurrido un problema al crear el tema',
-        text: 'Inténtelo de nuevo o mas tarde.',
-        timer: 1500
-      });
-      this.nuevaReunionform.reset();
-      console.log('Error al crear reunion', error);
     });
   }
 

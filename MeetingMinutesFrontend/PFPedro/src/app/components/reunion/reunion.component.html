@@ -1,0 +1,27 @@
+<div class="container formNuevaReunion">
+    <h3 style="text-align: center;">Reunion para: {{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <form #reunionform="ngForm" method="POST">
+                <div class="form-group">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" class="form-control col-sm-2" id="fecha" name="fecha" [(ngModel)]="reunion.fecha" placeholder="Fecha..." disabled>
+                </div>
+                <div class="form-group">
+                    <label for="participantes">Participantes</label>
+                    <input type="text" class="form-control col-sm-5" id="participantes" name="participantes" [(ngModel)]="reunion.participantes" placeholder="Separa los participantes con ';'" disabled>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<app-temas></app-temas>
+<br>
+<div class="container">
+    <button type="submit" class="btn btn-outline-dark my-2 my-sm-0" [routerLink]="['/', 'seriereunion', codsreunion]"><i class="fas fa-angle-left"></i> Volver</button>
+</div>
+<div style="height: 20rem;"></div>
