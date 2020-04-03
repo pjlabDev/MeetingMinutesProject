@@ -14,6 +14,7 @@ import com.pedro.modelo.Reunion;
 public interface ReunionService {
 	
 	List<Reunion> getReunionBySerieReunion(int codsreunion);
+	Reunion getReunionByCodReunion(int codreunion);
 	void crearReunion(Reunion reunion, int codsreunion);
 	
 }

@@ -40,7 +40,7 @@ public class TemasServiceImpl implements TemasService {
 			Temas newTema = new Temas();
 			
 			newTema.setTitulo(tema.getTitulo());
-			newTema.setInfo(tema.getInfo());
+			newTema.setEtiqueta(tema.getEtiqueta());
 			newTema.setSeriereunion(newSR);
 			
 			tr.save(newTema);

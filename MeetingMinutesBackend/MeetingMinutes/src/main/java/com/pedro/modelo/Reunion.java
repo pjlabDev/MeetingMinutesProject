@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Westermeyer
@@ -31,6 +32,10 @@ public class Reunion {
 	@Column(name = "fecha")
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
+	
+	@Column(name = "participantes")
+	@NotNull
+	private String participantes;
 	
 	@OneToOne
 	private SerieReunion seriereunion;
@@ -70,6 +75,14 @@ public class Reunion {
 
 	public void setSeriereunion(SerieReunion seriereunion) {
 		this.seriereunion = seriereunion;
+	}
+
+	public String getParticipantes() {
+		return participantes;
+	}
+
+	public void setParticipantes(String participantes) {
+		this.participantes = participantes;
 	}
 	
 }

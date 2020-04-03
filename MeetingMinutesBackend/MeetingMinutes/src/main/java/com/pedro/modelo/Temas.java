@@ -30,6 +30,9 @@ public class Temas {
 	@Column(name = "info")
 	private String info;
 	
+	@Column(name = "etiqueta")
+	private String etiqueta;
+	
 	@OneToOne
 	private SerieReunion seriereunion;
 	
@@ -77,6 +80,14 @@ public class Temas {
 
 	public void setSeriereunion(SerieReunion seriereunion) {
 		this.seriereunion = seriereunion;
+	}
+
+	public String getEtiqueta() {
+		return etiqueta;
+	}
+
+	public void setEtiqueta(String etiqueta) {
+		this.etiqueta = etiqueta;
 	}
 	
 }

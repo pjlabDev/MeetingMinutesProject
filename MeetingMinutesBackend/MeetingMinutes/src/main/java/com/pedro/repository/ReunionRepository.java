@@ -19,4 +19,6 @@ public interface ReunionRepository extends JpaRepository<Reunion, Integer> {
 	@Query(value = "SELECT * FROM reunion WHERE seriereunion_codsreunion like ?1", nativeQuery = true)
 	List<Reunion> getReunionBySerieReunion(int codsreunion);
 	
+	@Query(value = "SELECT * FROM reunion WHERE codreunion like ?1", nativeQuery = true)
+	Reunion getReunionByCodReunion(int codreunion);
 }

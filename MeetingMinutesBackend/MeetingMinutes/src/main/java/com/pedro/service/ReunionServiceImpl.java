@@ -40,12 +40,18 @@ public class ReunionServiceImpl implements ReunionService {
 			Reunion newReunion = new Reunion();
 			
 			newReunion.setFecha(reunion.getFecha());
+			newReunion.setParticipantes(reunion.getParticipantes());
 			newReunion.setSeriereunion(newSR);
 			
 			rr.save(newReunion);
 			
 		}
 		
+	}
+
+	@Override
+	public Reunion getReunionByCodReunion(int codreunion) {
+		return rr.getReunionByCodReunion(codreunion);
 	}
 	
 	
