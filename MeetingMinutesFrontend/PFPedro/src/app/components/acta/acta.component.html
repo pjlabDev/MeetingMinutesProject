@@ -1,0 +1,30 @@
+<div class="container formNuevaReunion">
+    <h3 style="text-align: center;">Acta para la reunión del equipo: {{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="nuevaActaForm" #reunionform="ngForm" (ngSubmit)="generarActa(nuevaActaForm)" method="POST">
+                <div class="row">
+                    <div class="col-sm-11">
+                        <div class="form-group">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" class="form-control col-sm-3" formControlName="fecha" id="fecha" placeholder="Fecha...">
+                        </div>
+                        <div class="form-group">
+                            <label for="asistentes">Marcar asistentes</label>
+                            <select multiple class="form-control col-sm-5" formControlName="asistentes" id="asistentes">
+                                <option *ngFor="let user of usuarios" value="{{user.codUsu}}">
+                                    {{user.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button [disabled]="!nuevaActaForm.valid" type="submit" class="btn btn-success">Generar</button>
+                <button type="button" [routerLink]="['/', 'reunion', codsreunion, codreunion]" class="btn btn-light">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="height: 30rem;"></div>

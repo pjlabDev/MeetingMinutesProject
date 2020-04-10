@@ -34,7 +34,7 @@ export class ModifSerieReunionComponent implements OnInit {
       this.sr.getSerieReunionByCodReunion(this.codsreunion).subscribe(data => {
           this.serieReunion = data;
       });
-      this.us.getUsuariosNotInReunion(this.codsreunion).subscribe(data => {
+      this.us.getUsuariosNotInSerieReunion(this.codsreunion).subscribe(data => {
           this.usuarios = data;
       });
     });

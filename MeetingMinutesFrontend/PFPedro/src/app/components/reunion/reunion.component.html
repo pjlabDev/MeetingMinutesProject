@@ -4,13 +4,24 @@
     <div class="card">
         <div class="card-body">
             <form #reunionform="ngForm" method="POST">
-                <div class="form-group">
-                    <label for="fecha">Fecha</label>
-                    <input type="date" class="form-control col-sm-2" id="fecha" name="fecha" [(ngModel)]="reunion.fecha" placeholder="Fecha..." disabled>
-                </div>
-                <div class="form-group">
-                    <label for="participantes">Participantes</label>
-                    <input type="text" class="form-control col-sm-5" id="participantes" name="participantes" [(ngModel)]="reunion.participantes" placeholder="Separa los participantes con ';'" disabled>
+                <div class="row">
+                    <div class="col-sm-11">
+                        <div class="form-group">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" class="form-control col-sm-3" id="fecha" name="fecha" [(ngModel)]="reunion.fecha" placeholder="Fecha..." disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="participantes">Participantes</label>
+                            <select multiple class="form-control col-sm-5" id="participantes" disabled>
+                                <option *ngFor="let user of usuarios" value="{{user.codUsu}}">
+                                    {{user.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col" *ngIf="us.isUserAdminAndJefe()">
+                        <i class="far fa-envelope fa-2x sendAgenda" (click)="enviarAgenda()"></i>
+                    </div>
                 </div>
                 <br>
             </form>
@@ -22,6 +33,13 @@
 <app-temas></app-temas>
 <br>
 <div class="container">
-    <button type="submit" class="btn btn-outline-dark my-2 my-sm-0" [routerLink]="['/', 'seriereunion', codsreunion]"><i class="fas fa-angle-left"></i> Volver</button>
+    <div class="row">
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-outline-dark my-2 my-sm-0" [routerLink]="['/', 'seriereunion', codsreunion]"><i class="fas fa-angle-left"></i> Volver</button>
+        </div>
+        <div class="col" *ngIf="us.isUserAdminAndJefe()">
+            <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/', 'acta', codsreunion, codreunion]"><i class="fas fa-pencil-alt"></i> Generar Acta</button>
+        </div>
+    </div>
 </div>
 <div style="height: 20rem;"></div>

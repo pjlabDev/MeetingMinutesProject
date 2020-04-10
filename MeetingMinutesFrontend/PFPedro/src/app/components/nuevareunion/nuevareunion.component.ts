@@ -26,6 +26,7 @@ export class NuevareunionComponent implements OnInit {
   usuarios: Usuario[];
   codsreunion: number;
   reunion: Reunion = new Reunion();
+  codigos: number[];
 
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
               public ts: TemasService, public rs: ReunionService, public router: Router) { }
@@ -48,7 +49,7 @@ export class NuevareunionComponent implements OnInit {
   }
 
   getUsuariosBySerieReunion(id: number) {
-    this.us.getUsuariosInReunion(id).subscribe(data => {
+    this.us.getUsuariosInSerieReunion(id).subscribe(data => {
       this.usuarios = data;
     }, error => {
       console.log('Error al recibir usuarios', error);
@@ -57,11 +58,12 @@ export class NuevareunionComponent implements OnInit {
 
   crearReunion(form: NgForm) {
     this.reunion.fecha = form.value.fecha;
-    this.reunion.participantes = form.value.participantes;
-    this.rs.crearReunion(this.reunion, this.codsreunion).subscribe(data => {
+    this.codigos = form.value.participantes;
+    console.log(this.codigos);
+    this.rs.crearReunion(this.reunion, this.codsreunion, this.codigos).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: 'Tema creado con éxito.',
+        title: 'Reunión creada con éxito.',
         showConfirmButton: false,
         timer: 1500
       });
@@ -70,7 +72,7 @@ export class NuevareunionComponent implements OnInit {
     }, error => {
       Swal.fire({
         icon: 'error',
-        title: 'Lo sentimos, ha ocurrido un problema al crear el tema',
+        title: 'Lo sentimos, ha ocurrido un problema a la hora de crear la reunión.',
         text: 'Inténtelo de nuevo o mas tarde.',
         timer: 1500
       });

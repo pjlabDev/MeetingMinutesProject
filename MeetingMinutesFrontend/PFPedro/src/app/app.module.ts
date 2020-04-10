@@ -15,6 +15,7 @@ import { ModifSerieReunionComponent } from './components/modif-serie-reunion/mod
 import { NuevareunionComponent } from './components/nuevareunion/nuevareunion.component';
 import { TemasComponent } from './components/temas/temas.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
+import { ActaComponent } from './components/acta/acta.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ReunionComponent } from './components/reunion/reunion.component';
     ModifSerieReunionComponent,
     NuevareunionComponent,
     TemasComponent,
-    ReunionComponent
+    ReunionComponent,
+    ActaComponent
   ],
   imports: [
     BrowserModule,

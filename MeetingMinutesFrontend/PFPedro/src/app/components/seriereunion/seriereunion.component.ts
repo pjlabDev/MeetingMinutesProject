@@ -24,11 +24,10 @@ export class SeriereunionComponent implements OnInit {
   isTema = false;
   isItems = false;
   temas: Temas[];
+  usuario: Usuario = new Usuario();
 
   constructor(public route: ActivatedRoute, private sr: SeriereunionService, public us: UsuarioService, public rs: ReunionService,
-              public ts: TemasService) {
-                this.isReunion = true;
-    }
+              public ts: TemasService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
@@ -36,16 +35,14 @@ export class SeriereunionComponent implements OnInit {
       this.sr.getSerieReunionByCodReunion(this.codsreunion).subscribe(data => {
           this.serieReunion = data;
       });
-      this.us.getUsuariosInReunion(this.codsreunion).subscribe(data => {
+      this.us.getUsuariosInSerieReunion(this.codsreunion).subscribe(data => {
         this.usuarios = data;
-      });
-      this.rs.getReunionBySerieReunion(this.codsreunion).subscribe(data => {
-        this.reunion = data;
       });
       this.ts.getTemasBySerieReunion(this.codsreunion).subscribe(data => {
         this.temas = data;
       });
     });
+    this.getReunionByUsuario();
   }
 
 
@@ -61,6 +58,20 @@ export class SeriereunionComponent implements OnInit {
 
   verItems() {
     this.isItems = true;
+  }
+
+  getReunionByUsuario() {
+    this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    this.rs.getReunionByUsuarios(this.usuario.codUsu).subscribe(data => {
+      this.reunion = data;
+      if (this.reunion.length > 0) {
+        this.isReunion = true;
+      } else {
+        this.isReunion = false;
+      }
+    }, error => {
+      console.log('Error al traer reunion', error);
+    });
   }
 
 }

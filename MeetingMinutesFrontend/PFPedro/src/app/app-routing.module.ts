@@ -10,6 +10,7 @@ import { ModifSerieReunionComponent } from './components/modif-serie-reunion/mod
 import { NuevareunionComponent } from './components/nuevareunion/nuevareunion.component';
 import { TemasComponent } from './components/temas/temas.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
+import { ActaComponent } from './components/acta/acta.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'addreunion/:id', component: NuevareunionComponent},
   {path: 'temas', component: TemasComponent},
   {path: 'reunion/:id/:idd', component: ReunionComponent},
+  {path: 'acta/:id/:idd', component: ActaComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

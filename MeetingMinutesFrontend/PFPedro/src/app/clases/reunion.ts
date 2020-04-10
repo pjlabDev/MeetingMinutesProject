@@ -1,5 +1,5 @@
 export class Reunion {
     codReunion: number;
     fecha: Date;
-    participantes: string;
+    participantes: number[];
 }

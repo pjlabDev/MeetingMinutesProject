@@ -50,12 +50,16 @@ export class UsuarioService {
       return this.http.get<Usuario>(`${this.baseUrl}` + 'getusuarios');
   }
 
-  getUsuariosNotInReunion(codsreunion: number): Observable<any> {
+  getUsuariosNotInSerieReunion(codsreunion: number): Observable<any> {
       return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosnotinreunion/' + codsreunion);
   }
 
-  getUsuariosInReunion(codsreunion: number): Observable<any> {
+  getUsuariosInSerieReunion(codsreunion: number): Observable<any> {
     return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosinreunion/' + codsreunion);
+  }
+
+  getUsuariosByCodReunion(codreunion: number): Observable<any> {
+    return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosbyreunion/' + codreunion);
   }
 
   isUserAdmin() {
