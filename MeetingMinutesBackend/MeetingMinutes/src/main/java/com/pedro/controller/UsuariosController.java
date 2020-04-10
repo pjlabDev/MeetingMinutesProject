@@ -47,13 +47,16 @@ public class UsuariosController {
 	
 	@GetMapping("/usuariosnotinreunion/{codsreunion}")
 	public List<Usuarios> getUsuariosNotInReunion(@PathVariable int codsreunion){
-		return us.getUsuariosNotInReunion(codsreunion);
+		return us.getUsuariosNotInSerieReunion(codsreunion);
 	}
 	
 	@GetMapping("/usuariosinreunion/{codsreunion}")
 	public List<Usuarios> getUsuariosInReunion(@PathVariable int codsreunion){
-		return us.getUsuariosInReunion(codsreunion);
+		return us.getUsuariosInSerieReunion(codsreunion);
 	}
 	
-
+	@GetMapping("/usuariosbyreunion/{codreunion}")
+	public List<Usuarios> getUsuariosByCodReunion(@PathVariable int codreunion){
+		return us.getUsuariosByCodReunion(codreunion);
+	}
 }

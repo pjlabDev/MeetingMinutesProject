@@ -3,15 +3,19 @@
  */
 package com.pedro.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pedro.modelo.Reunion;
 import com.pedro.modelo.SerieReunion;
+import com.pedro.modelo.Usuarios;
 import com.pedro.repository.ReunionRepository;
 import com.pedro.repository.SerieReunionRepository;
+import com.pedro.repository.UserRepository;
 
 /**
  * @author Westermeyer
@@ -21,10 +25,13 @@ import com.pedro.repository.SerieReunionRepository;
 public class ReunionServiceImpl implements ReunionService {
 
 	@Autowired
-	private ReunionRepository rr;
+	ReunionRepository rr;
 	
 	@Autowired
-	private SerieReunionRepository sr;
+	SerieReunionRepository sr;
+	
+	@Autowired
+	UserRepository userR;
 	
 	@Override
 	public List<Reunion> getReunionBySerieReunion(int codsreunion) {
@@ -32,28 +39,37 @@ public class ReunionServiceImpl implements ReunionService {
 	}
 
 	@Override
-	public void crearReunion(Reunion reunion, int codsreunion) {
+	public void crearReunion(Reunion reunion, int codsreunion, int[] codsusu) {
+		
+		Set<Usuarios> usuario = new HashSet<>();
 		
 		SerieReunion newSR = sr.findOne(codsreunion);
 		
-		if(newSR != null) {
-			Reunion newReunion = new Reunion();
+		for (int i : codsusu) {			
+			Usuarios user = userR.findOne(i);
 			
-			newReunion.setFecha(reunion.getFecha());
-			newReunion.setParticipantes(reunion.getParticipantes());
-			newReunion.setSeriereunion(newSR);
+			usuario.add(user);
+		}
+		
+		if(newSR != null && !usuario.isEmpty()) {
+			
+			Reunion newReunion = new Reunion(reunion.getFecha(),newSR,usuario);
 			
 			rr.save(newReunion);
 			
 		}
 		
 	}
-
+	
 	@Override
 	public Reunion getReunionByCodReunion(int codreunion) {
 		return rr.getReunionByCodReunion(codreunion);
 	}
-	
+
+	@Override
+	public List<Reunion> getReunionByUsuario(int codusu) {
+		return rr.getReunionByUsuario(codusu);
+	}	
 	
 
 }

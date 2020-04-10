@@ -34,14 +34,19 @@ public class ReunionController {
 		return rs.getReunionBySerieReunion(codsreunion);
 	}
 	
-	@PostMapping("/addreunion/{codsreunion}")
-	public void crearReunion(@RequestBody Reunion reunion, @PathVariable int codsreunion) {
-		rs.crearReunion(reunion, codsreunion);
+	@GetMapping("/reunionbycodreunion/{codreunion}")
+	public Reunion getReunionByCodReunion(@PathVariable int codreunion) {
+		return rs.getReunionByCodReunion(codreunion);
 	}
 	
-	@GetMapping("/reunionbycodreunion/{codreunion}")
-	public Reunion getReunionByFecha(@PathVariable int codreunion) {
-		return rs.getReunionByCodReunion(codreunion);
+	@GetMapping("/reunionbyusuario/{codusu}")
+	public List<Reunion> getReunionByUsuario(@PathVariable int codusu) {
+		return rs.getReunionByUsuario(codusu);
+	}
+	
+	@PostMapping("addnewreunion/{codsreunion}/{codsusu}")
+	public void crearReunionCon(@RequestBody Reunion reunion, @PathVariable int codsreunion, @PathVariable int[] codsusu) {
+		rs.crearReunion(reunion, codsreunion, codsusu);
 	}
 	
 }

@@ -90,4 +90,8 @@ public class Temas {
 		this.etiqueta = etiqueta;
 	}
 	
+	public String toString() {
+		return getTitulo() + ", " + "con información" + "  " + getInfo() + ", " + "y prioridad" + "  " + "*" + getEtiqueta() + "*";
+	}
+	
 }

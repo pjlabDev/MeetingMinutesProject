@@ -22,20 +22,20 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-@Table(name = "Reunion")
-public class Reunion {
-
+@Table(name = "Actas")
+public class Actas {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "codreunion")
-	private int codReunion;
+	@Column(name = "codacta")
+	private int CodActa;
 	
 	@Column(name = "fecha")
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 	
 	@OneToOne
-	private SerieReunion seriereunion;
+	private Reunion reunion;
 	
 	@ManyToMany(targetEntity=Usuarios.class)
 	private Set<Usuarios> usuarios;
@@ -44,27 +44,38 @@ public class Reunion {
 	 * 
 	 */
 	
-	public Reunion(int codReunion, Date fecha) {
-		this.codReunion = codReunion;
+	public Actas(Date fecha, Reunion reunion, Set<Usuarios> usuarios) {
 		this.fecha = fecha;
-	}
-	
-	public Reunion(Date fecha, SerieReunion seriereunion, Set<Usuarios> usuarios) {
-		this.fecha = fecha;
-		this.seriereunion = seriereunion;
+		this.reunion = reunion;
 		this.usuarios = usuarios;
 	}
 	
-	public Reunion() {
+	public Actas() {
 		super();
 	}
 
-	public int getCodReunion() {
-		return codReunion;
+	public int getCodActa() {
+		return CodActa;
 	}
 
-	public void setCodReunion(int codReunion) {
-		this.codReunion = codReunion;
+	public void setCodActa(int codActa) {
+		CodActa = codActa;
+	}
+
+	public Reunion getReunion() {
+		return reunion;
+	}
+
+	public void setReunion(Reunion reunion) {
+		this.reunion = reunion;
+	}
+
+	public Set<Usuarios> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<Usuarios> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	public Date getFecha() {
@@ -75,12 +86,4 @@ public class Reunion {
 		this.fecha = fecha;
 	}
 
-	public SerieReunion getSeriereunion() {
-		return seriereunion;
-	}
-
-	public void setSeriereunion(SerieReunion seriereunion) {
-		this.seriereunion = seriereunion;
-	}
-	
 }
