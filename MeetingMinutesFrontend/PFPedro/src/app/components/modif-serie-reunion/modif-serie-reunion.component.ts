@@ -46,7 +46,6 @@ export class ModifSerieReunionComponent implements OnInit {
       this.codigos = form.value.usuario;
 
       if (this.codigos.length > 0) {
-          console.log('codigos:', this.codigos.length);
           this.sr.modifSerieReunionConInvitado(reunion, this.codigos).subscribe(data => {
             Swal.fire({
               icon: 'success',

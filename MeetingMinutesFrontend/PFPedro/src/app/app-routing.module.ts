@@ -22,7 +22,6 @@ const routes: Routes = [
   {path: 'seriereunion/:id', component: SeriereunionComponent},
   {path: 'modifseriereunion/:id', component: ModifSerieReunionComponent},
   {path: 'addreunion/:id', component: NuevareunionComponent},
-  {path: 'temas', component: TemasComponent},
   {path: 'reunion/:id/:idd', component: ReunionComponent},
   {path: 'acta/:id/:idd', component: ActaComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }

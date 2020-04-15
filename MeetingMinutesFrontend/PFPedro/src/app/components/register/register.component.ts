@@ -30,8 +30,6 @@ export class RegisterComponent implements OnInit {
     this.usuario.clave = form.value.clave;
     this.usuario.rol = parseInt(form.value.rol, 10);
 
-    console.log(this.usuario);
-
     this.us.addNewUsuario(this.usuario).subscribe(data => {
       alert('Usuario añadido con éxito.');
       this.registerForm.reset();

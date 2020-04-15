@@ -16,6 +16,8 @@ import { NuevareunionComponent } from './components/nuevareunion/nuevareunion.co
 import { TemasComponent } from './components/temas/temas.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
 import { ActaComponent } from './components/acta/acta.component';
+import { TareasComponent } from './components/tareas/tareas.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,14 +32,16 @@ import { ActaComponent } from './components/acta/acta.component';
     NuevareunionComponent,
     TemasComponent,
     ReunionComponent,
-    ActaComponent
+    ActaComponent,
+    TareasComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

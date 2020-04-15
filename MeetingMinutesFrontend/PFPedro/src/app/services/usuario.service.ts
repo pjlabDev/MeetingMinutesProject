@@ -20,7 +20,6 @@ export class UsuarioService {
 
     this.http.get<Usuario>(`${this.baseUrl}` + 'login/' + nombre + '/' + clave)
     .subscribe(data => {
-      console.log('data', data);
       this.user = data;
       if (this.user !== null) {
         sessionStorage.setItem('usuario', JSON.stringify(this.user));
@@ -60,6 +59,10 @@ export class UsuarioService {
 
   getUsuariosByCodReunion(codreunion: number): Observable<any> {
     return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosbyreunion/' + codreunion);
+  }
+
+  getResponsablesTareas(codtarea: number): Observable<any> {
+    return this.http.get<Usuario>(`${this.baseUrl}` + 'responsables/' + codtarea);
   }
 
   isUserAdmin() {

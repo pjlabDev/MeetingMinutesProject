@@ -59,7 +59,6 @@ export class NuevareunionComponent implements OnInit {
   crearReunion(form: NgForm) {
     this.reunion.fecha = form.value.fecha;
     this.codigos = form.value.participantes;
-    console.log(this.codigos);
     this.rs.crearReunion(this.reunion, this.codsreunion, this.codigos).subscribe(data => {
       Swal.fire({
         icon: 'success',

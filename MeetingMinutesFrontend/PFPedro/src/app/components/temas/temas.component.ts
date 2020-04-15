@@ -4,11 +4,8 @@ import { TemasService } from '../../services/temas.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { SeriereunionService } from '../../services/seriereunion.service';
 import { FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
-import { SerieReunion } from '../../clases/serie-reunion';
-import { Usuario } from '../../clases/usuario';
 import { Temas } from '../../clases/temas';
 import Swal from 'sweetalert2';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-temas',
@@ -57,7 +54,6 @@ export class TemasComponent implements OnInit {
   crearTema(form: NgForm) {
     this.tema.titulo = form.value.titulo;
     this.tema.etiqueta = form.value.etiqueta;
-    console.log(this.tema.etiqueta);
     this.ts.crearTemas(this.tema, this.codsreunion).subscribe(data => {
       Swal.fire({
         icon: 'success',

@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     this.us.isUserLoggedIn();
     this.sr.getSerieReunionByUsuario(this.usuario.codUsu).subscribe(data => {
       this.serieReuniones = data;
-      console.log(this.serieReuniones);
     }, error => {
       console.log(error);
     });
