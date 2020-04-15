@@ -57,7 +57,7 @@ public class SerieReunionServiceImpl implements SerieReunionService {
 	}
 
 	@Override
-	public void modificarReunion(SerieReunion reunion) {
+	public void modificarSerieReunion(SerieReunion reunion) {
 		SerieReunion serieReunion = srRepo.findOne(reunion.getCodSReunion());
 		
 		if(serieReunion != null) {
@@ -72,7 +72,7 @@ public class SerieReunionServiceImpl implements SerieReunionService {
 	}
 
 	@Override
-	public void modificarReunionInvitandoMasUsuarios(SerieReunion reunion, int[] codusu) {
+	public void modificarSerieReunionInvitandoMasUsuarios(SerieReunion reunion, int[] codusu) {
 		
 		SerieReunion serieReunion = srRepo.findOne(reunion.getCodSReunion());
 		Set<Usuarios> usuario = reunion.getUsuarios();

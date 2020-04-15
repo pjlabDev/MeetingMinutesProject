@@ -61,7 +61,9 @@ public class Usuarios {
 		this.rol = rol;
 	}
 
-	public Usuarios() { }
+	public Usuarios() {
+		super();
+	}
 
 	public int getCodUsu() {
 		return CodUsu;

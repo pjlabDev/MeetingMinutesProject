@@ -47,7 +47,8 @@ public class SerieReunion {
 	 * 
 	 */
 	
-	public SerieReunion(String Equipo, String Nombre) {
+	public SerieReunion(int codSReunion, String Equipo, String Nombre) {
+		this.CodSReunion = codSReunion;
 		this.Equipo = Equipo;
 		this.Nombre = Nombre;
 	}

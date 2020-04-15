@@ -39,12 +39,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Usuarios> getUsuariosNotInSerieReunion(int codsreunion) {
-		return userRepository.getUsuariosNotInReunion(codsreunion);
+		return userRepository.getUsuariosNotInSerieReunion(codsreunion);
 	}
 
 	@Override
 	public List<Usuarios> getUsuariosInSerieReunion(int codsreunion) {
-		return userRepository.getUsuariosInReunion(codsreunion);
+		return userRepository.getUsuariosInSerieReunion(codsreunion);
 	}
 
 	@Override

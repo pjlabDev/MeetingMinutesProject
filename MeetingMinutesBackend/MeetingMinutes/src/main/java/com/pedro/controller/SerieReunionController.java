@@ -47,12 +47,12 @@ public class SerieReunionController {
 	
 	@PutMapping("/modifseriereunion")
 	public void modificarSerieReunion(@RequestBody SerieReunion reunion) {
-		srService.modificarReunion(reunion);
+		srService.modificarSerieReunion(reunion);
 	}
 	
 	@PutMapping("/modifseriereunionconinvitado/{codusu}")
 	public void modificarSerieReunionInvitandoMasUsuarios(@RequestBody SerieReunion reunion, @PathVariable int[] codusu) {
-		srService.modificarReunionInvitandoMasUsuarios(reunion, codusu);
+		srService.modificarSerieReunionInvitandoMasUsuarios(reunion, codusu);
 	}
 	
 }
