@@ -6,6 +6,8 @@ import { SeriereunionService } from '../../services/seriereunion.service';
 import { FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
 import { Temas } from '../../clases/temas';
 import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-temas',
@@ -22,12 +24,17 @@ export class TemasComponent implements OnInit {
     etiqueta: new FormControl('')
   });
 
+  infoForm = new FormGroup({
+    info: new FormControl('', [Validators.required])
+  });
+
   temas: Temas[];
   codsreunion: number;
   tema: Temas = new Temas();
+  codTema: number;
 
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
-              public ts: TemasService, private router: Router) { }
+              public ts: TemasService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
@@ -72,8 +79,47 @@ export class TemasComponent implements OnInit {
         timer: 1500
       });
       this.nuevoTemaform.reset();
-      console.log('Error al crear reunion', error);
+      console.log('Error al crear tema.', error);
     });
+  }
+
+  verModal(codTema: number, modal) {
+    this.modalService.open(modal);
+    this.codTema = codTema;
+  }
+
+  cerrarModal(modal) {
+    this.infoForm.reset();
+    this.modalService.dismissAll(modal);
+  }
+
+  modificarTema(form: NgForm, modal) {
+    console.log(form.value.info);
+    console.log(this.codTema);
+    this.tema.info = form.value.info;
+    console.log('Tema', this.tema);
+
+    this.ts.añadirInfoTema(this.tema, this.codTema).subscribe(data => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Información para el tema añadida con éxito.',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.infoForm.reset();
+      this.getTemas(this.codsreunion);
+      this.modalService.dismissAll(modal);
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Lo sentimos, ha ocurrido un problema al añadir información al tema',
+        text: 'Inténtelo de nuevo o mas tarde.',
+        timer: 1500
+      });
+      this.nuevoTemaform.reset();
+      console.log('Error al añadir información al tema.', error);
+    });
+
   }
 
 }

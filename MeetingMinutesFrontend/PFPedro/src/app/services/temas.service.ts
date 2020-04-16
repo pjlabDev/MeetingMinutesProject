@@ -21,4 +21,8 @@ export class TemasService {
     return this.http.post(`${this.baseUrl}` + 'creartema/' + codsreunion, tema);
   }
 
+  añadirInfoTema(tema: Temas, codTema: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'addinfo/' + codTema, tema);
+  }
+
 }

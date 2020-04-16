@@ -33,10 +33,21 @@
                             <div class="dropdown">
                                 <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <a class="dropdown-item" (click)="verModal(tem.codTema, infoModal)">Añadir información</a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="tem.info !== null">
+                        <div id="accordion">
+                            <h5 class="mb-0">
+                                <button class="boton btn btn-sm" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  <a>Información del tema. <i class="fas fa-angle-down"></i></a>
+                                </button>
+                            </h5>
+                            <br>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <p>{{tem.info}}</p>
                             </div>
                         </div>
                     </div>
@@ -46,3 +57,21 @@
         </div>
     </div>
 </div>
+
+<ng-template #infoModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Información para el tema</h4>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="infoForm" (ngSubmit)="modificarTema(infoForm)">
+            <div class="form-group">
+                <label for="info">Información</label>
+                <textarea id="info" name="info" class="form-control" formControlName="info"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="!infoForm.valid" type="submit" class="btn btn-success">Añadir</button>
+                <button type="button" class="btn btn-light" (click)="cerrarModal(infoModal)">Cerrar</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
