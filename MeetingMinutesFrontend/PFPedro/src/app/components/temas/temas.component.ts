@@ -25,7 +25,7 @@ export class TemasComponent implements OnInit {
   });
 
   infoForm = new FormGroup({
-    info: new FormControl('', [Validators.required])
+    info: new FormControl('', [Validators.required, Validators.maxLength(255)])
   });
 
   temas: Temas[];
@@ -94,11 +94,7 @@ export class TemasComponent implements OnInit {
   }
 
   modificarTema(form: NgForm, modal) {
-    console.log(form.value.info);
-    console.log(this.codTema);
     this.tema.info = form.value.info;
-    console.log('Tema', this.tema);
-
     this.ts.añadirInfoTema(this.tema, this.codTema).subscribe(data => {
       Swal.fire({
         icon: 'success',
@@ -120,6 +116,10 @@ export class TemasComponent implements OnInit {
       console.log('Error al añadir información al tema.', error);
     });
 
+  }
+
+  get info() {
+    return this.infoForm.get('info');
   }
 
 }
