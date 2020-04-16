@@ -18,5 +18,4 @@ public interface TemasRepository extends JpaRepository<Temas, Integer> {
 	
 	@Query(value = "SELECT * FROM temas WHERE seriereunion_codsreunion like ?1", nativeQuery = true)
 	List<Temas> getTemasBySerieReunion(int codsreunion);
-	
 }

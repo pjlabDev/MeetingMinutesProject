@@ -48,4 +48,16 @@ public class TemasServiceImpl implements TemasService {
 		
 	}
 
+	@Override
+	public void añadirInfoTema(Temas tema, int codTema) {
+		
+		Temas updateTema = tr.findOne(codTema);
+		
+		if(updateTema != null) {
+			updateTema.setInfo(tema.getInfo());
+			tr.save(updateTema);
+		}
+		
+	}
+
 }

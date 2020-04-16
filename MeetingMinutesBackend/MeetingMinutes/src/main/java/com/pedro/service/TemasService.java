@@ -15,5 +15,6 @@ public interface TemasService {
 	
 	List<Temas> getTemasBySerieReunion(int codsreunion);
 	void crearTemas(Temas tema, int codsreunion);
+	void añadirInfoTema(Temas tema, int codTema);
 	
 }
