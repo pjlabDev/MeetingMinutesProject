@@ -44,6 +44,11 @@ public class ReunionController {
 		return rs.getReunionByUsuario(codusu);
 	}
 	
+	@GetMapping("/reuniones/{codusu}/{codsreunion}")
+	public List<Reunion> getReuniones(@PathVariable int codusu, @PathVariable int codsreunion) {
+		return rs.getReuniones(codusu, codsreunion);
+	}
+	
 	@PostMapping("addnewreunion/{codsreunion}/{codsusu}")
 	public void crearReunionCon(@RequestBody Reunion reunion, @PathVariable int codsreunion, @PathVariable int[] codsusu) {
 		rs.crearReunion(reunion, codsreunion, codsusu);

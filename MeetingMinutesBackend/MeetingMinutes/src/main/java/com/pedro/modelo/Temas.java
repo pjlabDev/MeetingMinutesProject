@@ -33,6 +33,9 @@ public class Temas {
 	@Column(name = "etiqueta")
 	private String etiqueta;
 	
+	@Column(name = "decision")
+	private String decision;
+	
 	@OneToOne
 	private SerieReunion seriereunion;
 	
@@ -40,10 +43,11 @@ public class Temas {
 	 * 
 	 */
 	
-	public Temas(int codTema, String titulo, String info) {
+	public Temas(int codTema, String titulo, String info, String decision) {
 		this.codTema = codTema;
 		this.titulo = titulo;
 		this.info = info;
+		this.decision = decision;
 	}
 	
 	public Temas() {
@@ -90,6 +94,14 @@ public class Temas {
 		this.etiqueta = etiqueta;
 	}
 	
+	public String getDecision() {
+		return decision;
+	}
+
+	public void setDecision(String decision) {
+		this.decision = decision;
+	}
+
 	public String toString() {
 		return getTitulo() + ", " + "con información" + "  " + getInfo() + ", " + "y prioridad" + "  " + "*" + getEtiqueta() + "*";
 	}

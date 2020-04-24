@@ -16,6 +16,7 @@ public interface ReunionService {
 	List<Reunion> getReunionBySerieReunion(int codsreunion);
 	Reunion getReunionByCodReunion(int codreunion);
 	List<Reunion> getReunionByUsuario(int codusu);
+	List<Reunion> getReuniones(int codusu, int codsreunion);
 	void crearReunion(Reunion reunion, int codsreunion, int[] codsusu);
 	
 }

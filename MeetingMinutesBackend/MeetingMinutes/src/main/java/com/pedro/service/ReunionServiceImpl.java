@@ -69,6 +69,11 @@ public class ReunionServiceImpl implements ReunionService {
 	@Override
 	public List<Reunion> getReunionByUsuario(int codusu) {
 		return rr.getReunionByUsuario(codusu);
+	}
+
+	@Override
+	public List<Reunion> getReuniones(int codusu, int codsreunion) {
+		return rr.getReuniones(codusu, codsreunion);
 	}	
 	
 

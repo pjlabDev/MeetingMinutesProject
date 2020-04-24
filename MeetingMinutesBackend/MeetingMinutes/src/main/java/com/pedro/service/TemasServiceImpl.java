@@ -60,4 +60,16 @@ public class TemasServiceImpl implements TemasService {
 		
 	}
 
+	@Override
+	public void añadirDecisionTema(Temas tema, int codTema) {
+		
+		Temas updateTema = tr.findOne(codTema);
+		
+		if(updateTema != null) {
+			updateTema.setDecision(tema.getDecision());
+			tr.save(updateTema);
+		}
+				
+	}
+
 }

@@ -41,8 +41,13 @@ public class TemasController {
 	}
 	
 	@PutMapping("/addinfo/{codTema}")
-	public void modificarSerieReunion(@RequestBody Temas tema, @PathVariable int codTema) {
+	public void añadirInfoTema(@RequestBody Temas tema, @PathVariable int codTema) {
 		ts.añadirInfoTema(tema, codTema);
+	}
+	
+	@PutMapping("adddecision/{codTema}")
+	public void añadirDecisionTema(@RequestBody Temas tema, @PathVariable int codTema) {
+		ts.añadirDecisionTema(tema, codTema);
 	}
 	
 }
