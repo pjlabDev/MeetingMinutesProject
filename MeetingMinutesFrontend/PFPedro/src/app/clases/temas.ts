@@ -3,4 +3,5 @@ export class Temas {
     titulo: string;
     info: string;
     etiqueta: string;
+    decision: string;
 }

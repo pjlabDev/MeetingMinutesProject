@@ -25,4 +25,8 @@ export class TemasService {
     return this.http.put(`${this.baseUrl}` + 'addinfo/' + codTema, tema);
   }
 
+  añadirDecisionTemas(tema: Temas, codTema: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'adddecision/' + codTema, tema);
+  }
+
 }

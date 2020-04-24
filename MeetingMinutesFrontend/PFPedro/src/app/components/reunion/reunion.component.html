@@ -25,6 +25,42 @@
                 </div>
                 <br>
             </form>
+            <br>
+            <button class="btn btn-success my-2 my-sm-0" (click)="submittedTrue()"><i class="fas fa-plus"></i> Adjuntar Archivo</button>
+            <br>
+            <br>
+            <div *ngIf="adjuntar">
+                <form [formGroup]="formArchivo" (ngSubmit)="enviarArchivo()" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input col-sm-3" id="archivos" formControlName="archivo" (change)="selectFile($event)">
+                                    <label class="custom-file-label col-sm-3" for="archivos">Seleccione un archivo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button [disabled]="!formArchivo.valid" type="submit" class="btn btn-success boton">Adjuntar</button>
+                </form>
+            </div>
+            <br>
+            <div *ngIf="existeArchivo">
+                <ol>
+                    <li *ngFor="let arch of archivos">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a style="color: rgb(17, 0, 255);" (click)="ejecutarArchivo(arch.codArchivo, arch.nombre)">{{arch.nombre}}</a>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="boton2" (click)="borrarArchivo(arch.codArchivo)"><i class="fas fa-times x"></i></button>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
         </div>
     </div>
 </div>

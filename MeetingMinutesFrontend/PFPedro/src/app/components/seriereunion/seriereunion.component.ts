@@ -44,11 +44,8 @@ export class SeriereunionComponent implements OnInit {
       this.ts.getTemasBySerieReunion(this.codsreunion).subscribe(data => {
         this.temas = data;
       });
-      this.tarS.getAllTareas().subscribe(data => {
-        this.tareas = data;
-      });
     });
-    this.getReunionByUsuario();
+    this.getReuniones();
   }
 
 
@@ -70,11 +67,16 @@ export class SeriereunionComponent implements OnInit {
     this.isItems = true;
   }
 
-  getReunionByUsuario() {
+  getReuniones() {
     this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    this.rs.getReunionByUsuarios(this.usuario.codUsu).subscribe(data => {
+    this.rs.getReuniones(this.usuario.codUsu, this.codsreunion).subscribe(data => {
       this.reunion = data;
       if (this.reunion.length > 0) {
+        this.reunion.forEach(response => {
+          this.tarS.getTareasByCodReunion(response.codReunion).subscribe(res => {
+            this.tareas = res;
+          });
+        });
         this.isReunion = true;
       } else {
         this.isReunion = false;

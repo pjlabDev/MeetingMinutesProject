@@ -28,6 +28,10 @@ export class TemasComponent implements OnInit {
     info: new FormControl('', [Validators.required, Validators.maxLength(255)])
   });
 
+  decisionForm = new FormGroup({
+    decision: new FormControl('', [Validators.required, Validators.maxLength(255)])
+  });
+
   temas: Temas[];
   codsreunion: number;
   tema: Temas = new Temas();
@@ -90,10 +94,11 @@ export class TemasComponent implements OnInit {
 
   cerrarModal(modal) {
     this.infoForm.reset();
+    this.decisionForm.reset();
     this.modalService.dismissAll(modal);
   }
 
-  modificarTema(form: NgForm, modal) {
+  addInfoTema(form: NgForm, modal) {
     this.tema.info = form.value.info;
     this.ts.añadirInfoTema(this.tema, this.codTema).subscribe(data => {
       Swal.fire({
@@ -118,8 +123,37 @@ export class TemasComponent implements OnInit {
 
   }
 
+  addDecisionTema(form: NgForm, modal) {
+    this.tema.decision = form.value.decision;
+    this.ts.añadirDecisionTemas(this.tema, this.codTema).subscribe(data => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Decisión para el tema añadida con éxito.',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.decisionForm.reset();
+      this.getTemas(this.codsreunion);
+      this.modalService.dismissAll(modal);
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Lo sentimos, ha ocurrido un problema al añadir la decisión al tema',
+        text: 'Inténtelo de nuevo o mas tarde.',
+        timer: 1500
+      });
+      this.nuevoTemaform.reset();
+      console.log('Error al añadir información al tema.', error);
+    });
+
+  }
+
   get info() {
     return this.infoForm.get('info');
+  }
+
+  get dec() {
+    return this.decisionForm.get('decision');
   }
 
 }

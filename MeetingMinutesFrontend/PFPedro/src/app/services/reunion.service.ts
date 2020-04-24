@@ -25,6 +25,10 @@ export class ReunionService {
     return this.http.get<Reunion>(`${this.baseUrl}` + 'reunionbyusuario/' + codusu);
   }
 
+  getReuniones(codusu: number, codsreunion: number): Observable<any> {
+    return this.http.get<Reunion>(`${this.baseUrl}` + 'reuniones/' + codusu + '/' + codsreunion);
+  }
+
   crearReunion(reunion: Reunion, codsreunion: number, codsusu: number[]): Observable<any> {
     return this.http.post(`${this.baseUrl}` + 'addnewreunion/' + codsreunion + '/' + codsusu, reunion);
   }

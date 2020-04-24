@@ -42,15 +42,14 @@
     </div>
     <br>
     <div *ngIf="isReunion">
-        <div>
+        <div *ngFor="let reu of reunion">
             <div class="card">
                 <div class="card-body">
-                    <div *ngFor="let reu of reunion">
-                        <a [routerLink]="['/', 'reunion', codsreunion, reu.codReunion]">{{reu.fecha}}</a>
-                        <hr>
-                    </div>
+                    <a [routerLink]="['/', 'reunion', codsreunion, reu.codReunion]">{{reu.fecha}}</a>
+                    <hr>
                 </div>
             </div>
+            <br>
         </div>
     </div>
     <div *ngIf="isTema">
