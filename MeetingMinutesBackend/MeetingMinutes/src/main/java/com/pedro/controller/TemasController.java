@@ -30,14 +30,19 @@ public class TemasController {
 	@Autowired
 	TemasService ts;
 	
-	@GetMapping("/tema/{codsreunion}")
-	public List<Temas> getTemasBySerieReunion(@PathVariable int codsreunion) {
-		return ts.getTemasBySerieReunion(codsreunion);
+	@GetMapping("/tema/{codreunion}")
+	public List<Temas> getTemasByReunion(@PathVariable int codreunion) {
+		return ts.getTemasByReunion(codreunion);
 	}
 	
-	@PostMapping("/creartema/{codsreunion}")
-	public void crearTema(@RequestBody Temas tema, @PathVariable int codsreunion) {
-		ts.crearTemas(tema, codsreunion);
+	@GetMapping("/alltemas/{codsreunion}")
+	public List<Temas> getAllTemasByCodSReunion(@PathVariable int codsreunion) {
+		return ts.getAllTemasByCodSReunion(codsreunion);
+	}
+	
+	@PostMapping("/creartema/{codreunion}/{codsreunion}")
+	public void crearTema(@RequestBody Temas tema, @PathVariable int codreunion, @PathVariable int codsreunion) {
+		ts.crearTemas(tema, codreunion, codsreunion);
 	}
 	
 	@PutMapping("/addinfo/{codTema}")
@@ -45,9 +50,15 @@ public class TemasController {
 		ts.añadirInfoTema(tema, codTema);
 	}
 	
-	@PutMapping("adddecision/{codTema}")
+	@PutMapping("/adddecision/{codTema}")
 	public void añadirDecisionTema(@RequestBody Temas tema, @PathVariable int codTema) {
 		ts.añadirDecisionTema(tema, codTema);
 	}
+	
+	@PutMapping("/cerrartema")
+	public void cerrarTemas(@RequestBody Temas tema) {
+		ts.cerrarTemas(tema);
+	}
+	
 	
 }

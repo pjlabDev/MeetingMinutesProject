@@ -18,9 +18,9 @@ import com.pedro.modelo.Tareas;
 @Repository
 public interface TareasRepository extends JpaRepository<Tareas, Integer> {
 	
-	@Query(value = "SELECT * FROM tareas WHERE reunion_codreunion like ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM tareas WHERE reunion_codreunion like ?1 AND cerrado = 0", nativeQuery = true)
 	List<Tareas> getTareasByCodReunion(int codreunion);
 
-	@Query(value = "SELECT * FROM tareas", nativeQuery = true)
-	List<Tareas> getAllTareas();
+	@Query(value = "SELECT * FROM tareas WHERE seriereunion_codsreunion like ?1", nativeQuery = true)
+	List<Tareas> getAllTareasByCodSReunion(int codsreunion);
 }

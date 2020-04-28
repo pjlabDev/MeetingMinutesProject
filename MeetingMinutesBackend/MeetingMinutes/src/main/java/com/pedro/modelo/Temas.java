@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Westermeyer
@@ -37,17 +38,26 @@ public class Temas {
 	private String decision;
 	
 	@OneToOne
+	private Reunion reunion;
+
+	@Column(name = "cerrado")
+	@NotNull
+	private int cerrado;
+
+	@OneToOne
 	private SerieReunion seriereunion;
+	
 	
 	/**
 	 * 
 	 */
 	
-	public Temas(int codTema, String titulo, String info, String decision) {
+	public Temas(int codTema, String titulo, String info, String decision, int cerrado) {
 		this.codTema = codTema;
 		this.titulo = titulo;
 		this.info = info;
 		this.decision = decision;
+		this.cerrado = cerrado;
 	}
 	
 	public Temas() {
@@ -78,14 +88,6 @@ public class Temas {
 		this.info = info;
 	}
 
-	public SerieReunion getSeriereunion() {
-		return seriereunion;
-	}
-
-	public void setSeriereunion(SerieReunion seriereunion) {
-		this.seriereunion = seriereunion;
-	}
-
 	public String getEtiqueta() {
 		return etiqueta;
 	}
@@ -101,9 +103,29 @@ public class Temas {
 	public void setDecision(String decision) {
 		this.decision = decision;
 	}
-
-	public String toString() {
-		return getTitulo() + ", " + "con información" + "  " + getInfo() + ", " + "y prioridad" + "  " + "*" + getEtiqueta() + "*";
-	}
 	
+	public Reunion getReunion() {
+		return reunion;
+	}
+
+	public void setReunion(Reunion reunion) {
+		this.reunion = reunion;
+	}
+
+	public SerieReunion getSeriereunion() {
+		return seriereunion;
+	}
+
+	public void setSeriereunion(SerieReunion seriereunion) {
+		this.seriereunion = seriereunion;
+	}
+
+	public int getCerrado() {
+		return cerrado;
+	}
+
+	public void setCerrado(int cerrado) {
+		this.cerrado = cerrado;
+	}
+
 }

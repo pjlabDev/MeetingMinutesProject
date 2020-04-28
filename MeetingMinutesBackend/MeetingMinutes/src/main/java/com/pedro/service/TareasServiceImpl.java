@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pedro.modelo.Reunion;
+import com.pedro.modelo.SerieReunion;
 import com.pedro.modelo.Tareas;
 import com.pedro.modelo.Usuarios;
 import com.pedro.repository.ReunionRepository;
+import com.pedro.repository.SerieReunionRepository;
 import com.pedro.repository.TareasRepository;
 import com.pedro.repository.UserRepository;
 
@@ -29,6 +31,9 @@ public class TareasServiceImpl implements TareasService {
 	
 	@Autowired
 	ReunionRepository rr;
+	
+	@Autowired
+	SerieReunionRepository sr;
 
 	@Autowired
 	UserRepository ur;
@@ -39,10 +44,12 @@ public class TareasServiceImpl implements TareasService {
 	}
 
 	@Override
-	public void crearTareas(Tareas tarea, int codreunion, int[] codusu) {
+	public void crearTareas(Tareas tarea, int codreunion, int[] codusu, int codsreunion) {
 		Set<Usuarios> usuario = new HashSet<>();
 		
 		Reunion reu = rr.findOne(codreunion);
+		
+		SerieReunion serieR = sr.findOne(codsreunion);
 		
 		for (int i : codusu) {
 			Usuarios user = ur.findOne(i);
@@ -50,9 +57,9 @@ public class TareasServiceImpl implements TareasService {
 			usuario.add(user);
 		}
 		
-		if(reu != null && !usuario.isEmpty()) {
+		if(reu != null && !usuario.isEmpty() && serieR != null) {
 			
-			Tareas newTarea = new Tareas(tarea.getTitulo(), tarea.getDescripcion(), usuario, reu);
+			Tareas newTarea = new Tareas(tarea.getTitulo(), tarea.getDescripcion(), usuario, reu, serieR);
 			
 			tareasRepo.save(newTarea);
 			
@@ -62,8 +69,20 @@ public class TareasServiceImpl implements TareasService {
 	}
 
 	@Override
-	public List<Tareas> getAllTareas() {
-		return tareasRepo.getAllTareas();
+	public List<Tareas> getAllTareasByCodSReunion(int codsreunion) {
+		return tareasRepo.getAllTareasByCodSReunion(codsreunion);
+	}
+
+	@Override
+	public void cerrarTareas(Tareas tarea) {
+		
+		Tareas tar = tareasRepo.findOne(tarea.getCodTarea());
+		
+		if(tar != null) {
+			tar.setCerrado(1);
+			tareasRepo.save(tar);
+		}
+		
 	}
 	
 }

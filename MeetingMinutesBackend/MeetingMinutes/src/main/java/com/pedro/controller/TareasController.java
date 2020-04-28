@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,13 +35,19 @@ public class TareasController {
 		return ts.getTareasByCodReunion(codreunion);
 	}
 	
-	@PostMapping("/creartarea/{codreunion}/{codusu}")
-	public void crearTareas(@RequestBody Tareas tarea, @PathVariable int codreunion, @PathVariable int[] codusu) {
-		ts.crearTareas(tarea, codreunion, codusu);
+	@PostMapping("/creartarea/{codreunion}/{codusu}/{codsreunion}")
+	public void crearTareas(@RequestBody Tareas tarea, @PathVariable int codreunion, @PathVariable int[] codusu, @PathVariable int codsreunion) {
+		ts.crearTareas(tarea, codreunion, codusu, codsreunion);
 	}
 	
-	@GetMapping("/gettareas")
-	public List<Tareas> getAllTareas() {
-		return ts.getAllTareas();
+	@GetMapping("/gettareas/{codsreunion}")
+	public List<Tareas> getAllTareasByCodSReunion(@PathVariable int codsreunion) {
+		return ts.getAllTareasByCodSReunion(codsreunion);
 	}
+	
+	@PutMapping("/cerrartareas")
+	public void cerrarTareas(@RequestBody Tareas tarea) {
+		ts.cerrarTareas(tarea);
+	}
+	
 }

@@ -36,27 +36,36 @@ public class Tareas {
 	@NotNull
 	private String descripcion;
 	
+	@Column(name = "cerrado")
+	@NotNull
+	private int cerrado;
+	
 	@ManyToMany(targetEntity=Usuarios.class)
 	private Set<Usuarios> usuarios;
 	
 	@OneToOne
 	private Reunion reunion;
 	
+	@OneToOne
+	private SerieReunion seriereunion;
+	
 	/**
 	 * 
 	 */
 	
-	public Tareas(int CodTarea, String titulo, String descripcion) {
+	public Tareas(int CodTarea, String titulo, String descripcion, int cerrado) {
 		this.CodTarea = CodTarea;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
+		this.cerrado = cerrado;
 	}
 	
-	public Tareas(String titulo, String descripcion, Set<Usuarios> usuarios, Reunion reunion) {
+	public Tareas(String titulo, String descripcion, Set<Usuarios> usuarios, Reunion reunion, SerieReunion seriereunion) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.usuarios = usuarios;
 		this.reunion = reunion;
+		this.seriereunion = seriereunion;
 	}
 	
 	public Tareas() {
@@ -103,4 +112,20 @@ public class Tareas {
 		this.reunion = reunion;
 	}
 
+	public SerieReunion getSeriereunion() {
+		return seriereunion;
+	}
+
+	public void setSeriereunion(SerieReunion seriereunion) {
+		this.seriereunion = seriereunion;
+	}
+
+	public int getCerrado() {
+		return cerrado;
+	}
+
+	public void setCerrado(int cerrado) {
+		this.cerrado = cerrado;
+	}
+	
 }

@@ -14,6 +14,7 @@ import com.pedro.modelo.Tareas;
 public interface TareasService {
 	
 	List<Tareas> getTareasByCodReunion(int codreunion);
-	void crearTareas(Tareas tarea, int codreunion, int[] codusu);
-	List<Tareas> getAllTareas();
+	void crearTareas(Tareas tarea, int codreunion, int[] codusu, int codsreunion);
+	List<Tareas> getAllTareasByCodSReunion(int codsreunion);
+	void cerrarTareas(Tareas tarea);
 }
