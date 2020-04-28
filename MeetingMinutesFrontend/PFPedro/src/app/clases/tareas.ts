@@ -4,4 +4,5 @@ export class Tareas {
     titulo: string;
     descripcion: string;
     usuarios: Usuario;
+    cerrado: number;
 }

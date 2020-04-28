@@ -55,7 +55,7 @@ export class ReunionComponent implements OnInit {
       this.rs.getReunionByCodReunion(this.codreunion).subscribe(data => {
         this.reunion = data;
       });
-      this.getTemas(this.codsreunion);
+      this.getTemas(this.codreunion);
       this.us.getUsuariosByCodReunion(this.codreunion).subscribe(data => {
         this.usuarios = data;
       });
@@ -72,7 +72,7 @@ export class ReunionComponent implements OnInit {
   }
 
   getTemas(id: number) {
-    this.ts.getTemasBySerieReunion(id).subscribe(data => {
+    this.ts.getTemasByReunion(id).subscribe(data => {
       this.temas = data;
     });
   }

@@ -57,6 +57,9 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" (click)="verModal(tem.codTema, infoModal)">Añadir información</a>
                                     <a class="dropdown-item" (click)="verModal(tem.codTema, decisionModal)">Añadir Decision</a>
+                                    <div *ngIf="us.isUserAdminAndJefe()">
+                                        <a class="dropdown-item" (click)="cerrarTemas(tem.codTema)">Cerrar tema</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

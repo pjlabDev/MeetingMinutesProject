@@ -13,12 +13,16 @@ export class TemasService {
   constructor(private http: HttpClient) { }
 
 
-  getTemasBySerieReunion(codsreunion: number): Observable<any> {
-    return this.http.get<Temas>(`${this.baseUrl}` + 'tema/' + codsreunion);
+  getTemasByReunion(codreunion: number): Observable<any> {
+    return this.http.get<Temas>(`${this.baseUrl}` + 'tema/' + codreunion);
   }
 
-  crearTemas(tema: Temas, codsreunion: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}` + 'creartema/' + codsreunion, tema);
+  getAllTemasByCodSReunion(codsreunion: number): Observable<any> {
+    return this.http.get<Temas>(`${this.baseUrl}` + 'alltemas/' + codsreunion);
+  }
+
+  crearTemas(tema: Temas, codreunion: number, codsreunion: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}` + 'creartema/' + codreunion + '/' + codsreunion, tema);
   }
 
   añadirInfoTema(tema: Temas, codTema: number): Observable<any> {
@@ -27,6 +31,10 @@ export class TemasService {
 
   añadirDecisionTemas(tema: Temas, codTema: number): Observable<any> {
     return this.http.put(`${this.baseUrl}` + 'adddecision/' + codTema, tema);
+  }
+
+  cerrarTemas(tema: Temas): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'cerrartema/', tema);
   }
 
 }

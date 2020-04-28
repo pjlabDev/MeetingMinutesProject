@@ -27,7 +27,7 @@
             <button type="button" class="btn btn-outline-primary" (click)="verTemas()">Temas</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-outline-primary" (click)="verItems()">Items</button>
+            <button type="button" class="btn btn-outline-primary" (click)="verTareas()">Tareas</button>
         </div>
     </div>
 </div>
@@ -56,17 +56,27 @@
         <div *ngFor="let tem of temas">
             <div class="card">
                 <div class="card-body">
-                    <span>{{tem.titulo}} <span class="label">*{{tem.etiqueta}}*</span></span>
+                    <div *ngIf="tem.cerrado === 1">
+                        <span>{{tem.titulo}} <span class="label">*{{tem.etiqueta}}* </span> (CERRADO)</span>
+                    </div>
+                    <div *ngIf="tem.cerrado === 0">
+                        <span>{{tem.titulo}} <span class="label">*{{tem.etiqueta}}*</span></span>
+                    </div>
                 </div>
             </div>
             <br>
         </div>
     </div>
-    <div *ngIf="isItems">
+    <div *ngIf="isTareas">
         <div *ngFor="let tar of tareas">
             <div class="card">
                 <div class="card-body">
-                    <span>{{tar.titulo}}</span>
+                    <div *ngIf="tar.cerrado === 1">
+                        <span>{{tar.titulo}} (CERRADA)</span>
+                    </div>
+                    <div *ngIf="tar.cerrado === 0">
+                        <span>{{tar.titulo}}</span>
+                    </div>
                 </div>
             </div>
             <br>

@@ -26,7 +26,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="cerrado">Cerrar Reunion (0 abierta, 1 cerrada)</label>
+            <label for="cerrado">Cerrar Serie Reunion (0 abierta, 1 cerrada)</label>
             <input type="number" class="form-control" id="cerrado" formControlName="cerrado" [(ngModel)]="serieReunion.cerrado" name="cerrado" max="1" min="0">
         </div>
         <button [disabled]="!reunionform.valid" type="submit" class="btn btn-success">Modificar</button>

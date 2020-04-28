@@ -26,7 +26,7 @@ export class SeriereunionComponent implements OnInit {
   serieReunion: SerieReunion = new SerieReunion();
   isReunion = false;
   isTema = false;
-  isItems = false;
+  isTareas = false;
   usuario: Usuario = new Usuario();
 
   constructor(public route: ActivatedRoute, private sr: SeriereunionService, public us: UsuarioService, public rs: ReunionService,
@@ -41,8 +41,11 @@ export class SeriereunionComponent implements OnInit {
       this.us.getUsuariosInSerieReunion(this.codsreunion).subscribe(data => {
         this.usuarios = data;
       });
-      this.ts.getTemasBySerieReunion(this.codsreunion).subscribe(data => {
+      this.ts.getAllTemasByCodSReunion(this.codsreunion).subscribe(data => {
         this.temas = data;
+      });
+      this.tarS.getAllTareasByCodSReunion(this.codsreunion).subscribe(data => {
+        this.tareas = data;
       });
     });
     this.getReuniones();
@@ -51,20 +54,20 @@ export class SeriereunionComponent implements OnInit {
 
   verReuniones() {
     this.isTema = false;
-    this.isItems = false;
+    this.isTareas = false;
     this.isReunion = true;
   }
 
   verTemas() {
     this.isReunion = false;
-    this.isItems = false;
+    this.isTareas = false;
     this.isTema = true;
   }
 
-  verItems() {
+  verTareas() {
     this.isReunion = false;
     this.isTema = false;
-    this.isItems = true;
+    this.isTareas = true;
   }
 
   getReuniones() {
@@ -72,11 +75,6 @@ export class SeriereunionComponent implements OnInit {
     this.rs.getReuniones(this.usuario.codUsu, this.codsreunion).subscribe(data => {
       this.reunion = data;
       if (this.reunion.length > 0) {
-        this.reunion.forEach(response => {
-          this.tarS.getTareasByCodReunion(response.codReunion).subscribe(res => {
-            this.tareas = res;
-          });
-        });
         this.isReunion = true;
       } else {
         this.isReunion = false;

@@ -63,7 +63,7 @@ export class TareasComponent implements OnInit {
     this.tarea.descripcion = form.value.descripcion;
     this.codusu = form.value.responsables;
 
-    this.ts.crearTareas(this.tarea, this.codreunion, this.codusu).subscribe(data => {
+    this.ts.crearTareas(this.tarea, this.codreunion, this.codusu, this.codsreunion).subscribe(data => {
       Swal.fire({
         icon: 'success',
         title: 'Tarea creado con éxito.',
@@ -85,5 +85,39 @@ export class TareasComponent implements OnInit {
     });
   }
 
+  cerrarTareas(codtarea: number) {
+
+    this.tarea = new Tareas();
+    this.tarea.codTarea = codtarea;
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'La tarea se cerrará si aceptas.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar!'
+    }).then((result) => {
+      if (result.value) {
+        this.ts.cerrarTareas(this.tarea).subscribe(data => {
+          Swal.fire(
+            'Cerrada!',
+            'La tarea ha sido cerrada.',
+            'success'
+          );
+          this.getTareas(this.codreunion);
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Lo sentimos, ha ocurrido un problema al cerrar la tarea',
+            text: 'Inténtelo de nuevo o mas tarde.',
+            timer: 1500
+          });
+          console.log('error de tarea: ', error);
+        });
+      }
+    });
+  }
 
 }

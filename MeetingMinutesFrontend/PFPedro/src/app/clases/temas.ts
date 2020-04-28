@@ -4,4 +4,5 @@ export class Temas {
     info: string;
     etiqueta: string;
     decision: string;
+    cerrado: number;
 }

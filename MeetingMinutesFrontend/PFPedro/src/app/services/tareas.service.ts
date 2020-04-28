@@ -17,12 +17,16 @@ export class TareasService {
     return this.http.get<Tareas>(`${this.baseUrl}` + 'tareasreunion/' + codreunion);
   }
 
-  crearTareas(tarea: Tareas, codreunion: number, codusu: number[]): Observable<any> {
-    return this.http.post(`${this.baseUrl}` + 'creartarea/' + codreunion + '/' + codusu, tarea);
+  crearTareas(tarea: Tareas, codreunion: number, codusu: number[], codsreunion: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}` + 'creartarea/' + codreunion + '/' + codusu + '/' + codsreunion, tarea);
   }
 
-  getAllTareas(): Observable<any> {
-    return this.http.get<Tareas>(`${this.baseUrl}` + 'gettareas');
+  getAllTareasByCodSReunion(codsreunion: number): Observable<any> {
+    return this.http.get<Tareas>(`${this.baseUrl}` + 'gettareas/' + codsreunion);
+  }
+
+  cerrarTareas(tarea: Tareas): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'cerrartareas', tarea);
   }
 
 }

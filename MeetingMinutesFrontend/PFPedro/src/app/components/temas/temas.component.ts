@@ -34,6 +34,7 @@ export class TemasComponent implements OnInit {
 
   temas: Temas[];
   codsreunion: number;
+  codreunion: number;
   tema: Temas = new Temas();
   codTema: number;
 
@@ -43,12 +44,13 @@ export class TemasComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
-      this.getTemas(this.codsreunion);
+      this.codreunion = parseInt(response.get('idd'), 10);
+      this.getTemas(this.codreunion);
     });
   }
 
   getTemas(id: number) {
-    this.ts.getTemasBySerieReunion(id).subscribe(data => {
+    this.ts.getTemasByReunion(id).subscribe(data => {
       if (data !== null) {
         this.existeTema = true;
         this.temas = data;
@@ -65,7 +67,7 @@ export class TemasComponent implements OnInit {
   crearTema(form: NgForm) {
     this.tema.titulo = form.value.titulo;
     this.tema.etiqueta = form.value.etiqueta;
-    this.ts.crearTemas(this.tema, this.codsreunion).subscribe(data => {
+    this.ts.crearTemas(this.tema, this.codreunion, this.codsreunion).subscribe(data => {
       Swal.fire({
         icon: 'success',
         title: 'Tema creado con éxito.',
@@ -74,7 +76,7 @@ export class TemasComponent implements OnInit {
       });
       this.submitted = false;
       this.nuevoTemaform.reset();
-      this.getTemas(this.codsreunion);
+      this.getTemas(this.codreunion);
     }, error => {
       Swal.fire({
         icon: 'error',
@@ -108,7 +110,7 @@ export class TemasComponent implements OnInit {
         timer: 1500
       });
       this.infoForm.reset();
-      this.getTemas(this.codsreunion);
+      this.getTemas(this.codreunion);
       this.modalService.dismissAll(modal);
     }, error => {
       Swal.fire({
@@ -133,7 +135,7 @@ export class TemasComponent implements OnInit {
         timer: 1500
       });
       this.decisionForm.reset();
-      this.getTemas(this.codsreunion);
+      this.getTemas(this.codreunion);
       this.modalService.dismissAll(modal);
     }, error => {
       Swal.fire({
@@ -146,6 +148,41 @@ export class TemasComponent implements OnInit {
       console.log('Error al añadir información al tema.', error);
     });
 
+  }
+
+  cerrarTemas(codtema: number) {
+
+    this.tema = new Temas();
+    this.tema.codTema = codtema;
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'El tema se cerrará si aceptas.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar!'
+    }).then((result) => {
+      if (result.value) {
+        this.ts.cerrarTemas(this.tema).subscribe(data => {
+          Swal.fire(
+            'Cerrado!',
+            'El tema ha sido cerrado.',
+            'success'
+          );
+          this.getTemas(this.codreunion);
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Lo sentimos, ha ocurrido un problema al cerrar el tema',
+            text: 'Inténtelo de nuevo o mas tarde.',
+            timer: 1500
+          });
+          console.log('error de tema: ', error);
+        });
+      }
+    });
   }
 
   get info() {
