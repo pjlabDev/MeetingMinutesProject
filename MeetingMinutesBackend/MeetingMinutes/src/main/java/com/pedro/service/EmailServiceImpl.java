@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.pedro.modelo.Temas;
 import com.pedro.modelo.Usuarios;
+import com.pedro.repository.TemasRepository;
 import com.pedro.repository.UserRepository;
 
 /**
@@ -29,11 +30,15 @@ public class EmailServiceImpl implements EmailService {
 	@Autowired
 	UserRepository userR;
 	
+	@Autowired
+	TemasRepository tr;
+	
 	@Override
-	public void enviarAgenda(int[] receptores, String fechaReunion, Temas[] tema) {
+	public void enviarAgenda(int[] receptores, String fechaReunion, Temas[] tema, int[] temasAntiguos) {
 		
 		String temas = "";
 		String participantes = "";
+		String temasAnt = "";
 		
 	    String emisor = "vconvents@gmail.com";
 
@@ -66,9 +71,23 @@ public class EmailServiceImpl implements EmailService {
 				temas += "  - " + tem.getTitulo() + "  " + "*" + tem.getEtiqueta() + "*" + "\n";
 			}
 	        
+	        if (temasAntiguos[0] != -1) {	        	
+	        	for (int tem: temasAntiguos) {
+	        		Temas te = tr.findOne(tem);
+	        		temasAnt += "  - " + te.getTitulo() + "  " + "*" + te.getEtiqueta() + "*" + "\n";
+	        	}
+	        } else {
+	        	temasAnt = "";
+	        }
+	        
 	        message.setSubject("Información reuniones.");
-	        message.setText("Estimados colaboradores, adjuntamos información sobre la próxima reunión:" + "\n\n" + "REUNIÓN para el día: " +
-	        "\n" + "  * " + fechaReunion + " *" + "\n\n" + "TEMAS a debatir: " + "\n"+ temas + "\n" + "PARTICIPANTES.- " + "\n" + participantes + "\n" + "Saludos.");
+	        if(temasAnt == "") {
+	        	message.setText("Estimados colaboradores, adjuntamos información sobre la próxima reunión:" + "\n\n" + "REUNIÓN para el día: " +
+	        			"\n" + "  * " + fechaReunion + " *" + "\n\n" + "TEMAS a debatir: " + "\n"+ temas + "\n" + "PARTICIPANTES.- " + "\n" + participantes + "\n" + "Saludos.");
+	        }else {
+	        	message.setText("Estimados colaboradores, adjuntamos información sobre la próxima reunión:" + "\n\n" + "REUNIÓN para el día: " +
+	        			"\n" + "  * " + fechaReunion + " *" + "\n\n" + "TEMAS a debatir: " + "\n"+ temas + "\n" + "TEMAS ANTIGUOS: " + "\n" + temasAnt + "\n" + "PARTICIPANTES.- " + "\n" + participantes + "\n" + "Saludos.");
+	        }
 	        Transport transport = session.getTransport("smtp");
 	        transport.connect("smtp.gmail.com", emisor, "123456789#abc");
 	        transport.sendMessage(message, message.getAllRecipients());
@@ -79,7 +98,6 @@ public class EmailServiceImpl implements EmailService {
 	    }
 		
 	}
-
 	
 
 }

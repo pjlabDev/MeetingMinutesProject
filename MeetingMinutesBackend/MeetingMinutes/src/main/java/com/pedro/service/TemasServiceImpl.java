@@ -32,8 +32,8 @@ public class TemasServiceImpl implements TemasService {
 	private SerieReunionRepository sr;
 
 	@Override
-	public List<Temas> getTemasByReunion(int codreunion) {
-		return tr.getTemasByReunion(codreunion);
+	public List<Temas> getTemasByCodReunion(int codreunion) {
+		return tr.getTemasByCodReunion(codreunion);
 	}
 
 	@Override
@@ -95,6 +95,16 @@ public class TemasServiceImpl implements TemasService {
 			tr.save(tem);
 		}
 		
+	}
+
+	@Override
+	public List<Temas> getTemasByCodReunionAndNoCerrado(int codreunion) {
+		return tr.getTemasByCodReunionAndNoCerrado(codreunion);
+	}
+
+	@Override
+	public List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion) {
+		return tr.getTemasByCodReunionAntiguaAndNoCerrado(codreunion);
 	}
 
 }

@@ -30,9 +30,9 @@ public class TareasController {
 	@Autowired
 	TareasService ts;
 	
-	@GetMapping("/tareasreunion/{codreunion}")
-	public List<Tareas> getSerieReunionByUsuario(@PathVariable int codreunion) {
-		return ts.getTareasByCodReunion(codreunion);
+	@GetMapping("/tareasreunion/{codsreunion}")
+	public List<Tareas> getTareasByCodSReunion(@PathVariable int codsreunion) {
+		return ts.getTareasByCodSReunion(codsreunion);
 	}
 	
 	@PostMapping("/creartarea/{codreunion}/{codusu}/{codsreunion}")
@@ -48,6 +48,16 @@ public class TareasController {
 	@PutMapping("/cerrartareas")
 	public void cerrarTareas(@RequestBody Tareas tarea) {
 		ts.cerrarTareas(tarea);
+	}
+	
+	@GetMapping("tareasreunocerr/{codreunion}")
+	List<Tareas> getTareasByCodReunionAndNoCerrado(@PathVariable int codreunion) {
+		return ts.getTareasByCodReunionAndNoCerrado(codreunion);
+	}
+	
+	@GetMapping("tareasreuantiguanocerr/{codreunion}")
+	List<Tareas> getTareasByCodReunionAntiguaAndNoCerrado(@PathVariable int codreunion) {
+		return ts.getTareasByCodReunionAntiguaAndNoCerrado(codreunion);
 	}
 	
 }

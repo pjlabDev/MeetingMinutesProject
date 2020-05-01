@@ -31,8 +31,8 @@ public class TemasController {
 	TemasService ts;
 	
 	@GetMapping("/tema/{codreunion}")
-	public List<Temas> getTemasByReunion(@PathVariable int codreunion) {
-		return ts.getTemasByReunion(codreunion);
+	public List<Temas> getTemasByCodSReunion(@PathVariable int codreunion) {
+		return ts.getTemasByCodReunion(codreunion);
 	}
 	
 	@GetMapping("/alltemas/{codsreunion}")
@@ -60,5 +60,14 @@ public class TemasController {
 		ts.cerrarTemas(tema);
 	}
 	
+	@GetMapping("temasreunocerr/{codreunion}")
+	List<Temas> getTemasByCodReunionAndNoCerrado(@PathVariable int codreunion) {
+		return ts.getTemasByCodReunionAndNoCerrado(codreunion);
+	}
+	
+	@GetMapping("temasreunoantiguacerr/{codreunion}")
+	List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(@PathVariable int codreunion) {
+		return ts.getTemasByCodReunionAntiguaAndNoCerrado(codreunion);
+	}
 	
 }

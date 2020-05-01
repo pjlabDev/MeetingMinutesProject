@@ -17,8 +17,15 @@ import com.pedro.modelo.Temas;
 public interface TemasRepository extends JpaRepository<Temas, Integer> {
 	
 	@Query(value = "SELECT * FROM temas WHERE reunion_codreunion like ?1 AND cerrado = 0", nativeQuery = true)
-	List<Temas> getTemasByReunion(int codreunion);
+	List<Temas> getTemasByCodReunion(int codreunion);
 	
 	@Query(value = "SELECT * FROM temas WHERE seriereunion_codsreunion like ?1", nativeQuery = true)
 	List<Temas> getAllTemasByCodSReunion(int codsreunion);
+	
+	@Query(value = "SELECT * FROM temas WHERE reunion_codreunion like ?1 AND cerrado = 0", nativeQuery = true)
+	List<Temas> getTemasByCodReunionAndNoCerrado(int codreunion);
+	
+	@Query(value = "SELECT * FROM temas WHERE reunion_codreunion < ?1 AND cerrado = 0", nativeQuery = true)
+	List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion);
+	
 }

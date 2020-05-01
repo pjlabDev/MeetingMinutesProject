@@ -26,9 +26,9 @@ public class EmailController {
 	@Autowired
 	EmailService es;
 	
-	@PostMapping("/enviar/{receptores}/{fechaReunion}")
-	public void enviarAgenda(@RequestBody Temas tema[], @PathVariable int receptores[], @PathVariable String fechaReunion) {
-		es.enviarAgenda(receptores, fechaReunion, tema);
+	@PostMapping("/enviar/{temasAntiguos}/{receptores}/{fechaReunion}")
+	public void enviarAgenda(@RequestBody Temas tema[], @PathVariable int[] temasAntiguos, @PathVariable int receptores[], @PathVariable String fechaReunion) {
+		es.enviarAgenda(receptores, fechaReunion, tema, temasAntiguos);
 	}
 	
 }

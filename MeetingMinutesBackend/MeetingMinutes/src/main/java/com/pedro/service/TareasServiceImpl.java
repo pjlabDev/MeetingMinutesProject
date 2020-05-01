@@ -39,8 +39,8 @@ public class TareasServiceImpl implements TareasService {
 	UserRepository ur;
 
 	@Override
-	public List<Tareas> getTareasByCodReunion(int codreunion) {
-		return tareasRepo.getTareasByCodReunion(codreunion);
+	public List<Tareas> getTareasByCodSReunion(int codsreunion) {
+		return tareasRepo.getTareasByCodSReunion(codsreunion);
 	}
 
 	@Override
@@ -83,6 +83,16 @@ public class TareasServiceImpl implements TareasService {
 			tareasRepo.save(tar);
 		}
 		
+	}
+
+	@Override
+	public List<Tareas> getTareasByCodReunionAndNoCerrado(int codreunion) {
+		return tareasRepo.getTareasByCodReunionAndNoCerrado(codreunion);
+	}
+
+	@Override
+	public List<Tareas> getTareasByCodReunionAntiguaAndNoCerrado(int codreunion) {
+		return tareasRepo.getTareasByCodReunionAntiguaAndNoCerrado(codreunion);
 	}
 	
 }
