@@ -18,6 +18,7 @@ export class TemasComponent implements OnInit {
 
   submitted = false;
   existeTema = false;
+  existeTemaAntiguo = false;
 
   nuevoTemaform = new FormGroup({
     titulo: new FormControl('', [Validators.required]),
@@ -33,6 +34,7 @@ export class TemasComponent implements OnInit {
   });
 
   temas: Temas[];
+  temasAntiguos: Temas[];
   codsreunion: number;
   codreunion: number;
   tema: Temas = new Temas();
@@ -46,16 +48,28 @@ export class TemasComponent implements OnInit {
       this.codsreunion = parseInt(response.get('id'), 10);
       this.codreunion = parseInt(response.get('idd'), 10);
       this.getTemas(this.codreunion);
+      this.getTemasAntiguosNoCerrados(this.codreunion);
     });
   }
 
   getTemas(id: number) {
     this.ts.getTemasByReunion(id).subscribe(data => {
-      if (data !== null) {
+      if (data !== null && data.length !== 0) {
         this.existeTema = true;
         this.temas = data;
       } else {
         this.existeTema = false;
+      }
+    });
+  }
+
+  getTemasAntiguosNoCerrados(id: number) {
+    this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id).subscribe(data => {
+      if (data !== null && data.length !== 0) {
+        this.existeTemaAntiguo = true;
+        this.temasAntiguos = data;
+      } else {
+        this.existeTemaAntiguo = false;
       }
     });
   }

@@ -31,19 +31,17 @@
         <h3>Tareas</h3>
         <br>
         <div *ngFor="let tar of tareas">
-            <div class="card">
+            <div *ngIf="tar.reunion.codReunion === codreunion || tar.reunion.codReunion < codreunion" class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-11">
                             <h4 class="card-title">{{tar.titulo}}</h4>
                         </div>
-                        <div class="col">
+                        <div *ngIf="us.isUserAdminAndJefe()" class="col">
                             <div class="dropdown">
                                 <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <div *ngIf="us.isUserAdminAndJefe()">
-                                        <a class="dropdown-item" (click)="cerrarTareas(tar.codTarea)">Cerrar tarea</a>
-                                    </div>
+                                    <a class="dropdown-item" (click)="cerrarTareas(tar.codTarea)">Cerrar tarea</a>
                                 </div>
                             </div>
                         </div>

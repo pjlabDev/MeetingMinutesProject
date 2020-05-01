@@ -36,7 +36,7 @@ export class TareasComponent implements OnInit {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
       this.codreunion = parseInt(response.get('idd'), 10);
-      this.getTareas(this.codreunion);
+      this.getTareas(this.codsreunion);
       this.us.getUsuariosByCodReunion(this.codreunion).subscribe(data => {
         this.usuarios = data;
       });
@@ -72,7 +72,7 @@ export class TareasComponent implements OnInit {
       });
       this.submitted = false;
       this.nuevaTareaForm.reset();
-      this.getTareas(this.codreunion);
+      this.getTareas(this.codsreunion);
     }, error => {
       Swal.fire({
         icon: 'error',
@@ -106,7 +106,7 @@ export class TareasComponent implements OnInit {
             'La tarea ha sido cerrada.',
             'success'
           );
-          this.getTareas(this.codreunion);
+          this.getTareas(this.codsreunion);
         }, error => {
           Swal.fire({
             icon: 'error',

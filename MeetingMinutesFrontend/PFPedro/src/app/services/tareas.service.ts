@@ -29,4 +29,12 @@ export class TareasService {
     return this.http.put(`${this.baseUrl}` + 'cerrartareas', tarea);
   }
 
+  getTareasByCodReunionAndNoCerrado(codreunion: number): Observable<any> {
+    return this.http.get<Tareas>(`${this.baseUrl}` + 'tareasreunocerr/' + codreunion);
+  }
+
+  getTareasByCodReunionAntiguaAndNoCerrado(codreunion: number): Observable<any> {
+    return this.http.get<Tareas>(`${this.baseUrl}` + 'tareasreuantiguanocerr/' + codreunion);
+  }
+
 }

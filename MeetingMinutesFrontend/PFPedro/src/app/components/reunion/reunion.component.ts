@@ -29,8 +29,11 @@ export class ReunionComponent implements OnInit {
   codsreunion: number;
   codreunion: number;
   temas: Temas[];
+  temasAntiguos: Temas[];
+  existeTemaAntiguo = false;
   fechaReunion: string;
   codigos: number[] = [];
+  codigosTemasAntiguos: number[] = [];
   adjuntar = false;
   archivo: Archivos = new Archivos();
 
@@ -38,8 +41,8 @@ export class ReunionComponent implements OnInit {
     archivo: new FormControl('', [Validators.required])
   });
 
-  selectedFiles: FileList;
-  currentFile: File;
+  archivosSeleccionados: FileList;
+  archivoEnCruso: File;
   archivos: Archivos[];
   existeArchivo = false;
 
@@ -56,6 +59,7 @@ export class ReunionComponent implements OnInit {
         this.reunion = data;
       });
       this.getTemas(this.codreunion);
+      this.getTemasAntiguos(this.codreunion);
       this.us.getUsuariosByCodReunion(this.codreunion).subscribe(data => {
         this.usuarios = data;
       });
@@ -77,6 +81,17 @@ export class ReunionComponent implements OnInit {
     });
   }
 
+  getTemasAntiguos(id: number) {
+    this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id).subscribe(data => {
+      if (data !== null && data.length !== 0) {
+        this.existeTemaAntiguo = true;
+        this.temasAntiguos = data;
+      } else {
+        this.existeTemaAntiguo = false;
+      }
+    });
+  }
+
   enviarAgenda() {
     this.fechaReunion = this.datepipe.transform(this.reunion.fecha, 'dd-MM-yyyy');
 
@@ -84,13 +99,24 @@ export class ReunionComponent implements OnInit {
       this.codigos.push(response.codUsu);
     });
 
-    this.es.enviarAgenda(this.codigos, this.fechaReunion, this.temas).subscribe(dat => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Agenda enviada a los participantes de esta reunión.',
-          showConfirmButton: false,
-          timer: 1500
-        });
+    if (this.temasAntiguos !== undefined) {
+      this.temasAntiguos.forEach(res => {
+        this.codigosTemasAntiguos.push(res.codTema);
+      });
+    } else {
+      this.codigosTemasAntiguos.push(-1);
+    }
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Agenda enviada a los participantes de esta reunión.',
+      showConfirmButton: false,
+      timer: 1500
+    });
+
+    this.es.enviarAgenda(this.codigos, this.fechaReunion, this.temas, this.codigosTemasAntiguos).subscribe(dat => {
+        this.codigos = [];
+        this.codigosTemasAntiguos = [];
       }, error => {
         console.log('Error al enviar la agenda', error);
       });
@@ -101,13 +127,13 @@ export class ReunionComponent implements OnInit {
   }
 
   selectFile(event) {
-    this.selectedFiles = event.target.files;
+    this.archivosSeleccionados = event.target.files;
   }
 
   enviarArchivo() {
-    this.currentFile = this.selectedFiles.item(0);
-    this.archivo.nombre = this.currentFile.name;
-    this.as.adjuntarArchivo(this.archivo.nombre, this.currentFile, this.codreunion).subscribe(res => {
+    this.archivoEnCruso = this.archivosSeleccionados.item(0);
+    this.archivo.nombre = this.archivoEnCruso.name;
+    this.as.adjuntarArchivo(this.archivo.nombre, this.archivoEnCruso, this.codreunion).subscribe(res => {
       Swal.fire({
         icon: 'success',
         title: 'Archivo guardado en base de datos.',

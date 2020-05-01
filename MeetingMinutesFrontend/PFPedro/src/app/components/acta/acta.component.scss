@@ -1,0 +1,15 @@
+.dropdown-toggle::after {
+    content: none;
+}
+
+.elipse:hover {
+    cursor: pointer;
+}
+
+.boton2 {
+    background: transparent;
+    border: none !important;
+    position: relative;
+    height: 30px;
+    width: 40px;
+}

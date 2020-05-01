@@ -37,4 +37,12 @@ export class TemasService {
     return this.http.put(`${this.baseUrl}` + 'cerrartema/', tema);
   }
 
+  getTemasByCodReunionAndNoCerrado(codreunion: number): Observable<any> {
+    return this.http.get<Temas>(`${this.baseUrl}` + 'temasreunocerr/' + codreunion);
+  }
+
+  getTemasByCodReunionAntiguaAndNoCerrado(codreunion: number): Observable<any> {
+    return this.http.get<Temas>(`${this.baseUrl}` + 'temasreunoantiguacerr/' + codreunion);
+  }
+
 }

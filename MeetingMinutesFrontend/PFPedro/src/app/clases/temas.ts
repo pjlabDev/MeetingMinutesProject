@@ -1,3 +1,4 @@
+import { Reunion } from './reunion';
 export class Temas {
     codTema: number;
     titulo: string;
@@ -5,4 +6,5 @@ export class Temas {
     etiqueta: string;
     decision: string;
     cerrado: number;
+    reunion: Reunion;
 }
