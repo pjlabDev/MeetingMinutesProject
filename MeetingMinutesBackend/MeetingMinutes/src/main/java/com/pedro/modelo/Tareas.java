@@ -43,8 +43,8 @@ public class Tareas {
 	@ManyToMany(targetEntity=Usuarios.class)
 	private Set<Usuarios> usuarios;
 	
-	@OneToOne
-	private Reunion reunion;
+	@ManyToMany(targetEntity=Reunion.class)
+	private Set<Reunion> reunion;
 	
 	@OneToOne
 	private SerieReunion seriereunion;
@@ -60,7 +60,7 @@ public class Tareas {
 		this.cerrado = cerrado;
 	}
 	
-	public Tareas(String titulo, String descripcion, Set<Usuarios> usuarios, Reunion reunion, SerieReunion seriereunion) {
+	public Tareas(String titulo, String descripcion, Set<Usuarios> usuarios, Set<Reunion> reunion, SerieReunion seriereunion) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.usuarios = usuarios;
@@ -104,11 +104,11 @@ public class Tareas {
 		this.usuarios = usuarios;
 	}
 
-	public Reunion getReunion() {
+	public Set<Reunion> getReunion() {
 		return reunion;
 	}
 
-	public void setReunion(Reunion reunion) {
+	public void setReunion(Set<Reunion> reunion) {
 		this.reunion = reunion;
 	}
 

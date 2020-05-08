@@ -30,9 +30,9 @@ public class TareasController {
 	@Autowired
 	TareasService ts;
 	
-	@GetMapping("/tareasreunion/{codsreunion}")
-	public List<Tareas> getTareasByCodSReunion(@PathVariable int codsreunion) {
-		return ts.getTareasByCodSReunion(codsreunion);
+	@GetMapping("/tareasreunion/{codreunion}")
+	public List<Tareas> getTareasByCodReunion(@PathVariable int codreunion) {
+		return ts.getTareasByCodReunion(codreunion);
 	}
 	
 	@PostMapping("/creartarea/{codreunion}/{codusu}/{codsreunion}")
@@ -50,14 +50,14 @@ public class TareasController {
 		ts.cerrarTareas(tarea);
 	}
 	
-	@GetMapping("tareasreunocerr/{codreunion}")
-	List<Tareas> getTareasByCodReunionAndNoCerrado(@PathVariable int codreunion) {
-		return ts.getTareasByCodReunionAndNoCerrado(codreunion);
+	@GetMapping("/tareasreuantiguanocerr/{codreunion}")
+	List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(@PathVariable int codreunion) {
+		return ts.getTareasByCodReunionAntiguaAndNoCerrada(codreunion);
 	}
 	
-	@GetMapping("tareasreuantiguanocerr/{codreunion}")
-	List<Tareas> getTareasByCodReunionAntiguaAndNoCerrado(@PathVariable int codreunion) {
-		return ts.getTareasByCodReunionAntiguaAndNoCerrado(codreunion);
+	@PostMapping("/savetareasantiguas/{codreunion}")
+	public void saveTareasAntiguas(@RequestBody Tareas[] tareas, @PathVariable int codreunion) {
+		ts.saveTareasAntiguas(tareas, codreunion);
 	}
 	
 }

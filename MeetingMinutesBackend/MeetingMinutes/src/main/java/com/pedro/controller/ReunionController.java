@@ -39,11 +39,6 @@ public class ReunionController {
 		return rs.getReunionByCodReunion(codreunion);
 	}
 	
-	@GetMapping("/reunionbyusuario/{codusu}")
-	public List<Reunion> getReunionByUsuario(@PathVariable int codusu) {
-		return rs.getReunionByUsuario(codusu);
-	}
-	
 	@GetMapping("/reuniones/{codusu}/{codsreunion}")
 	public List<Reunion> getReuniones(@PathVariable int codusu, @PathVariable int codsreunion) {
 		return rs.getReuniones(codusu, codsreunion);

@@ -39,13 +39,15 @@ public class TareasServiceImpl implements TareasService {
 	UserRepository ur;
 
 	@Override
-	public List<Tareas> getTareasByCodSReunion(int codsreunion) {
-		return tareasRepo.getTareasByCodSReunion(codsreunion);
+	public List<Tareas> getTareasByCodReunion(int codreunion) {
+		return tareasRepo.getTareasByCodReunion(codreunion);
 	}
 
 	@Override
 	public void crearTareas(Tareas tarea, int codreunion, int[] codusu, int codsreunion) {
 		Set<Usuarios> usuario = new HashSet<>();
+		
+		Set<Reunion> reunion = new HashSet<>();
 		
 		Reunion reu = rr.findOne(codreunion);
 		
@@ -59,7 +61,9 @@ public class TareasServiceImpl implements TareasService {
 		
 		if(reu != null && !usuario.isEmpty() && serieR != null) {
 			
-			Tareas newTarea = new Tareas(tarea.getTitulo(), tarea.getDescripcion(), usuario, reu, serieR);
+			reunion.add(reu);
+			
+			Tareas newTarea = new Tareas(tarea.getTitulo(), tarea.getDescripcion(), usuario, reunion, serieR);
 			
 			tareasRepo.save(newTarea);
 			
@@ -86,13 +90,25 @@ public class TareasServiceImpl implements TareasService {
 	}
 
 	@Override
-	public List<Tareas> getTareasByCodReunionAndNoCerrado(int codreunion) {
-		return tareasRepo.getTareasByCodReunionAndNoCerrado(codreunion);
+	public List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(int codreunion) {
+		return tareasRepo.getTareasByCodReunionAntiguaAndNoCerrada(codreunion);
 	}
 
 	@Override
-	public List<Tareas> getTareasByCodReunionAntiguaAndNoCerrado(int codreunion) {
-		return tareasRepo.getTareasByCodReunionAntiguaAndNoCerrado(codreunion);
+	public void saveTareasAntiguas(Tareas[] tareas, int codreunion) {
+		
+		Reunion reunion = rr.findOne(codreunion);
+		
+		if(tareas.length > 0 && reunion != null) {
+			
+			for (Tareas tar : tareas) {
+				tar.getReunion().add(reunion);
+				tareasRepo.save(tar);
+			}
+			
+		}
+		
+		
 	}
 	
 }

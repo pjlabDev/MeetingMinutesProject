@@ -19,7 +19,7 @@ public interface TemasService {
 	void añadirInfoTema(Temas tema, int codTema);
 	void añadirDecisionTema(Temas tema, int codTema);
 	void cerrarTemas(Temas tema);
-	List<Temas> getTemasByCodReunionAndNoCerrado(int codreunion);
 	List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion);
+	void saveTemaAntiguo(Temas[] tema, int codreunion);
 	
 }

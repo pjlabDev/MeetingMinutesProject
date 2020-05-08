@@ -3,11 +3,16 @@
  */
 package com.pedro.modelo;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+//import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,6 +33,7 @@ public class Temas {
 	@Column(name = "titulo")
 	private String titulo;
 	
+	@Lob
 	@Column(name = "info")
 	private String info;
 	
@@ -37,16 +43,15 @@ public class Temas {
 	@Column(name = "decision")
 	private String decision;
 	
-	@OneToOne
-	private Reunion reunion;
-
 	@Column(name = "cerrado")
 	@NotNull
 	private int cerrado;
+	
+	@ManyToMany(targetEntity=Reunion.class)
+	private Set<Reunion> reunion;
 
 	@OneToOne
 	private SerieReunion seriereunion;
-	
 	
 	/**
 	 * 
@@ -103,12 +108,12 @@ public class Temas {
 	public void setDecision(String decision) {
 		this.decision = decision;
 	}
-	
-	public Reunion getReunion() {
+
+	public Set<Reunion> getReunion() {
 		return reunion;
 	}
 
-	public void setReunion(Reunion reunion) {
+	public void setReunion(Set<Reunion> reunion) {
 		this.reunion = reunion;
 	}
 

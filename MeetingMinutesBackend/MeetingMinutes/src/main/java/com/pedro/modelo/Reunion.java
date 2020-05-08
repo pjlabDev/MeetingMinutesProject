@@ -82,5 +82,13 @@ public class Reunion {
 	public void setSeriereunion(SerieReunion seriereunion) {
 		this.seriereunion = seriereunion;
 	}
+
+	public Set<Usuarios> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<Usuarios> usuarios) {
+		this.usuarios = usuarios;
+	}
 	
 }

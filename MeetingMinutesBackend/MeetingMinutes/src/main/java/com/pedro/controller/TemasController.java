@@ -31,7 +31,7 @@ public class TemasController {
 	TemasService ts;
 	
 	@GetMapping("/tema/{codreunion}")
-	public List<Temas> getTemasByCodSReunion(@PathVariable int codreunion) {
+	public List<Temas> getTemasByCodReunion(@PathVariable int codreunion) {
 		return ts.getTemasByCodReunion(codreunion);
 	}
 	
@@ -60,14 +60,14 @@ public class TemasController {
 		ts.cerrarTemas(tema);
 	}
 	
-	@GetMapping("temasreunocerr/{codreunion}")
-	List<Temas> getTemasByCodReunionAndNoCerrado(@PathVariable int codreunion) {
-		return ts.getTemasByCodReunionAndNoCerrado(codreunion);
-	}
-	
-	@GetMapping("temasreunoantiguacerr/{codreunion}")
+	@GetMapping("temasreuantnocerr/{codreunion}")
 	List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(@PathVariable int codreunion) {
 		return ts.getTemasByCodReunionAntiguaAndNoCerrado(codreunion);
+	}
+	
+	@PostMapping("savetemasant/{codreunion}")
+	void saveTemasAntiguos(@RequestBody Temas[] tema, @PathVariable int codreunion) {
+		ts.saveTemaAntiguo(tema, codreunion);
 	}
 	
 }

@@ -3,7 +3,9 @@
  */
 package com.pedro.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,16 +46,19 @@ public class TemasServiceImpl implements TemasService {
 	@Override
 	public void crearTemas(Temas tema, int codreunion, int codsreunion) {
 		
+		Set<Reunion> reu = new HashSet<>();
+		
 		Reunion newR = rr.findOne(codreunion);
 		
 		SerieReunion newSR = sr.findOne(codsreunion);
 		
 		if(newR != null && newSR != null) {
+			reu.add(newR);
 			Temas newTema = new Temas();
 			
 			newTema.setTitulo(tema.getTitulo());
 			newTema.setEtiqueta(tema.getEtiqueta());
-			newTema.setReunion(newR);
+			newTema.setReunion(reu);
 			newTema.setSeriereunion(newSR);
 			
 			tr.save(newTema);
@@ -65,9 +70,15 @@ public class TemasServiceImpl implements TemasService {
 	public void añadirInfoTema(Temas tema, int codTema) {
 		
 		Temas updateTema = tr.findOne(codTema);
+		String infoTema = "";
 		
 		if(updateTema != null) {
-			updateTema.setInfo(tema.getInfo());
+			if(updateTema.getInfo() == null) {
+				infoTema += tema.getInfo();				
+			}else {
+				infoTema += updateTema.getInfo() + "\n" + tema.getInfo();
+			}
+			updateTema.setInfo(infoTema);
 			tr.save(updateTema);
 		}
 		
@@ -98,13 +109,25 @@ public class TemasServiceImpl implements TemasService {
 	}
 
 	@Override
-	public List<Temas> getTemasByCodReunionAndNoCerrado(int codreunion) {
-		return tr.getTemasByCodReunionAndNoCerrado(codreunion);
+	public List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion) {
+		return tr.getTemasByCodReunionAntiguaAndNoCerrado(codreunion);
 	}
 
 	@Override
-	public List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion) {
-		return tr.getTemasByCodReunionAntiguaAndNoCerrado(codreunion);
+	public void saveTemaAntiguo(Temas[] tema, int codreunion) {
+		
+		Reunion reunion = rr.findOne(codreunion);
+		
+		if(tema.length > 0 && reunion != null) {
+			
+			for (Temas tem : tema) {
+				tem.getReunion().add(reunion);
+				tr.save(tem);
+			}
+			
+		}
+	
+		
 	}
 
 }
