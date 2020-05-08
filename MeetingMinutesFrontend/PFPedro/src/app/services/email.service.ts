@@ -13,10 +13,13 @@ export class EmailService {
   constructor(private http: HttpClient) { }
 
 
-  enviarAgenda(receptores: any[], fechaReunion: string, temas: Temas[], temasAntiguos: any[]): Observable<any> {
-    return this.http.post(`${this.baseUrl}` + 'enviar/' + temasAntiguos + '/' + receptores + '/' + fechaReunion, temas);
+  enviarAgenda(receptores: any[], fechaReunion: string, temas: Temas[]): Observable<any> {
+    return this.http.post(`${this.baseUrl}` + 'enviar/' + receptores + '/' + fechaReunion, temas);
   }
 
+  enviarActa(receptores: any[], fechaActa: string, temas: any[], tareas: any[], conclusion: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}` + 'enviaracta/' + fechaActa + '/' + receptores + '/' + temas + '/' + tareas + '/' + conclusion);
+  }
 
 
 

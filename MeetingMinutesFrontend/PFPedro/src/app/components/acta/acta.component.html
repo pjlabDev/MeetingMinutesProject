@@ -31,57 +31,14 @@
                     <div *ngFor="let tem of temas">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-11">
-                                        <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
-                                    </div>
-                                    <div class="col">
-                                        <div class="dropdown">
-                                            <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <div *ngIf="us.isUserAdminAndJefe()">
-                                                    <a class="dropdown-item" (click)="cerrarTemas(tem.codTema)">Cerrar tema</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div *ngIf="tem.cerrado == 1">
+                                    <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span> (CERRADO)</h4>
+                                </div>
+                                <div *ngIf="tem.cerrado == 0">
+                                    <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
                                 </div>
                                 <div *ngIf="tem.info !== null">
-                                    <p>{{tem.info}}</p>
-                                </div>
-                                <div *ngIf="tem.decision !== null">
-                                    <hr>
-                                    <b>Decisión:</b>
-                                    <p>{{tem.decision}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-                <div *ngIf="existeTemaAntiguo">
-                    <h4>Temas antiguos no cerrados</h4>
-                    <br>
-                    <div *ngFor="let tem of temasAntiguosNoCerrados">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-11">
-                                        <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
-                                    </div>
-                                    <div class="col">
-                                        <div class="dropdown">
-                                            <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <div *ngIf="us.isUserAdminAndJefe()">
-                                                    <a class="dropdown-item" (click)="cerrarTemas(tem.codTema)">Cerrar tema</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="tem.info !== null">
-                                    <p>{{tem.info}}</p>
+                                    <p class="angular-with-newlines">{{tem.info}}</p>
                                 </div>
                                 <div *ngIf="tem.decision !== null">
                                     <hr>
@@ -103,53 +60,13 @@
                     <h3>Tareas</h3>
                     <br>
                     <div *ngFor="let tar of tareas">
-                        <div *ngIf="tar.reunion.codReunion === codreunion || tar.reunion.codReunion < codreunion" class="card">
+                        <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-11">
-                                        <h4 class="card-title">{{tar.titulo}}</h4>
-                                    </div>
-                                    <div *ngIf="us.isUserAdminAndJefe()" class="col">
-                                        <div class="dropdown">
-                                            <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" (click)="cerrarTareas(tar.codTarea)">Cerrar tarea</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div *ngIf="tar.cerrado == 1">
+                                    <h4 class="card-title">{{tar.titulo}} (CERRADA)</h4>
                                 </div>
-                                <hr>
-                                <div class="card-body">
-                                    <b>Detalles:</b>
-                                    <p>{{tar.descripcion}}</p>
-                                    <b>(Responsable/s)</b>
-                                    <div *ngFor="let user of tar.usuarios">
-                                        <p>- {{user.nombre}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-                <div *ngIf="existeTareaAntigua">
-                    <h4>Tareas antiguas NO cerradas</h4>
-                    <br>
-                    <div *ngFor="let tar of tareasAntiguasNoCerradas">
-                        <div *ngIf="tar.reunion.codReunion === codreunion || tar.reunion.codReunion < codreunion" class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-11">
-                                        <h4 class="card-title">{{tar.titulo}}</h4>
-                                    </div>
-                                    <div *ngIf="us.isUserAdminAndJefe()" class="col">
-                                        <div class="dropdown">
-                                            <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" (click)="cerrarTareas(tar.codTarea)">Cerrar tarea</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div *ngIf="tar.cerrado == 0">
+                                    <h4 class="card-title">{{tar.titulo}}</h4>
                                 </div>
                                 <hr>
                                 <div class="card-body">
@@ -179,6 +96,7 @@
                     </div>
                 </div>
                 <button [disabled]="!nuevaActaForm.valid" type="submit" class="btn btn-success">Generar</button>
+                <button [disabled]="!nuevaActaForm.valid" type="button" class="btn btn-success" (click)="enviarActa(nuevaActaForm)">Enviar Acta E-mail</button>
                 <button type="button" [routerLink]="['/', 'reunion', codsreunion, codreunion]" class="btn btn-light">Cancelar</button>
             </form>
         </div>

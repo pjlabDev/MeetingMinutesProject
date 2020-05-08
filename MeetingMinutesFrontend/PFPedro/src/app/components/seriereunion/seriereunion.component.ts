@@ -35,7 +35,7 @@ export class SeriereunionComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
-      this.sr.getSerieReunionByCodReunion(this.codsreunion).subscribe(data => {
+      this.sr.getSerieReunionByCodSReunion(this.codsreunion).subscribe(data => {
           this.serieReunion = data;
       });
       this.us.getUsuariosInSerieReunion(this.codsreunion).subscribe(data => {

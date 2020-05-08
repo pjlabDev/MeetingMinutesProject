@@ -25,6 +25,7 @@ export class TareasComponent implements OnInit {
   });
   usuarios: Usuario[];
   tareas: Tareas[];
+  tareasAntiguas: Tareas[];
   tarea: Tareas = new Tareas();
   codsreunion: number;
   codreunion: number;
@@ -36,7 +37,8 @@ export class TareasComponent implements OnInit {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
       this.codreunion = parseInt(response.get('idd'), 10);
-      this.getTareas(this.codsreunion);
+      this.getTareas(this.codreunion);
+      this.getTareasAntiguasNoCerradas(this.codreunion);
       this.us.getUsuariosByCodReunion(this.codreunion).subscribe(data => {
         this.usuarios = data;
       });
@@ -50,6 +52,19 @@ export class TareasComponent implements OnInit {
         this.tareas = data;
       } else {
         this.existeTarea = false;
+      }
+    });
+  }
+
+  getTareasAntiguasNoCerradas(id: number) {
+    this.ts.getTareasByCodReunionAntiguaAndNoCerrada(id).subscribe(data => {
+      if (data !== null && data.length !== 0) {
+        this.tareasAntiguas = data;
+        if (this.tareasAntiguas.length > 0) {
+          this.ts.saveTareasAntiguas(this.tareasAntiguas, this.codreunion).subscribe(res => {
+            this.getTareas(this.codreunion);
+          }, error => console.log('Error al guardar Tareas Antiguas: ', error));
+        }
       }
     });
   }
@@ -72,7 +87,7 @@ export class TareasComponent implements OnInit {
       });
       this.submitted = false;
       this.nuevaTareaForm.reset();
-      this.getTareas(this.codsreunion);
+      this.getTareas(this.codreunion);
     }, error => {
       Swal.fire({
         icon: 'error',
@@ -106,7 +121,7 @@ export class TareasComponent implements OnInit {
             'La tarea ha sido cerrada.',
             'success'
           );
-          this.getTareas(this.codsreunion);
+          this.getTareas(this.codreunion);
         }, error => {
           Swal.fire({
             icon: 'error',

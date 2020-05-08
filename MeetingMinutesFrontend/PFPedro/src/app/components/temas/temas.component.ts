@@ -53,7 +53,7 @@ export class TemasComponent implements OnInit {
   }
 
   getTemas(id: number) {
-    this.ts.getTemasByReunion(id).subscribe(data => {
+    this.ts.getTemasByCodReunion(id).subscribe(data => {
       if (data !== null && data.length !== 0) {
         this.existeTema = true;
         this.temas = data;
@@ -66,10 +66,15 @@ export class TemasComponent implements OnInit {
   getTemasAntiguosNoCerrados(id: number) {
     this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id).subscribe(data => {
       if (data !== null && data.length !== 0) {
-        this.existeTemaAntiguo = true;
         this.temasAntiguos = data;
-      } else {
-        this.existeTemaAntiguo = false;
+        if (this.temasAntiguos.length > 0) {
+          this.ts.saveTemaAntiguo(this.temasAntiguos, this.codreunion).subscribe(res => {
+            this.getTemas(this.codreunion);
+          }, error => {
+            console.log('Error al guardar tema antiguo: ', error);
+            this.getTemas(this.codreunion);
+          });
+        }
       }
     });
   }
@@ -133,7 +138,7 @@ export class TemasComponent implements OnInit {
         text: 'Inténtelo de nuevo o mas tarde.',
         timer: 1500
       });
-      this.nuevoTemaform.reset();
+      this.infoForm.reset();
       console.log('Error al añadir información al tema.', error);
     });
 
@@ -158,7 +163,7 @@ export class TemasComponent implements OnInit {
         text: 'Inténtelo de nuevo o mas tarde.',
         timer: 1500
       });
-      this.nuevoTemaform.reset();
+      this.decisionForm.reset();
       console.log('Error al añadir información al tema.', error);
     });
 

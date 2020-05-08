@@ -45,35 +45,69 @@
         </div>
         <br>
         <div *ngFor="let tem of temas">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
-                        </div>
-                        <div class="col">
-                            <div class="dropdown">
-                                <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" (click)="verModal(tem.codTema, infoModal)">Añadir información</a>
-                                    <a class="dropdown-item" (click)="verModal(tem.codTema, decisionModal)">Añadir Decision</a>
-                                    <div *ngIf="us.isUserAdminAndJefe()">
-                                        <a class="dropdown-item" (click)="cerrarTemas(tem.codTema)">Cerrar tema</a>
+            <div *ngIf="tem.cerrado == 0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
+                            </div>
+                            <div class="col">
+                                <div class="dropdown">
+                                    <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" (click)="verModal(tem.codTema, infoModal)">Añadir información</a>
+                                        <a class="dropdown-item" (click)="verModal(tem.codTema, decisionModal)">Añadir Decision</a>
+                                        <div *ngIf="us.isUserAdminAndJefe()">
+                                            <a class="dropdown-item" (click)="cerrarTemas(tem.codTema)">Cerrar tema</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div *ngIf="tem.info !== null">
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                            <p>{{tem.info}}</p>
+                        <div *ngIf="tem.info !== null">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <p class="angular-with-newlines">{{tem.info}}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="tem.decision !== null">
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+                                <hr>
+                                <b>Decisión:</b>
+                                <p>{{tem.decision}}</p>
+                            </div>
                         </div>
                     </div>
-                    <div *ngIf="tem.decision !== null">
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
-                            <hr>
-                            <b>Decisión:</b>
-                            <p>{{tem.decision}}</p>
+                </div>
+            </div>
+            <div *ngIf="tem.cerrado == 1">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span> (CERRADO)</h4>
+                            </div>
+                            <div class="col">
+                                <div class="dropdown">
+                                    <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" (click)="verModal(tem.codTema, infoModal)">Añadir información</a>
+                                        <a class="dropdown-item" (click)="verModal(tem.codTema, decisionModal)">Añadir Decision</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="tem.info !== null">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <p class="angular-with-newlines">{{tem.info}}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="tem.decision !== null">
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+                                <hr>
+                                <b>Decisión:</b>
+                                <p>{{tem.decision}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,45 +116,6 @@
         </div>
     </div>
     <br>
-    <div *ngIf="existeTemaAntiguo">
-        <h4>Temas de antiguas reuniones</h4>
-        <div *ngFor="let tem of temasAntiguos">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
-                        </div>
-                        <div class="col">
-                            <div class="dropdown">
-                                <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" (click)="verModal(tem.codTema, infoModal)">Añadir información</a>
-                                    <a class="dropdown-item" (click)="verModal(tem.codTema, decisionModal)">Añadir Decision</a>
-                                    <div *ngIf="us.isUserAdminAndJefe()">
-                                        <a class="dropdown-item" (click)="cerrarTemas(tem.codTema)">Cerrar tema</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="tem.info !== null">
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                            <p>{{tem.info}}</p>
-                        </div>
-                    </div>
-                    <div *ngIf="tem.decision !== null">
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
-                            <hr>
-                            <b>Decisión:</b>
-                            <p>{{tem.decision}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-        </div>
-    </div>
 </div>
 
 <ng-template #infoModal>

@@ -14,11 +14,14 @@ import Swal from 'sweetalert2';
 import { TareasService } from '../../services/tareas.service';
 import { Tareas } from '../../clases/tareas';
 import { Temas } from '../../clases/temas';
+import { EmailService } from '../../services/email.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-acta',
   templateUrl: './acta.component.html',
-  styleUrls: ['./acta.component.scss']
+  styleUrls: ['./acta.component.scss'],
+  providers: [DatePipe]
 })
 export class ActaComponent implements OnInit {
 
@@ -29,18 +32,17 @@ export class ActaComponent implements OnInit {
   codreunion: number;
   codigos: number[] = [];
   acta: Acta = new Acta();
+  fechaActa: string;
 
   tarea: Tareas = new Tareas();
   tareas: Tareas[];
-  tareasAntiguasNoCerradas: Tareas[];
+  codtareas: number[] = [];
   existeTarea = false;
-  existeTareaAntigua = false;
 
   tema: Temas = new Temas();
   temas: Temas[];
-  temasAntiguosNoCerrados: Temas[];
+  codtemas: number[] = [];
   existeTema = false;
-  existeTemaAntiguo = false;
 
   nuevaActaForm = new FormGroup({
     fecha: new FormControl('', [Validators.required]),
@@ -50,7 +52,7 @@ export class ActaComponent implements OnInit {
 
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
               public ts: TemasService, public rs: ReunionService, public router: Router, public as: ActaService,
-              public tarS: TareasService) { }
+              public tarS: TareasService, public es: EmailService, public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
@@ -63,15 +65,13 @@ export class ActaComponent implements OnInit {
       this.us.getUsuariosByCodReunion(this.codreunion).subscribe(data => {
         this.usuarios = data;
       });
-      this.getTareas(this.codreunion);
-      this.getTareasAntiguasNoCerradas(this.codreunion);
       this.getTemas(this.codreunion);
-      this.getTemasAntiguosNoCerrados(this.codreunion);
+      this.getTareas(this.codreunion);
     });
   }
 
   getSerieReunionById(id: number) {
-    this.sr.getSerieReunionByCodReunion(id).subscribe(data => {
+    this.sr.getSerieReunionByCodSReunion(id).subscribe(data => {
       this.serieReunion = data;
     }, error => {
       console.log('Error al recibir la serieReunion: ', error);
@@ -79,7 +79,7 @@ export class ActaComponent implements OnInit {
   }
 
   getTemas(id: number) {
-    this.ts.getTemasByCodReunionAndNoCerrado(id).subscribe(data => {
+    this.ts.getTemasByCodReunion(id).subscribe(data => {
       if (data !== null && data.length !== 0) {
         this.existeTema = true;
         this.temas = data;
@@ -89,35 +89,13 @@ export class ActaComponent implements OnInit {
     });
   }
 
-  getTemasAntiguosNoCerrados(id: number) {
-    this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id).subscribe(data => {
-      if (data !== null && data.length !== 0) {
-        this.existeTemaAntiguo = true;
-        this.temasAntiguosNoCerrados = data;
-      } else {
-        this.existeTemaAntiguo = false;
-      }
-    });
-  }
-
   getTareas(id: number) {
-    this.tarS.getTareasByCodReunionAndNoCerrado(id).subscribe(data => {
+    this.tarS.getTareasByCodReunion(id).subscribe(data => {
       if (data !== null && data.length !== 0) {
         this.existeTarea = true;
         this.tareas = data;
       } else {
         this.existeTarea = false;
-      }
-    });
-  }
-
-  getTareasAntiguasNoCerradas(id: number) {
-    this.tarS.getTareasByCodReunionAntiguaAndNoCerrado(id).subscribe(data => {
-      if (data !== null && data.length !== 0) {
-        this.existeTareaAntigua = true;
-        this.tareasAntiguasNoCerradas = data;
-      } else {
-        this.existeTareaAntigua = false;
       }
     });
   }
@@ -128,9 +106,7 @@ export class ActaComponent implements OnInit {
 
     console.log(form.value.conclusion);
     console.log(this.temas);
-    console.log(this.temasAntiguosNoCerrados);
     console.log(this.tareas);
-    console.log(this.tareasAntiguasNoCerradas);
 
     /* this.as.generarActa(this.acta, this.codreunion, this.codigos).subscribe(data => {
       Swal.fire({
@@ -153,76 +129,47 @@ export class ActaComponent implements OnInit {
     }); */
   }
 
-  cerrarTemas(codtema: number) {
+  enviarActa(form: NgForm) {
 
-    this.tema = new Temas();
-    this.tema.codTema = codtema;
+    if (this.temas !== undefined) {
+      console.log(this.temas);
+      this.temas.forEach(res => {
+        this.codtemas.push(res.codTema);
+      });
+    } else {
+      this.codtemas.push(-1);
+    }
 
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'El tema se cerrará si aceptas.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, cerrar!'
-    }).then((result) => {
-      if (result.value) {
-        this.ts.cerrarTemas(this.tema).subscribe(data => {
-          Swal.fire(
-            'Cerrado!',
-            'El tema ha sido cerrado.',
-            'success'
-          );
-          this.getTemas(this.codreunion);
-          this.getTemasAntiguosNoCerrados(this.codreunion);
-        }, error => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Lo sentimos, ha ocurrido un problema al cerrar el tema',
-            text: 'Inténtelo de nuevo o mas tarde.',
-            timer: 1500
-          });
-          console.log('error de tema: ', error);
-        });
-      }
-    });
-  }
+    if (this.tareas !== undefined) {
+      this.tareas.forEach(res => {
+        this.codtareas.push(res.codTarea);
+      });
+    } else {
+      this.codtareas.push(-1);
+    }
 
-  cerrarTareas(codtarea: number) {
 
-    this.tarea = new Tareas();
-    this.tarea.codTarea = codtarea;
+    this.codigos = form.value.asistentes;
+    this.fechaActa = this.datepipe.transform(form.value.fecha, 'dd-MM-yyyy');
+
+    console.log('Codigos de los temas: ', this.codtemas);
+    console.log('Codigos de las tareas: ', this.codtareas);
+    console.log('Fecha Acta: ', form.value.fecha);
+    console.log('Codigos de los asistentes: ', this.codigos);
 
     Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'La tarea se cerrará si aceptas.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, cerrar!'
-    }).then((result) => {
-      if (result.value) {
-        this.tarS.cerrarTareas(this.tarea).subscribe(data => {
-          Swal.fire(
-            'Cerrada!',
-            'La tarea ha sido cerrada.',
-            'success'
-          );
-          this.getTareas(this.codreunion);
-          this.getTareasAntiguasNoCerradas(this.codreunion);
-        }, error => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Lo sentimos, ha ocurrido un problema al cerrar la tarea',
-            text: 'Inténtelo de nuevo o mas tarde.',
-            timer: 1500
-          });
-          console.log('error de tarea: ', error);
-        });
-      }
+      icon: 'success',
+      title: 'Acta enviada a todos los asistentes.',
+      showConfirmButton: false,
+      timer: 1500
     });
+
+    this.es.enviarActa(this.codigos, this.fechaActa, this.codtemas, this.codtareas, form.value.conclusion).subscribe(data => {
+      this.codigos = [];
+      this.codtemas = [];
+      this.codtareas = [];
+    }, error => console.log('Error al enviar acta x email: ', error));
+
   }
 
   get conclusion() {

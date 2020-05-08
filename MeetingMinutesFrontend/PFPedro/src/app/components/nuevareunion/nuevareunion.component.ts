@@ -41,7 +41,7 @@ export class NuevareunionComponent implements OnInit {
 
 
   getSerieReunionById(id: number) {
-    this.sr.getSerieReunionByCodReunion(id).subscribe(data => {
+    this.sr.getSerieReunionByCodSReunion(id).subscribe(data => {
       this.serieReunion = data;
     }, error => {
       console.log('Error al recibir la serieReunion: ', error);

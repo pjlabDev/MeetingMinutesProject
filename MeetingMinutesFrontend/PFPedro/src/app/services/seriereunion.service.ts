@@ -21,7 +21,7 @@ export class SeriereunionService {
       return this.http.post(`${this.baseUrl}` + 'addseriereunion/' + codsusu, reunion);
   }
 
-  getSerieReunionByCodReunion(codsreunion: number): Observable<SerieReunion> {
+  getSerieReunionByCodSReunion(codsreunion: number): Observable<SerieReunion> {
     return this.http.get<SerieReunion>(`${this.baseUrl}` + 'sereunion/' + codsreunion);
   }
 

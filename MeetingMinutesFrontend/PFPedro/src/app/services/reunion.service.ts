@@ -21,10 +21,6 @@ export class ReunionService {
     return this.http.get<Reunion>(`${this.baseUrl}` + 'reunionbycodreunion/' + codreunion);
   }
 
-  getReunionByUsuarios(codusu: number): Observable<any> {
-    return this.http.get<Reunion>(`${this.baseUrl}` + 'reunionbyusuario/' + codusu);
-  }
-
   getReuniones(codusu: number, codsreunion: number): Observable<any> {
     return this.http.get<Reunion>(`${this.baseUrl}` + 'reuniones/' + codusu + '/' + codsreunion);
   }

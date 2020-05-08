@@ -13,7 +13,7 @@ export class TemasService {
   constructor(private http: HttpClient) { }
 
 
-  getTemasByReunion(codreunion: number): Observable<any> {
+  getTemasByCodReunion(codreunion: number): Observable<any> {
     return this.http.get<Temas>(`${this.baseUrl}` + 'tema/' + codreunion);
   }
 
@@ -37,12 +37,12 @@ export class TemasService {
     return this.http.put(`${this.baseUrl}` + 'cerrartema/', tema);
   }
 
-  getTemasByCodReunionAndNoCerrado(codreunion: number): Observable<any> {
-    return this.http.get<Temas>(`${this.baseUrl}` + 'temasreunocerr/' + codreunion);
+  getTemasByCodReunionAntiguaAndNoCerrado(codreunion: number): Observable<any> {
+    return this.http.get<Temas>(`${this.baseUrl}` + 'temasreuantnocerr/' + codreunion);
   }
 
-  getTemasByCodReunionAntiguaAndNoCerrado(codreunion: number): Observable<any> {
-    return this.http.get<Temas>(`${this.baseUrl}` + 'temasreunoantiguacerr/' + codreunion);
+  saveTemaAntiguo(tema: Temas[], codreunion: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}` + 'savetemasant/' + codreunion, tema);
   }
 
 }

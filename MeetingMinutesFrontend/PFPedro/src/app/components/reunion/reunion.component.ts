@@ -59,7 +59,7 @@ export class ReunionComponent implements OnInit {
         this.reunion = data;
       });
       this.getTemas(this.codreunion);
-      this.getTemasAntiguos(this.codreunion);
+      this.getTemasAntiguosNoCerrados(this.codreunion);
       this.us.getUsuariosByCodReunion(this.codreunion).subscribe(data => {
         this.usuarios = data;
       });
@@ -68,7 +68,7 @@ export class ReunionComponent implements OnInit {
   }
 
   getSerieReunionById(id: number) {
-    this.sr.getSerieReunionByCodReunion(id).subscribe(data => {
+    this.sr.getSerieReunionByCodSReunion(id).subscribe(data => {
       this.serieReunion = data;
     }, error => {
       console.log('Error al recibir la serieReunion: ', error);
@@ -76,18 +76,20 @@ export class ReunionComponent implements OnInit {
   }
 
   getTemas(id: number) {
-    this.ts.getTemasByReunion(id).subscribe(data => {
+    this.ts.getTemasByCodReunion(id).subscribe(data => {
       this.temas = data;
     });
   }
 
-  getTemasAntiguos(id: number) {
+  getTemasAntiguosNoCerrados(id: number) {
     this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id).subscribe(data => {
       if (data !== null && data.length !== 0) {
-        this.existeTemaAntiguo = true;
         this.temasAntiguos = data;
-      } else {
-        this.existeTemaAntiguo = false;
+        if (this.temasAntiguos.length > 0) {
+          this.ts.saveTemaAntiguo(this.temasAntiguos, this.codreunion).subscribe(res => {
+            this.getTemas(this.codreunion);
+          }, error => console.log('Error al guardar tema antiguo: ', error));
+        }
       }
     });
   }
@@ -99,14 +101,6 @@ export class ReunionComponent implements OnInit {
       this.codigos.push(response.codUsu);
     });
 
-    if (this.temasAntiguos !== undefined) {
-      this.temasAntiguos.forEach(res => {
-        this.codigosTemasAntiguos.push(res.codTema);
-      });
-    } else {
-      this.codigosTemasAntiguos.push(-1);
-    }
-
     Swal.fire({
       icon: 'success',
       title: 'Agenda enviada a los participantes de esta reunión.',
@@ -114,9 +108,8 @@ export class ReunionComponent implements OnInit {
       timer: 1500
     });
 
-    this.es.enviarAgenda(this.codigos, this.fechaReunion, this.temas, this.codigosTemasAntiguos).subscribe(dat => {
+    this.es.enviarAgenda(this.codigos, this.fechaReunion, this.temas).subscribe(dat => {
         this.codigos = [];
-        this.codigosTemasAntiguos = [];
       }, error => {
         console.log('Error al enviar la agenda', error);
       });
