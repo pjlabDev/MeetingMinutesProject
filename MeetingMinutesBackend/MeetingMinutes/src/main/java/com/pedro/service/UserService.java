@@ -19,5 +19,6 @@ public interface UserService {
 	List<Usuarios> getUsuariosNotInSerieReunion(int codsreunion);
 	List<Usuarios> getUsuariosInSerieReunion(int codsreunion);
 	List<Usuarios> getUsuariosByCodReunion(int codreunion);
+	List<Usuarios> getUsuariosByCodUsu(int[] codigos);
 	
 }

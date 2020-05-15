@@ -59,4 +59,10 @@ public class UsuariosController {
 	public List<Usuarios> getUsuariosByCodReunion(@PathVariable int codreunion){
 		return us.getUsuariosByCodReunion(codreunion);
 	}
+	
+	@GetMapping("/userbycodusu/{codigos}")
+	public List<Usuarios> getUsuariosByCodUsu(@PathVariable int[] codigos) {
+		return us.getUsuariosByCodUsu(codigos);
+	}
+	
 }

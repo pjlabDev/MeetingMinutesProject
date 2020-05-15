@@ -3,6 +3,7 @@
  */
 package com.pedro.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,23 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Usuarios> getUsuariosByCodReunion(int codreunion) {
 		return userRepository.getUsuariosByCodReunion(codreunion);
+	}
+
+	@Override
+	public List<Usuarios> getUsuariosByCodUsu(int[] codigos) {
+		
+		List<Usuarios> users = new ArrayList<Usuarios>();
+		
+		for (int cods : codigos) {
+			Usuarios user = userRepository.findOne(cods);
+			
+			if(user != null) {
+				users.add(user);
+			}
+			
+		}
+		
+		return users;
 	}
 	
 }
