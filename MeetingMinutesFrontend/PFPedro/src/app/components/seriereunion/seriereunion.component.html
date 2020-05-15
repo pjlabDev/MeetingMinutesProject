@@ -35,14 +35,18 @@
 <br><br>
 <div class="container">
     <div class="row">
-        <div class="col-9"></div>
+        <div class="col-9">
+            <div class="form-group">
+                <input type="search" class="form-control" name="filtro" autocomplete="off" placeholder="Buscar..." [(ngModel)]="filtroBusqueda">
+            </div>
+        </div>
         <div class="col" *ngIf="us.isUserAdminAndJefe()">
             <button type="submit" class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['/', 'addreunion', serieReunion.codSReunion]"><i class="fas fa-plus"></i> Crear nueva reunion</button>
         </div>
     </div>
     <br>
     <div *ngIf="isReunion">
-        <div *ngFor="let reu of reunion">
+        <div *ngFor="let reu of reunion | filter:filtroBusqueda">
             <div class="card">
                 <div class="card-body">
                     <a [routerLink]="['/', 'reunion', codsreunion, reu.codReunion]">{{reu.fecha}}</a>
@@ -53,7 +57,7 @@
         </div>
     </div>
     <div *ngIf="isTema">
-        <div *ngFor="let tem of temas">
+        <div *ngFor="let tem of temas | filter:filtroBusqueda">
             <div class="card">
                 <div class="card-body">
                     <div *ngIf="tem.cerrado === 1">
@@ -68,7 +72,7 @@
         </div>
     </div>
     <div *ngIf="isTareas">
-        <div *ngFor="let tar of tareas">
+        <div *ngFor="let tar of tareas | filter:filtroBusqueda">
             <div class="card">
                 <div class="card-body">
                     <div *ngIf="tar.cerrado === 1">

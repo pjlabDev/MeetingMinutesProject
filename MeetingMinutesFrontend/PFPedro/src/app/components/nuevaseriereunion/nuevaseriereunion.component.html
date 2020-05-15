@@ -6,7 +6,7 @@
             <div class="alert alert-danger" *ngIf="(equipo.touched) && (equipo.invalid)" style="margin-top: 5px;">
                 <span *ngIf="equipo.errors.required">El correo es un campo requerido</span>
                 <span *ngIf="equipo.errors.minlength">
-                    Longitud máxima del nombre del equipo: {{nombre.errors.minlength.requiredLength}}
+                    Longitud máxima del nombre del equipo: {{equipo.errors.minlength.requiredLength}}
                 </span>
             </div>
         </div>

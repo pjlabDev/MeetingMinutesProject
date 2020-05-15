@@ -65,6 +65,10 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${this.baseUrl}` + 'responsables/' + codtarea);
   }
 
+  getUsuariosByCodUsu(codusu: number[]): Observable<any> {
+    return this.http.get<Usuario>(`${this.baseUrl}` + 'userbycodusu/' + codusu);
+  }
+
   isUserAdmin() {
     this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
     if (this.usuario.rol === 'ADMINISTRADOR') {

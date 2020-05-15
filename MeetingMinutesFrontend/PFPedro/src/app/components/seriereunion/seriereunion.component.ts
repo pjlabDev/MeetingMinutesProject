@@ -18,6 +18,7 @@ import { Tareas } from '../../clases/tareas';
 })
 export class SeriereunionComponent implements OnInit {
 
+  filtroBusqueda;
   codsreunion: number;
   usuarios: Usuario[];
   reunion: Reunion[];

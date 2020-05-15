@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Usuario } from '../../clases/usuario';
 import { UsuarioService } from '../../services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +32,12 @@ export class RegisterComponent implements OnInit {
     this.usuario.rol = parseInt(form.value.rol, 10);
 
     this.us.addNewUsuario(this.usuario).subscribe(data => {
-      alert('Usuario añadido con éxito.');
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuario registrado con éxito.',
+        showConfirmButton: false,
+        timer: 1500
+      });
       this.registerForm.reset();
     }, error => {
       console.log('Error al añadir usuario', error);

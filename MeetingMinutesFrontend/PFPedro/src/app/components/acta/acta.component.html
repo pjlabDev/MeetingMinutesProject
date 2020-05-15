@@ -1,5 +1,6 @@
-<div class="container formNuevaReunion">
-    <h3 style="text-align: center;">Acta para la reunión del equipo: {{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
+<div class="container formNuevaReunion" id="contenido">
+    <h3 style="text-align: center;" id="title">Acta Reunión Equipo</h3>
+    <h3 style="text-align: center;" id="title2">{{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
     <br>
     <div class="card">
         <div class="card-body">
@@ -21,79 +22,86 @@
                     </div>
                 </div>
                 <br>
-                <div *ngIf="!existeTema">
-                    <h3>Temas</h3>
-                    <p>No hay temas para esta reunión.</p>
-                </div>
-                <div *ngIf="existeTema">
-                    <h3>Temas</h3>
-                    <br>
-                    <div *ngFor="let tem of temas">
-                        <div class="card">
-                            <div class="card-body">
-                                <div *ngIf="tem.cerrado == 1">
-                                    <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span> (CERRADO)</h4>
-                                </div>
-                                <div *ngIf="tem.cerrado == 0">
-                                    <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
-                                </div>
-                                <div *ngIf="tem.info !== null">
-                                    <p class="angular-with-newlines">{{tem.info}}</p>
-                                </div>
-                                <div *ngIf="tem.decision !== null">
-                                    <hr>
-                                    <b>Decisión:</b>
-                                    <p>{{tem.decision}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
+                <div id="temasytareas">
+                    <div *ngIf="!existeTema">
+                        <h3>TEMAS</h3>
+                        <p>No hay temas para esta reunión.</p>
                     </div>
-                </div>
-                <br>
-                <br>
-                <div *ngIf="!existeTarea">
-                    <h3>Tareas</h3>
-                    <p>No hay tareas para esta reunión.</p>
-                </div>
-                <div *ngIf="existeTarea">
-                    <h3>Tareas</h3>
-                    <br>
-                    <div *ngFor="let tar of tareas">
-                        <div class="card">
-                            <div class="card-body">
-                                <div *ngIf="tar.cerrado == 1">
-                                    <h4 class="card-title">{{tar.titulo}} (CERRADA)</h4>
-                                </div>
-                                <div *ngIf="tar.cerrado == 0">
-                                    <h4 class="card-title">{{tar.titulo}}</h4>
-                                </div>
-                                <hr>
+                    <div *ngIf="existeTema">
+                        <h3>TEMAS</h3>
+                        <br>
+                        <div *ngFor="let tem of temas">
+                            <div class="card">
                                 <div class="card-body">
-                                    <b>Detalles:</b>
-                                    <p>{{tar.descripcion}}</p>
-                                    <b>(Responsable/s)</b>
-                                    <div *ngFor="let user of tar.usuarios">
-                                        <p>- {{user.nombre}}</p>
+                                    <div *ngIf="tem.cerrado == 1">
+                                        <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span> (CERRADO)</h4>
+                                    </div>
+                                    <div *ngIf="tem.cerrado == 0">
+                                        <h4 class="card-title">{{tem.titulo}} <span>*{{tem.etiqueta}}*</span></h4>
+                                    </div>
+                                    <div *ngIf="tem.info !== null">
+                                        <p class="angular-with-newlines">{{tem.info}}</p>
+                                    </div>
+                                    <div *ngIf="tem.decision !== null">
+                                        <hr>
+                                        <b>Decisión:</b>
+                                        <p>{{tem.decision}}</p>
                                     </div>
                                 </div>
                             </div>
+                            <br>
                         </div>
-                        <br>
                     </div>
-                </div>
-                <br>
-                <br>
-                <h3>Conclusión Final</h3>
-                <div class="form-group">
-                    <label for="conclusion">Conclusión</label>
-                    <textarea id="conclusion" name="conclusion" formControlName="conclusion" class="form-control" rows="10" placeholder="Escriba la conclusión final..."></textarea>
-                    <div class="alert alert-danger" *ngIf="(conclusion.touched) && (conclusion.invalid)" style="margin-top: 5px;">
-                        <span *ngIf="conclusion.errors.required">La conclusión es un campo requerido</span>
-                        <span *ngIf="conclusion.errors.maxlength">
+                    <br>
+                    <br>
+                    <div *ngIf="!existeTarea">
+                        <h3>TAREAS</h3>
+                        <p>No hay tareas para esta reunión.</p>
+                    </div>
+                    <div *ngIf="existeTarea">
+                        <h3>TAREAS</h3>
+                        <br>
+                        <div *ngFor="let tar of tareas">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div *ngIf="tar.cerrado == 1">
+                                        <h4 class="card-title">{{tar.titulo}} (CERRADA)</h4>
+                                        <b>Detalles:</b>
+                                        <p>{{tar.descripcion}}</p>
+                                        <b>(Responsable/s)</b>
+                                        <div *ngFor="let user of tar.usuarios">
+                                            <p>- {{user.nombre}}</p>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="tar.cerrado == 0">
+                                        <h4 class="card-title">{{tar.titulo}}</h4>
+                                        <b>Detalles:</b>
+                                        <p>{{tar.descripcion}}</p>
+                                        <b>(Responsable/s)</b>
+                                        <div *ngFor="let user of tar.usuarios">
+                                            <p>- {{user.nombre}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <h3>Conclusión Final</h3>
+                    <div class="form-group">
+                        <label for="conclusion">Conclusión</label>
+                        <textarea id="conclusion" name="conclusion" formControlName="conclusion" class="form-control" rows="10" placeholder="Escriba la conclusión final..."></textarea>
+                        <div class="alert alert-danger" *ngIf="(conclusion.touched) && (conclusion.invalid)" style="margin-top: 5px;">
+                            <span *ngIf="conclusion.errors.required">La conclusión es un campo requerido</span>
+                            <span *ngIf="conclusion.errors.maxlength">
                         Longitud máxima de carácteres: {{conclusion.errors.maxlength.requiredLength}}
                         </span>
+                        </div>
                     </div>
+                    <p id="users"></p>
+                    <p id="conclu"></p>
                 </div>
                 <button [disabled]="!nuevaActaForm.valid" type="submit" class="btn btn-success">Generar</button>
                 <button [disabled]="!nuevaActaForm.valid" type="button" class="btn btn-success" (click)="enviarActa(nuevaActaForm)">Enviar Acta E-mail</button>

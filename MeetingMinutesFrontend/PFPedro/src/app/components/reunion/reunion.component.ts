@@ -123,7 +123,7 @@ export class ReunionComponent implements OnInit {
     this.archivosSeleccionados = event.target.files;
   }
 
-  enviarArchivo() {
+  guardarArchivo() {
     this.archivoEnCruso = this.archivosSeleccionados.item(0);
     this.archivo.nombre = this.archivoEnCruso.name;
     this.as.adjuntarArchivo(this.archivo.nombre, this.archivoEnCruso, this.codreunion).subscribe(res => {

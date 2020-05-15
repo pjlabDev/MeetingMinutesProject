@@ -30,7 +30,7 @@
             <br>
             <br>
             <div *ngIf="adjuntar">
-                <form [formGroup]="formArchivo" (ngSubmit)="enviarArchivo()" method="POST" enctype="multipart/form-data">
+                <form [formGroup]="formArchivo" (ngSubmit)="guardarArchivo()" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col">
                             <div class="input-group">

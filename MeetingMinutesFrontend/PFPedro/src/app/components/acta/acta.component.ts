@@ -16,6 +16,8 @@ import { Tareas } from '../../clases/tareas';
 import { Temas } from '../../clases/temas';
 import { EmailService } from '../../services/email.service';
 import { DatePipe } from '@angular/common';
+import * as jsPDF from 'jspdf';
+import * as html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-acta',
@@ -33,6 +35,7 @@ export class ActaComponent implements OnInit {
   codigos: number[] = [];
   acta: Acta = new Acta();
   fechaActa: string;
+  asistentes: Usuario[] = [];
 
   tarea: Tareas = new Tareas();
   tareas: Tareas[];
@@ -47,7 +50,7 @@ export class ActaComponent implements OnInit {
   nuevaActaForm = new FormGroup({
     fecha: new FormControl('', [Validators.required]),
     asistentes: new FormControl('', [Validators.required]),
-    conclusion: new FormControl('', [Validators.required, Validators.maxLength(500)])
+    conclusion: new FormControl('', [Validators.required, Validators.maxLength(1500)])
   });
 
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
@@ -101,38 +104,51 @@ export class ActaComponent implements OnInit {
   }
 
   generarActa(form: NgForm) {
-    this.acta.fecha = form.value.fecha;
+
     this.codigos = form.value.asistentes;
 
-    console.log(form.value.conclusion);
-    console.log(this.temas);
-    console.log(this.tareas);
+    let users = '';
 
-    /* this.as.generarActa(this.acta, this.codreunion, this.codigos).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Acta generada con éxito.',
-        showConfirmButton: false,
-        timer: 1500
+    if (this.codigos.length > 0) {
+      this.us.getUsuariosByCodUsu(this.codigos).subscribe(data => {
+        this.asistentes = data;
+        if (this.asistentes.length > 0) {
+          this.asistentes.forEach(res => {
+            users += res.nombre + ' - ' + res.rol + '\n';
+          });
+        }
       });
-      this.nuevaActaForm.reset();
-      this.router.navigate(['/', 'reunion', this.codsreunion, this.codreunion]);
-    }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Lo sentimos, ha ocurrido un problema a la hora de crear la reunión.',
-        text: 'Inténtelo de nuevo o mas tarde.',
-        timer: 1500
-      });
-      this.nuevaActaForm.reset();
-      console.log('Error al generar acta.', error);
-    }); */
+    }
+
+    const titulo1 = document.getElementById('title').textContent;
+    const titulo2 = document.getElementById('title2').textContent;
+
+    const doc = new jsPDF();
+    /* doc.text('Sevilla, Cantillana' + '\n' + 'Email: pedroperlab@gmail.com' + '\n' + 'Contacto: 667091224' + '\n'
+    + 'https://www.github.com/PedrassoxD', 10, 20); */
+    doc.text(titulo1, 80, 20);
+    doc.text(titulo2, 50, 30);
+    doc.text(`FECHA: ${form.value.fecha}`, 10, 50);
+    doc.text('ASISTENTES: ' + '\n' + this.codigos, 10, 70);
+    /* doc.text('CONCLUSIÓN: ' + '\n' + form.value.conclusion, 140, 50); */
+    doc.fromHTML(document.getElementById('temasytareas'), 10, 90);
+    /* const contador = doc.internal.getNumberOfPages();
+    for (let i = 0; i < contador; i++) {
+      const currentPage = doc.internal.getCurrentPageInfo().pageNumber;
+      doc.setPage(i);
+      if (currentPage < contador) {
+        doc.text(100, 285, 'Página ' + currentPage + ' de ' + contador);
+      } else {
+        doc.text(10, 250, 'Conclusión: ' + '\n' + form.value.conclusion);
+      }
+    } */
+    /* doc.text('Conclusión.- ' + '\n' + form.value.conclusion, 10, 150); */
+    doc.save('test.pdf');
   }
 
   enviarActa(form: NgForm) {
 
     if (this.temas !== undefined) {
-      console.log(this.temas);
       this.temas.forEach(res => {
         this.codtemas.push(res.codTema);
       });
@@ -151,11 +167,6 @@ export class ActaComponent implements OnInit {
 
     this.codigos = form.value.asistentes;
     this.fechaActa = this.datepipe.transform(form.value.fecha, 'dd-MM-yyyy');
-
-    console.log('Codigos de los temas: ', this.codtemas);
-    console.log('Codigos de las tareas: ', this.codtareas);
-    console.log('Fecha Acta: ', form.value.fecha);
-    console.log('Codigos de los asistentes: ', this.codigos);
 
     Swal.fire({
       icon: 'success',
