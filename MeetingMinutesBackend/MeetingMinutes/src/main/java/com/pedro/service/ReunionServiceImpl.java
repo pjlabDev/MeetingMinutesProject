@@ -69,6 +69,29 @@ public class ReunionServiceImpl implements ReunionService {
 	@Override
 	public List<Reunion> getReuniones(int codusu, int codsreunion) {
 		return rr.getReuniones(codusu, codsreunion);
+	}
+
+	@Override
+	public void modificarReunion(Reunion reunion, int[] codusu) {
+		
+		Reunion updateReunion = rr.findOne(reunion.getCodReunion());
+		Set<Usuarios> participantes = reunion.getUsuarios();
+		
+		if(updateReunion != null) {
+			
+			updateReunion.setFecha(reunion.getFecha());
+			
+			if(codusu[0] != -1) {
+				for (int cods : codusu) {
+					Usuarios us = userR.findOne(cods);
+					participantes.add(us);
+				}
+				updateReunion.setUsuarios(participantes);
+			}
+			rr.save(updateReunion);
+		}
+		
+		
 	}	
 	
 

@@ -69,7 +69,6 @@ public class TareasServiceImpl implements TareasService {
 			
 		}
 		
-		
 	}
 
 	@Override
@@ -90,8 +89,8 @@ public class TareasServiceImpl implements TareasService {
 	}
 
 	@Override
-	public List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(int codreunion) {
-		return tareasRepo.getTareasByCodReunionAntiguaAndNoCerrada(codreunion);
+	public List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(int codreunion, int codsreunion) {
+		return tareasRepo.getTareasByCodReunionAntiguaAndNoCerrada(codreunion, codsreunion);
 	}
 
 	@Override
@@ -107,7 +106,34 @@ public class TareasServiceImpl implements TareasService {
 			}
 			
 		}
+
+	}
+
+	@Override
+	public Tareas getTareaByCodTarea(int codtarea) {
+		return tareasRepo.getTareaByCodTarea(codtarea);
+	}
+
+	@Override
+	public void modificarTarea(Tareas tarea, int[] codusu) {
 		
+		Tareas updateTarea = tareasRepo.findOne(tarea.getCodTarea());
+		Set<Usuarios> usuario = tarea.getUsuarios();
+		
+		if(updateTarea != null) {
+			
+			updateTarea.setTitulo(tarea.getTitulo());
+			updateTarea.setDescripcion(tarea.getDescripcion());
+			
+			if(codusu[0] != -1) {
+				for (int cod : codusu) {
+					Usuarios usu = ur.findOne(cod);
+					usuario.add(usu);
+				}
+				updateTarea.setUsuarios(usuario);
+			}
+			tareasRepo.save(updateTarea);
+		}
 		
 	}
 	

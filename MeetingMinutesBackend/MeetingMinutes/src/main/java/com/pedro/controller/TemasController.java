@@ -60,14 +60,24 @@ public class TemasController {
 		ts.cerrarTemas(tema);
 	}
 	
-	@GetMapping("temasreuantnocerr/{codreunion}")
-	List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(@PathVariable int codreunion) {
-		return ts.getTemasByCodReunionAntiguaAndNoCerrado(codreunion);
+	@GetMapping("temasreuantnocerr/{codreunion}/{codsreunion}")
+	List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(@PathVariable int codreunion, @PathVariable int codsreunion) {
+		return ts.getTemasByCodReunionAntiguaAndNoCerrado(codreunion, codsreunion);
 	}
 	
 	@PostMapping("savetemasant/{codreunion}")
 	void saveTemasAntiguos(@RequestBody Temas[] tema, @PathVariable int codreunion) {
 		ts.saveTemaAntiguo(tema, codreunion);
+	}
+	
+	@GetMapping("/gettema/{codtema}")
+	public Temas getTemaByCodTema(@PathVariable int codtema) {
+		return ts.getTemaByCodTema(codtema);
+	}
+	
+	@PutMapping("/modificarTema")
+	public void modificarTema(@RequestBody Temas tema) {
+		ts.modificarTema(tema);
 	}
 	
 }

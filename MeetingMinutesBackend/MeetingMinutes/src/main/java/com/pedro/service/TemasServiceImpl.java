@@ -109,8 +109,8 @@ public class TemasServiceImpl implements TemasService {
 	}
 
 	@Override
-	public List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion) {
-		return tr.getTemasByCodReunionAntiguaAndNoCerrado(codreunion);
+	public List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion, int codsreunion) {
+		return tr.getTemasByCodReunionAntiguaAndNoCerrado(codreunion, codsreunion);
 	}
 
 	@Override
@@ -127,6 +127,28 @@ public class TemasServiceImpl implements TemasService {
 			
 		}
 	
+		
+	}
+
+	@Override
+	public Temas getTemaByCodTema(int codtema) {
+		return tr.getTemaByCodTema(codtema);
+	}
+
+	@Override
+	public void modificarTema(Temas tema) {
+		
+		Temas updateTema = tr.findOne(tema.getCodTema());
+		
+		if(updateTema != null) {
+			
+			updateTema.setTitulo(tema.getTitulo());
+			updateTema.setInfo(tema.getInfo());
+			updateTema.setEtiqueta(tema.getEtiqueta());
+			updateTema.setDecision(tema.getDecision());
+			tr.save(updateTema);
+			
+		}
 		
 	}
 

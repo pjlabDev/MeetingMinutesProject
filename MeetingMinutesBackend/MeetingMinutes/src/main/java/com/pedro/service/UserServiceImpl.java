@@ -69,5 +69,15 @@ public class UserServiceImpl implements UserService {
 		
 		return users;
 	}
+
+	@Override
+	public List<Usuarios> getUsuariosNotInTarea(int codsreunion, int codtarea) {
+		return userRepository.getUsuariosNotInTarea(codsreunion, codtarea);
+	}
+
+	@Override
+	public List<Usuarios> getUsuariosNotInReunion(int codreunion, int codsreunion) {
+		return userRepository.getUsuariosNotInReunion(codreunion, codsreunion);
+	}
 	
 }

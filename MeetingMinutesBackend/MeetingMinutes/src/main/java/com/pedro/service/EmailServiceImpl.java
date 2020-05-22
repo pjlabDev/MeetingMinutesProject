@@ -151,13 +151,13 @@ public class EmailServiceImpl implements EmailService {
 	        			for(Usuarios us : tarea.getUsuarios()) {
 	        				users += "          " + us.getRol() + " - " + us.getNombre() + "\n";
 	        			}
-	        			tareas += "  - " + tarea.getTitulo() + " (CERRADA)" + "\n" + "   Detalles: " + "\n" + tarea.getDescripcion() + "\n" + "   Responsables: " + "\n" + users + "\n";
+	        			tareas += "  - " + tarea.getTitulo() + " (CERRADA)" + "\n" + "   Detalles: " + "\n" + "         " + tarea.getDescripcion() + "\n" + "   Responsables: " + "\n" + users + "\n";
 	        			users = "";
 	        		}else {
 	        			for(Usuarios us : tarea.getUsuarios()) {
 	        				users += "          " + us.getRol() + " - " + us.getNombre() + "\n";
 	        			}
-	        			tareas += "  - " + tarea.getTitulo() + "\n" + "     Detalles: " + "\n" + "        " + tarea.getDescripcion() + "\n" + "     Responsables: " + "\n" + users + "\n";
+	        			tareas += "  - " + tarea.getTitulo() + "\n" + "     Detalles: " + "\n" + "         " + tarea.getDescripcion() + "\n" + "     Responsables: " + "\n" + users + "\n";
 	        			users = "";
 	        		}
 	        	}

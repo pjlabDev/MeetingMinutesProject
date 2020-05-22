@@ -27,7 +27,10 @@ public interface TareasRepository extends JpaRepository<Tareas, Integer> {
 	@Query(value = "SELECT * FROM tareas WHERE reunion_codreunion like ?1 AND cerrado = 0", nativeQuery = true)
 	List<Tareas> getTareasByCodReunionAndNoCerrado(int codreunion);
 	
-	@Query(value = "SELECT * FROM tareas JOIN tareas_reunion WHERE tareas_reunion.reunion_codreunion < ?1 AND cerrado = 0", nativeQuery = true)
-	List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(int codreunion);
+	@Query(value = "SELECT * FROM tareas JOIN tareas_reunion WHERE tareas_reunion.reunion_codreunion < ?1 AND cerrado = 0 AND tareas.seriereunion_codsreunion like ?2", nativeQuery = true)
+	List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(int codreunion, int codsreunion);
+	
+	@Query(value = "SELECT * FROM tareas WHERE codtarea like ?1", nativeQuery = true)
+	Tareas getTareaByCodTarea(int codtarea);
 	
 }

@@ -22,7 +22,10 @@ public interface TemasRepository extends JpaRepository<Temas, Integer> {
 	@Query(value = "SELECT * FROM temas WHERE seriereunion_codsreunion like ?1", nativeQuery = true)
 	List<Temas> getAllTemasByCodSReunion(int codsreunion);
 	
-	@Query(value = "SELECT * FROM temas JOIN temas_reunion WHERE temas_reunion.reunion_codreunion < ?1 AND cerrado = 0", nativeQuery = true)
-	List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion);
+	@Query(value = "SELECT * FROM temas JOIN temas_reunion WHERE temas_reunion.reunion_codreunion < ?1 AND cerrado = 0 AND temas.seriereunion_codsreunion like ?2", nativeQuery = true)
+	List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion, int codsreunion);
+	
+	@Query(value = "SELECT * FROM temas WHERE codtema like ?1", nativeQuery = true)
+	Temas getTemaByCodTema(int codtema);
 	
 }

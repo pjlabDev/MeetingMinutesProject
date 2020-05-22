@@ -45,13 +45,13 @@ public class UsuariosController {
 		us.addUsuario(usuario);
 	}
 	
-	@GetMapping("/usuariosnotinreunion/{codsreunion}")
-	public List<Usuarios> getUsuariosNotInReunion(@PathVariable int codsreunion){
+	@GetMapping("/usuariosnotinseriereunion/{codsreunion}")
+	public List<Usuarios> getUsuariosNotInSReunion(@PathVariable int codsreunion){
 		return us.getUsuariosNotInSerieReunion(codsreunion);
 	}
 	
-	@GetMapping("/usuariosinreunion/{codsreunion}")
-	public List<Usuarios> getUsuariosInReunion(@PathVariable int codsreunion){
+	@GetMapping("/usuariosinseriereunion/{codsreunion}")
+	public List<Usuarios> getUsuariosInSReunion(@PathVariable int codsreunion){
 		return us.getUsuariosInSerieReunion(codsreunion);
 	}
 	
@@ -63,6 +63,16 @@ public class UsuariosController {
 	@GetMapping("/userbycodusu/{codigos}")
 	public List<Usuarios> getUsuariosByCodUsu(@PathVariable int[] codigos) {
 		return us.getUsuariosByCodUsu(codigos);
+	}
+	
+	@GetMapping("/getusuariosnotintarea/{codsreunion}/{codtarea}")
+	public List<Usuarios> getUsuariosNotInTarea(@PathVariable int codsreunion, @PathVariable int codtarea) {
+		return us.getUsuariosNotInTarea(codsreunion, codtarea);
+	}
+	
+	@GetMapping("/getusuariosnotinreunion/{codreunion}/{codsreunion}")
+	public List<Usuarios> getUsuariosNotInReunion(@PathVariable int codreunion, @PathVariable int codsreunion) {
+		return us.getUsuariosNotInReunion(codreunion, codsreunion);
 	}
 	
 }

@@ -50,14 +50,24 @@ public class TareasController {
 		ts.cerrarTareas(tarea);
 	}
 	
-	@GetMapping("/tareasreuantiguanocerr/{codreunion}")
-	List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(@PathVariable int codreunion) {
-		return ts.getTareasByCodReunionAntiguaAndNoCerrada(codreunion);
+	@GetMapping("/tareasreuantiguanocerr/{codreunion}/{codsreunion}")
+	public List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(@PathVariable int codreunion, @PathVariable int codsreunion) {
+		return ts.getTareasByCodReunionAntiguaAndNoCerrada(codreunion, codsreunion);
 	}
 	
 	@PostMapping("/savetareasantiguas/{codreunion}")
 	public void saveTareasAntiguas(@RequestBody Tareas[] tareas, @PathVariable int codreunion) {
 		ts.saveTareasAntiguas(tareas, codreunion);
+	}
+	
+	@GetMapping("/gettarea/{codtarea}")
+	public Tareas getTareaByCodTarea(@PathVariable int codtarea) {
+		return ts.getTareaByCodTarea(codtarea);
+	}
+	
+	@PutMapping("/modificartarea/{codusu}")
+	public void modificarTarea(@RequestBody Tareas tarea, @PathVariable int[] codusu) {
+		ts.modificarTarea(tarea, codusu);
 	}
 	
 }
