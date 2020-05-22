@@ -19,8 +19,8 @@ export class TareasComponent implements OnInit {
   submitted = false;
   existeTarea = false;
   nuevaTareaForm = new FormGroup({
-    titulo: new FormControl('', [Validators.required]),
-    descripcion: new FormControl('', [Validators.required]),
+    titulo: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    descripcion: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     responsables: new FormControl('', [Validators.required])
   });
   usuarios: Usuario[];
@@ -38,7 +38,7 @@ export class TareasComponent implements OnInit {
       this.codsreunion = parseInt(response.get('id'), 10);
       this.codreunion = parseInt(response.get('idd'), 10);
       this.getTareas(this.codreunion);
-      this.getTareasAntiguasNoCerradas(this.codreunion);
+      this.getTareasAntiguasNoCerradas(this.codreunion, this.codsreunion);
       this.us.getUsuariosByCodReunion(this.codreunion).subscribe(data => {
         this.usuarios = data;
       });
@@ -56,8 +56,8 @@ export class TareasComponent implements OnInit {
     });
   }
 
-  getTareasAntiguasNoCerradas(id: number) {
-    this.ts.getTareasByCodReunionAntiguaAndNoCerrada(id).subscribe(data => {
+  getTareasAntiguasNoCerradas(id: number, id2: number) {
+    this.ts.getTareasByCodReunionAntiguaAndNoCerrada(id, id2).subscribe(data => {
       if (data !== null && data.length !== 0) {
         this.tareasAntiguas = data;
         if (this.tareasAntiguas.length > 0) {
@@ -133,6 +133,18 @@ export class TareasComponent implements OnInit {
         });
       }
     });
+  }
+
+  get titulo() {
+    return this.nuevaTareaForm.get('titulo');
+  }
+
+  get descripcion() {
+    return this.nuevaTareaForm.get('descripcion');
+  }
+
+  get responsables() {
+    return this.nuevaTareaForm.get('responsables');
   }
 
 }

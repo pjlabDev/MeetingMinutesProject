@@ -9,10 +9,22 @@
             <div class="form-group">
                 <label for="titulo">Titulo</label>
                 <input type="text" class="form-control col-sm-5" formControlName="titulo" id="titulo" placeholder="Titulo...">
+                <div class="alert alert-danger" *ngIf="(titulo.touched) && (titulo.invalid)" style="margin-top: 5px;">
+                    <span *ngIf="titulo.errors.required">El titulo es un campo requerido</span>
+                    <span *ngIf="titulo.errors.maxlength">
+                    Longitud máxima de carácteres: {{titulo.errors.maxlength.requiredLength}}
+                    </span>
+                </div>
             </div>
             <div class="form-group">
                 <label for="descripcion">Descripcion</label>
                 <textarea class="form-control col-sm-5" formControlName="descripcion" id="descripcion" placeholder="Descripcion..." rows="3"></textarea>
+                <div class="alert alert-danger" *ngIf="(descripcion.touched) && (descripcion.invalid)" style="margin-top: 5px;">
+                    <span *ngIf="descripcion.errors.required">La descripción es un campo requerido</span>
+                    <span *ngIf="descripcion.errors.maxlength">
+                    Longitud máxima de carácteres: {{descripcion.errors.maxlength.requiredLength}}
+                    </span>
+                </div>
             </div>
             <div class="form-group">
                 <label for="responsables">Responsables</label>
@@ -22,6 +34,9 @@
                         {{user.nombre}}
                     </option>
                 </select>
+                <div class="alert alert-danger" *ngIf="(responsables.touched) && (responsables.invalid)" style="margin-top: 5px;">
+                    <span *ngIf="responsables.errors.required">Los responsables es un campo requerido</span>
+                </div>
             </div>
             <button [disabled]="!nuevaTareaForm.valid" type="submit" class="btn btn-success">Crear tarea</button>
             <button type="submit" class="btn btn-light" (click)="submitted = false">Cancelar</button>
@@ -62,19 +77,7 @@
             <div *ngIf="tar.cerrado == 1">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-11">
-                                <h4 class="card-title">{{tar.titulo}} (CERRADA)</h4>
-                            </div>
-                            <div *ngIf="us.isUserAdminAndJefe()" class="col">
-                                <div class="dropdown">
-                                    <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" (click)="cerrarTareas(tar.codTarea)">Cerrar tarea</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="card-title">{{tar.titulo}} (CERRADA)</h4>
                         <hr>
                         <div class="card-body">
                             <b>Detalles:</b>

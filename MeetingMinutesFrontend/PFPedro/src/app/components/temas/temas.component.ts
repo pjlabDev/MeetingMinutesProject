@@ -21,7 +21,7 @@ export class TemasComponent implements OnInit {
   existeTemaAntiguo = false;
 
   nuevoTemaform = new FormGroup({
-    titulo: new FormControl('', [Validators.required]),
+    titulo: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     etiqueta: new FormControl('')
   });
 
@@ -48,7 +48,7 @@ export class TemasComponent implements OnInit {
       this.codsreunion = parseInt(response.get('id'), 10);
       this.codreunion = parseInt(response.get('idd'), 10);
       this.getTemas(this.codreunion);
-      this.getTemasAntiguosNoCerrados(this.codreunion);
+      this.getTemasAntiguosNoCerrados(this.codreunion, this.codsreunion);
     });
   }
 
@@ -63,8 +63,8 @@ export class TemasComponent implements OnInit {
     });
   }
 
-  getTemasAntiguosNoCerrados(id: number) {
-    this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id).subscribe(data => {
+  getTemasAntiguosNoCerrados(id: number, id2: number) {
+    this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id, id2).subscribe(data => {
       if (data !== null && data.length !== 0) {
         this.temasAntiguos = data;
         if (this.temasAntiguos.length > 0) {
@@ -202,6 +202,10 @@ export class TemasComponent implements OnInit {
         });
       }
     });
+  }
+
+  get titulo() {
+    return this.nuevoTemaform.get('titulo');
   }
 
   get info() {

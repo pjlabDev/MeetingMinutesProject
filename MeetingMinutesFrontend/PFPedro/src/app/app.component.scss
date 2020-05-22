@@ -7,5 +7,5 @@ $backRep: no-repeat;
     background-position: $backgPos;
     background-attachment: $backAttach;
     background-repeat: $backRep;
-    background-size: cover;
+    background-size: $backgSize;
 }

@@ -29,4 +29,8 @@ export class ReunionService {
     return this.http.post(`${this.baseUrl}` + 'addnewreunion/' + codsreunion + '/' + codsusu, reunion);
   }
 
+  modificarReunion(reunion: Reunion, codusu: number[]): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'modificarreunion/' + codusu, reunion);
+  }
+
 }

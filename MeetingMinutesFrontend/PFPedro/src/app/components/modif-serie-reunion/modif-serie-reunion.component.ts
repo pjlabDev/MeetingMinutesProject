@@ -49,7 +49,7 @@ export class ModifSerieReunionComponent implements OnInit {
           this.sr.modifSerieReunionConInvitado(reunion, this.codigos).subscribe(data => {
             Swal.fire({
               icon: 'success',
-              title: 'Reunion con mas invitados modificada con exito.',
+              title: 'Seriereunion con mas invitados modificada con exito.',
               showConfirmButton: false,
               timer: 1500
             });
@@ -67,7 +67,7 @@ export class ModifSerieReunionComponent implements OnInit {
         this.sr.modifSerieReunion(reunion).subscribe(data => {
           Swal.fire({
             icon: 'success',
-            title: 'Reunion modificada con éxito.',
+            title: 'Seriereunion modificada con éxito.',
             showConfirmButton: false,
             timer: 1500
           });

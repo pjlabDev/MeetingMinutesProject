@@ -20,6 +20,8 @@
                         </div>
                     </div>
                     <div class="col" *ngIf="us.isUserAdminAndJefe()">
+                        <i class="fas fa-edit fa-2x modifReunion" (click)="verReunion(reunionModal)"></i>
+                        <p> </p>
                         <i class="far fa-envelope fa-2x sendAgenda" (click)="enviarAgenda()"></i>
                     </div>
                 </div>
@@ -81,4 +83,51 @@
         </div>
     </div>
 </div>
+
+<ng-template #reunionModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Información del tema</h4>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="nomodificar && us.isUserAdminAndJefe()">
+            <p>¿Desea modificar la reunión?</p>
+            <button type="button" class="btn-sm btn-primary" (click)="siReunion()">Si</button>
+        </div>
+        <br>
+        <form [formGroup]="formReunion" method="POST" (ngSubmit)="modificarReunion(formReunion, reunionModal)">
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha" formControlName="fecha" class="form-control" placeholder="Fecha...">
+                <div class="alert alert-danger" *ngIf="(fecha.touched) && (fecha.invalid)" style="margin-top: 5px;">
+                    <span *ngIf="fecha.errors.required">La fecha es un campo requerido</span>
+                </div>
+
+                <br>
+
+                <label for="participantes">Participantes</label>
+                <select multiple class="form-control col-sm-5" id="participantes" formControlName="participantes">
+                    <option *ngFor="let user of usuarios" value="{{user.codUsu}}">
+                        {{user.nombre}}
+                    </option>
+                </select>
+
+                <br>
+
+                <div *ngIf="modificar">
+                    <label for="newparticipantes">¿Añadir más participantes a la reunión?</label>
+                    <select multiple id="newparticipantes" name="newparticipantes" formControlName="newparticipantes" class="form-control">
+                        <option *ngFor="let user of usuariosNotInReunion" value="{{user.codUsu}}">
+                            {{user.nombre}}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button *ngIf="modificar" [disabled]="!formReunion.valid" type="submit" class="btn btn-success">Añadir</button>
+                <button type="button" class="btn btn-light" (click)="cerrarModalReunion(reunionModal)">Cerrar</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
 <div style="height: 20rem;"></div>

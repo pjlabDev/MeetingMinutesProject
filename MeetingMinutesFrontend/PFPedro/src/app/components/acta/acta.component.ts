@@ -18,6 +18,7 @@ import { EmailService } from '../../services/email.service';
 import { DatePipe } from '@angular/common';
 import * as jsPDF from 'jspdf';
 import * as html2canvas from 'html2canvas';
+import { ImgDataServiceService } from '../../services/img-data-service.service';
 
 @Component({
   selector: 'app-acta',
@@ -26,7 +27,6 @@ import * as html2canvas from 'html2canvas';
   providers: [DatePipe]
 })
 export class ActaComponent implements OnInit {
-
   reunion: Reunion = new Reunion();
   serieReunion: SerieReunion = new SerieReunion();
   usuarios: Usuario[];
@@ -53,9 +53,11 @@ export class ActaComponent implements OnInit {
     conclusion: new FormControl('', [Validators.required, Validators.maxLength(1500)])
   });
 
+  conclus = '';
+
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
               public ts: TemasService, public rs: ReunionService, public router: Router, public as: ActaService,
-              public tarS: TareasService, public es: EmailService, public datepipe: DatePipe) { }
+              public tarS: TareasService, public es: EmailService, public datepipe: DatePipe, public img: ImgDataServiceService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
@@ -109,6 +111,24 @@ export class ActaComponent implements OnInit {
 
     let users = '';
 
+    const titulo1 = document.getElementById('title').textContent;
+    const titulo2 = document.getElementById('title2').textContent;
+
+    // tslint:disable-next-line: one-variable-per-declaration
+    const doc = new jsPDF(),
+    margins = {
+      top: 40,
+      bottom: 60,
+      left: 40,
+      width: 180
+    };
+
+    const imgURL = this.img.imgDataURL();
+
+    doc.addImage(imgURL, 'PNG', 10, 5, 35, 30);
+    doc.text(titulo1, 80, 20);
+    doc.text(titulo2, 60, 30);
+    doc.text(`FECHA: ${form.value.fecha}`, 10, 50);
     if (this.codigos.length > 0) {
       this.us.getUsuariosByCodUsu(this.codigos).subscribe(data => {
         this.asistentes = data;
@@ -119,31 +139,9 @@ export class ActaComponent implements OnInit {
         }
       });
     }
-
-    const titulo1 = document.getElementById('title').textContent;
-    const titulo2 = document.getElementById('title2').textContent;
-
-    const doc = new jsPDF();
-    /* doc.text('Sevilla, Cantillana' + '\n' + 'Email: pedroperlab@gmail.com' + '\n' + 'Contacto: 667091224' + '\n'
-    + 'https://www.github.com/PedrassoxD', 10, 20); */
-    doc.text(titulo1, 80, 20);
-    doc.text(titulo2, 50, 30);
-    doc.text(`FECHA: ${form.value.fecha}`, 10, 50);
     doc.text('ASISTENTES: ' + '\n' + this.codigos, 10, 70);
-    /* doc.text('CONCLUSIÓN: ' + '\n' + form.value.conclusion, 140, 50); */
-    doc.fromHTML(document.getElementById('temasytareas'), 10, 90);
-    /* const contador = doc.internal.getNumberOfPages();
-    for (let i = 0; i < contador; i++) {
-      const currentPage = doc.internal.getCurrentPageInfo().pageNumber;
-      doc.setPage(i);
-      if (currentPage < contador) {
-        doc.text(100, 285, 'Página ' + currentPage + ' de ' + contador);
-      } else {
-        doc.text(10, 250, 'Conclusión: ' + '\n' + form.value.conclusion);
-      }
-    } */
-    /* doc.text('Conclusión.- ' + '\n' + form.value.conclusion, 10, 150); */
-    doc.save('test.pdf');
+    doc.fromHTML(document.getElementById('temasytareas'), 10, 90, {width: margins.width});
+    doc.save(`${form.value.fecha}.pdf`);
   }
 
   enviarActa(form: NgForm) {

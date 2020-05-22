@@ -29,12 +29,20 @@ export class TareasService {
     return this.http.put(`${this.baseUrl}` + 'cerrartareas', tarea);
   }
 
-  getTareasByCodReunionAntiguaAndNoCerrada(codreunion: number): Observable<any> {
-    return this.http.get<Tareas>(`${this.baseUrl}` + 'tareasreuantiguanocerr/' + codreunion);
+  getTareasByCodReunionAntiguaAndNoCerrada(codreunion: number, codsreunion: number): Observable<any> {
+    return this.http.get<Tareas>(`${this.baseUrl}` + 'tareasreuantiguanocerr/' + codreunion + '/' + codsreunion);
   }
 
   saveTareasAntiguas(tareas: Tareas[], codreunion: number): Observable<any> {
     return this.http.post(`${this.baseUrl}` + 'savetareasantiguas/' + codreunion, tareas);
+  }
+
+  getTareaByCodTarea(codtarea: number): Observable<Tareas> {
+    return this.http.get<Tareas>(`${this.baseUrl}` + 'gettarea/' + codtarea);
+  }
+
+  modificarTarea(tarea: Tareas, codusu: number[]): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'modificartarea/' + codusu, tarea);
   }
 
 }

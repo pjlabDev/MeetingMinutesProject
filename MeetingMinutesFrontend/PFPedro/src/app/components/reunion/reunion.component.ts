@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Archivos } from '../../clases/archivos';
 import { ArchivoService } from '../../services/archivo.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-reunion',
@@ -46,24 +47,44 @@ export class ReunionComponent implements OnInit {
   archivos: Archivos[];
   existeArchivo = false;
 
+  formReunion = new FormGroup({
+    fecha: new FormControl('', [Validators.required]),
+    participantes: new FormControl('', [Validators.required]),
+    newparticipantes: new FormControl('')
+  });
+  modificar = false;
+  nomodificar = true;
+  usuariosNotInReunion: Usuario[];
+
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
               public ts: TemasService, public rs: ReunionService, public router: Router, public es: EmailService,
-              public datepipe: DatePipe, public as: ArchivoService) { }
+              public datepipe: DatePipe, public as: ArchivoService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
       this.codreunion = parseInt(response.get('idd'), 10);
       this.getSerieReunionById(this.codsreunion);
-      this.rs.getReunionByCodReunion(this.codreunion).subscribe(data => {
-        this.reunion = data;
-      });
+      this.getReunion(this.codreunion);
       this.getTemas(this.codreunion);
-      this.getTemasAntiguosNoCerrados(this.codreunion);
-      this.us.getUsuariosByCodReunion(this.codreunion).subscribe(data => {
-        this.usuarios = data;
-      });
+      this.getTemasAntiguosNoCerrados(this.codreunion, this.codsreunion);
+      this.getUsuariosByCodReunion(this.codreunion);
       this.getArchivosByCodreunion(this.codreunion);
+      this.us.getUsuariosNotInReunion(this.codreunion, this.codsreunion).subscribe(data => {
+        this.usuariosNotInReunion = data;
+      });
+    });
+  }
+
+  getReunion(id: number) {
+    this.rs.getReunionByCodReunion(id).subscribe(data => {
+      this.reunion = data;
+    });
+  }
+
+  getUsuariosByCodReunion(id: number) {
+    this.us.getUsuariosByCodReunion(id).subscribe(data => {
+      this.usuarios = data;
     });
   }
 
@@ -81,8 +102,8 @@ export class ReunionComponent implements OnInit {
     });
   }
 
-  getTemasAntiguosNoCerrados(id: number) {
-    this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id).subscribe(data => {
+  getTemasAntiguosNoCerrados(id: number, id2: number) {
+    this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id, id2).subscribe(data => {
       if (data !== null && data.length !== 0) {
         this.temasAntiguos = data;
         if (this.temasAntiguos.length > 0) {
@@ -194,6 +215,66 @@ export class ReunionComponent implements OnInit {
         });
       }
     });
+  }
+
+  verReunion(modal) {
+    this.fecha.disable();
+    this.participantes.disable();
+    this.fecha.setValue(this.reunion.fecha);
+
+    this.modalService.open(modal);
+  }
+
+  siReunion() {
+    this.nomodificar = false;
+    this.modificar = true;
+    this.fecha.enable();
+  }
+
+  modificarReunion(form: NgForm, modal) {
+
+    this.reunion.fecha = form.value.fecha;
+
+    let cods = [-1];
+
+    if (form.value.newparticipantes !== '') {
+      cods = form.value.newparticipantes;
+    }
+
+    this.rs.modificarReunion(this.reunion, cods).subscribe(data => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Reunión modificada con éxito.',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.getReunion(this.codreunion);
+      this.cerrarModalReunion(modal);
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Lo sentimos, ha ocurrido un problema al modificar la reunión',
+        text: 'Inténtelo de nuevo o mas tarde.',
+        timer: 1500
+      });
+      console.log(error);
+      this.cerrarModalReunion(modal);
+    });
+
+  }
+
+  cerrarModalReunion(modal) {
+    this.nomodificar = true;
+    this.modificar = false;
+    this.modalService.dismissAll(modal);
+  }
+
+  get fecha() {
+    return this.formReunion.get('fecha');
+  }
+
+  get participantes() {
+    return this.formReunion.get('participantes');
   }
 
 }

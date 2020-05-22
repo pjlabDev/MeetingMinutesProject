@@ -50,11 +50,11 @@ export class UsuarioService {
   }
 
   getUsuariosNotInSerieReunion(codsreunion: number): Observable<any> {
-      return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosnotinreunion/' + codsreunion);
+      return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosnotinseriereunion/' + codsreunion);
   }
 
   getUsuariosInSerieReunion(codsreunion: number): Observable<any> {
-    return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosinreunion/' + codsreunion);
+    return this.http.get<Usuario>(`${this.baseUrl}` + 'usuariosinseriereunion/' + codsreunion);
   }
 
   getUsuariosByCodReunion(codreunion: number): Observable<any> {
@@ -85,6 +85,14 @@ export class UsuarioService {
     } else {
       return false;
     }
+  }
+
+  getUsuariosNotInTarea(codsreunion: number, codtarea: number): Observable<any> {
+    return this.http.get<Usuario>(`${this.baseUrl}` + 'getusuariosnotintarea/' + codsreunion + '/' + codtarea);
+  }
+
+  getUsuariosNotInReunion(codreunion: number, codsreunion: number): Observable<any> {
+    return this.http.get<Usuario>(`${this.baseUrl}` + 'getusuariosnotinreunion/' + codreunion + '/' + codsreunion);
   }
 
 }

@@ -47,5 +47,7 @@
             <span>Usuario ya existente en la base de datos.</span>
         </div>
         <button [disabled]="!registerForm.valid" type="submit" class="btn btn-success">Añadir</button>
+        <button type="button" class="btn btn-light" [routerLink]="['/', 'home']">Cancelar</button>
     </form>
 </div>
+<div style="height: 20rem;"></div>

@@ -37,12 +37,20 @@ export class TemasService {
     return this.http.put(`${this.baseUrl}` + 'cerrartema/', tema);
   }
 
-  getTemasByCodReunionAntiguaAndNoCerrado(codreunion: number): Observable<any> {
-    return this.http.get<Temas>(`${this.baseUrl}` + 'temasreuantnocerr/' + codreunion);
+  getTemasByCodReunionAntiguaAndNoCerrado(codreunion: number, codsreunion: number): Observable<any> {
+    return this.http.get<Temas>(`${this.baseUrl}` + 'temasreuantnocerr/' + codreunion + '/' + codsreunion);
   }
 
   saveTemaAntiguo(tema: Temas[], codreunion: number): Observable<any> {
     return this.http.post(`${this.baseUrl}` + 'savetemasant/' + codreunion, tema);
+  }
+
+  getTemaByCodTema(codtema: number): Observable<Temas> {
+    return this.http.get<Temas>(`${this.baseUrl}` + 'gettema/' + codtema);
+  }
+
+  modificarTema(tema: Temas): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'modificarTema/', tema);
   }
 
 }
