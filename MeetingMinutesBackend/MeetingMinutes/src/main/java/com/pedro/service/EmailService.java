@@ -13,5 +13,6 @@ public interface EmailService {
 	
 	public void enviarAgenda(int[] receptores, String fechaReunion, Temas[] tema);
 	public void enviarActa(int[] receptores, String fechaActa, int[] codtema, int[] codtarea, String conclusion);
+	public void enviarTarea(int codtarea);
 	
 }

@@ -17,9 +17,11 @@ import { TemasComponent } from './components/temas/temas.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
 import { ActaComponent } from './components/acta/acta.component';
 import { TareasComponent } from './components/tareas/tareas.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     TemasComponent,
     ReunionComponent,
     ActaComponent,
-    TareasComponent
+    TareasComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

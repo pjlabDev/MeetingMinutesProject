@@ -196,6 +196,53 @@ public class EmailServiceImpl implements EmailService {
 	    }
 		
 	}
+
+	@Override
+	public void enviarTarea(int codtarea) {
+		
+		String responsables = "";
+		
+		Tareas tarea = taR.findOne(codtarea);
+		
+		String emisor = "vconvents@gmail.com";
+
+	    Properties props = System.getProperties();
+	    props.put("mail.smtp.host", "smtp.gmail.com");
+	    
+	    props.put("mail.smtp.user", emisor);
+	    
+	    props.put("mail.smtp.clave", "123456789#abc");
+	    
+	    props.put("mail.smtp.auth", "true");
+	    
+	    props.put("mail.smtp.starttls.enable", "true");
+	    
+	    props.put("mail.smtp.port", "587");
+
+	    Session session = Session.getDefaultInstance(props);
+	    MimeMessage message = new MimeMessage(session);
+
+	    try {
+	        message.setFrom(new InternetAddress(emisor));
+	        if(tarea != null) {
+	        	for (Usuarios us  : tarea.getUsuarios()) {
+	        		responsables += "    - " + us.getNombre() + " - " + us.getRol() + "\n";
+	        		message.addRecipients(Message.RecipientType.TO, us.getCorreo());					
+				}
+	        }
+	        message.setSubject("Tarea Propuesta.");
+	        message.setText("Estimados Colaboradores, adjuntamos información sobre la tarea:" + "\n\n" + tarea.getTitulo() + "\n" + "    " + tarea.getDescripcion() + "\n" + "Responsables: " + "\n" + responsables);
+	        Transport transport = session.getTransport("smtp");
+	        transport.connect("smtp.gmail.com", emisor, "123456789#abc");
+	        transport.sendMessage(message, message.getAllRecipients());
+	        transport.close();
+	    }
+	    catch (MessagingException me) {
+	        me.printStackTrace();
+	    }
+		
+		
+	}
 	
 
 }

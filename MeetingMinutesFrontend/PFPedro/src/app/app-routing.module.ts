@@ -8,13 +8,13 @@ import { NuevaseriereunionComponent } from './components/nuevaseriereunion/nueva
 import { SeriereunionComponent } from './components/seriereunion/seriereunion.component';
 import { ModifSerieReunionComponent } from './components/modif-serie-reunion/modif-serie-reunion.component';
 import { NuevareunionComponent } from './components/nuevareunion/nuevareunion.component';
-import { TemasComponent } from './components/temas/temas.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
 import { ActaComponent } from './components/acta/acta.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RolGuard } from './guards/rol.guard';
 import { LetrasGuard } from './guards/letras.guard';
 import { LetrastwoGuard } from './guards/letrastwo.guard';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 
 const routes: Routes = [
@@ -28,7 +28,8 @@ const routes: Routes = [
   {path: 'addreunion/:id', component: NuevareunionComponent, canActivate: [AuthGuard, RolGuard, LetrasGuard]},
   {path: 'reunion/:id/:idd', component: ReunionComponent, canActivate: [AuthGuard, LetrastwoGuard]},
   {path: 'acta/:id/:idd', component: ActaComponent, canActivate: [AuthGuard, RolGuard, LetrastwoGuard]},
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  {path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard, RolGuard]},
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

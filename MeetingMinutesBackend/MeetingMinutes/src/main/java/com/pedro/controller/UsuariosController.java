@@ -7,9 +7,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,6 +75,21 @@ public class UsuariosController {
 	@GetMapping("/getusuariosnotinreunion/{codreunion}/{codsreunion}")
 	public List<Usuarios> getUsuariosNotInReunion(@PathVariable int codreunion, @PathVariable int codsreunion) {
 		return us.getUsuariosNotInReunion(codreunion, codsreunion);
+	}
+	
+	@GetMapping("/getuserbycod/{codusu}")
+	public Usuarios getUserByCodUsu(@PathVariable int codusu) {
+		return us.getUserByCodUsu(codusu);
+	}
+	
+	@PutMapping("/modificarusuario")
+	public void modificarUsuario(@RequestBody Usuarios user) {
+		us.modificarUsuario(user);
+	}
+	
+	@DeleteMapping("/eliminarusuario/{codusu}")
+	public void eliminarUsuario(@PathVariable int codusu) {
+		us.eliminarUsuario(codusu);
 	}
 	
 }

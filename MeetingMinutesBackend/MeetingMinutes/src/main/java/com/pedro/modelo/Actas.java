@@ -6,6 +6,7 @@ package com.pedro.modelo;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class Actas {
 	@OneToOne
 	private Reunion reunion;
 	
-	@ManyToMany(targetEntity=Usuarios.class)
+	@ManyToMany(targetEntity=Usuarios.class, cascade = {CascadeType.ALL})
 	private Set<Usuarios> usuarios;
 	
 	/**

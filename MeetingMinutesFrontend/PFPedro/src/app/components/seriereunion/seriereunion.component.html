@@ -189,11 +189,9 @@
                 <br>
 
                 <label for="responsables">Responsables</label>
-                <select multiple id="responsables" name="responsables" class="form-control" disabled>
-                    <option *ngFor="let user of tarea.usuarios" value="{{user.codUsu}}">
-                        {{user.nombre}}
-                    </option>
-                </select>
+                <div *ngFor="let user of tarea.usuarios">
+                    {{user.nombre}} - {{user.rol}}
+                </div>
 
                 <br>
 
@@ -208,7 +206,7 @@
             </div>
             <div class="modal-footer">
                 <button *ngIf="modificar" [disabled]="!infoTareaForm.valid" type="submit" class="btn btn-success">Añadir</button>
-                <button type="button" class="btn btn-light" (click)="cerrarModalTarea(temaModal)">Cerrar</button>
+                <button type="button" class="btn btn-light" (click)="cerrarModalTarea(tareaModal)">Cerrar</button>
             </div>
         </form>
     </div>

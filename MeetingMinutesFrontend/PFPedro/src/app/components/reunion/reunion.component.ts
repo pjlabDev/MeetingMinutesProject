@@ -49,7 +49,6 @@ export class ReunionComponent implements OnInit {
 
   formReunion = new FormGroup({
     fecha: new FormControl('', [Validators.required]),
-    participantes: new FormControl('', [Validators.required]),
     newparticipantes: new FormControl('')
   });
   modificar = false;
@@ -219,7 +218,6 @@ export class ReunionComponent implements OnInit {
 
   verReunion(modal) {
     this.fecha.disable();
-    this.participantes.disable();
     this.fecha.setValue(this.reunion.fecha);
 
     this.modalService.open(modal);
@@ -249,6 +247,7 @@ export class ReunionComponent implements OnInit {
         timer: 1500
       });
       this.getReunion(this.codreunion);
+      this.getUsuariosByCodReunion(this.codreunion);
       this.cerrarModalReunion(modal);
     }, error => {
       Swal.fire({
@@ -271,10 +270,6 @@ export class ReunionComponent implements OnInit {
 
   get fecha() {
     return this.formReunion.get('fecha');
-  }
-
-  get participantes() {
-    return this.formReunion.get('participantes');
   }
 
 }

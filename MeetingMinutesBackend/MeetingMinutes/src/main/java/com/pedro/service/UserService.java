@@ -22,5 +22,8 @@ public interface UserService {
 	List<Usuarios> getUsuariosByCodUsu(int[] codigos);
 	List<Usuarios> getUsuariosNotInTarea(int codsreunion, int codtarea);
 	List<Usuarios> getUsuariosNotInReunion(int codreunion, int codsreunion);
+	Usuarios getUserByCodUsu(int codusu);
+	void modificarUsuario(Usuarios user);
+	void eliminarUsuario(int codusu);
 	
 }

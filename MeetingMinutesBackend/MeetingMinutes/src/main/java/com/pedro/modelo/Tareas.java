@@ -5,6 +5,7 @@ package com.pedro.modelo;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Tareas {
 	@NotNull
 	private int cerrado;
 	
-	@ManyToMany(targetEntity=Usuarios.class)
+	@ManyToMany(targetEntity=Usuarios.class, cascade = CascadeType.ALL)
 	private Set<Usuarios> usuarios;
 	
 	@ManyToMany(targetEntity=Reunion.class)

@@ -1,0 +1,88 @@
+<div class="container listusers">
+    <h2 style="text-align: center;">Listado de usuarios registrados</h2>
+    <br>
+    <table id="dtBasicExample" class="table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Clave</th>
+                <th scope="col">Rol</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of usuarios | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+                <th scope="row">{{user.codUsu}}</th>
+                <td>{{user.nombre}}</td>
+                <td>{{user.correo}}</td>
+                <td>{{user.clave}}</td>
+                <td>{{user.rol}}</td>
+                <td><button class="btn btn-primary" (click)="verUsuario(user.codUsu, userModal)">Modificar</button></td>
+                <td><button class="btn btn-danger" (click)="eliminarUsuario(user.codUsu)">Eliminar</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+</div>
+<ng-template #userModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Información del usuario</h4>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="userForm" method="POST" (ngSubmit)="modificarUsuario(userForm, userModal)">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" formControlName="nombre" class="form-control" placeholder="Nombre...">
+                <div class="alert alert-danger" *ngIf="(nombre.touched) && (nombre.invalid)" style="margin-top: 5px;">
+                    <span *ngIf="nombre.errors.required">El titulo es un campo requerido</span>
+                    <span *ngIf="nombre.errors.maxlength">
+                        Longitud máxima de carácteres: {{nombre.errors.maxlength.requiredLength}}
+                    </span>
+                </div>
+
+                <br>
+
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" name="correo" formControlName="correo" class="form-control" placeholder="Correo...">
+                <div class="alert alert-danger" *ngIf="(correo.touched) && (correo.invalid)" style="margin-top: 5px;">
+                    <span *ngIf="correo.errors.required">La descripción es un campo requerido</span>
+                    <span *ngIf="correo.errors.maxlength">
+                        Longitud máxima de carácteres: {{correo.errors.maxlength.requiredLength}}
+                    </span>
+                </div>
+
+                <br>
+
+                <label for="clave">Clave</label>
+                <input type="text" id="clave" name="clave" formControlName="clave" class="form-control" placeholder="Clave...">
+                <div class="alert alert-danger" *ngIf="(clave.touched) && (clave.invalid)" style="margin-top: 5px;">
+                    <span *ngIf="clave.errors.required">La descripción es un campo requerido</span>
+                    <span *ngIf="clave.errors.maxlength">
+                        Longitud máxima de carácteres: {{clave.errors.maxlength.requiredLength}}
+                    </span>
+                </div>
+
+                <br>
+
+                <label for="rol">Rol</label>
+                <input type="text" id="rol" class="form-control" name="rol" placeholder="Rol..." formControlName="rol">
+
+                <br>
+
+                <label for="rol">¿Quiere cambiar el rol?</label>
+                <select class="form-control" id="rol" formControlName="rolacambiar">
+                    <option selected disabled>Seleccione un rol</option>
+                    <option value="0">ADMINISTRADOR</option>
+                    <option value="1">USUARIO</option>
+                    <option value="2">JEFE REUNION</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="!userForm.valid" type="submit" class="btn btn-success">Modificar</button>
+                <button type="button" class="btn btn-light" (click)="cerrarModalUser(userModal)">Cerrar</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<div style="height: 25rem;"></div>

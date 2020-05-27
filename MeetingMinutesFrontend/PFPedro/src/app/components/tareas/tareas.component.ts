@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Usuario } from '../../clases/usuario';
 import { Tareas } from '../../clases/tareas';
 import { TareasService } from '../../services/tareas.service';
+import { EmailService } from '../../services/email.service';
 
 @Component({
   selector: 'app-tareas',
@@ -31,7 +32,7 @@ export class TareasComponent implements OnInit {
   codreunion: number;
   codusu: number[];
 
-  constructor(public route: ActivatedRoute, public us: UsuarioService, private router: Router, public ts: TareasService) { }
+  constructor(public route: ActivatedRoute, public us: UsuarioService, public ts: TareasService, public es: EmailService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
@@ -132,6 +133,24 @@ export class TareasComponent implements OnInit {
           console.log('error de tarea: ', error);
         });
       }
+    });
+  }
+
+  enviarTarea(codtarea: number) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Tarea enviada a los responsables.',
+      showConfirmButton: false,
+      timer: 1500
+    });
+    this.es.enviarTarea(codtarea).subscribe(data => {}, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Lo sentimos, ha ocurrido un problema al enviar la tarea',
+        text: 'Inténtelo de nuevo o mas tarde.',
+        timer: 1500
+      });
+      console.log('error send tarea: ', error);
     });
   }
 

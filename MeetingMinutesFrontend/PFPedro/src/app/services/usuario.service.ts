@@ -95,4 +95,16 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${this.baseUrl}` + 'getusuariosnotinreunion/' + codreunion + '/' + codsreunion);
   }
 
+  getUserByCodUsu(codusu: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.baseUrl}` + 'getuserbycod/' + codusu);
+  }
+
+  modificarUsuario(user: Usuario): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'modificarusuario', user);
+  }
+
+  eliminarUsuario(codusu: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}` + 'eliminarusuario/' + codusu);
+  }
+
 }

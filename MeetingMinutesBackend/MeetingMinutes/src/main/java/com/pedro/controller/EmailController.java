@@ -37,4 +37,9 @@ public class EmailController {
 		es.enviarActa(receptores, fechaActa, codtema, codtarea, conclusion);
 	}
 	
+	@GetMapping("/enviartarea/{codtarea}")
+	public void enviarTarea(@PathVariable int codtarea) {
+		es.enviarTarea(codtarea);
+	}
+	
 }

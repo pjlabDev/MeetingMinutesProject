@@ -21,8 +21,8 @@ export class EmailService {
     return this.http.get(`${this.baseUrl}` + 'enviaracta/' + fechaActa + '/' + receptores + '/' + temas + '/' + tareas + '/' + conclusion);
   }
 
-
-
-
+  enviarTarea(codtarea: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}` + 'enviartarea/' + codtarea);
+  }
 
 }

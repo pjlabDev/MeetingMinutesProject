@@ -79,5 +79,36 @@ public class UserServiceImpl implements UserService {
 	public List<Usuarios> getUsuariosNotInReunion(int codreunion, int codsreunion) {
 		return userRepository.getUsuariosNotInReunion(codreunion, codsreunion);
 	}
+
+	@Override
+	public Usuarios getUserByCodUsu(int codusu) {
+		return userRepository.getUserByCodUsu(codusu);
+	}
+
+	@Override
+	public void modificarUsuario(Usuarios user) {
+		
+		Usuarios updateUser = userRepository.findOne(user.getCodUsu());
+		
+		if(updateUser != null) {
+			
+			updateUser.setNombre(user.getNombre());
+			updateUser.setCorreo(user.getCorreo());
+			updateUser.setClave(user.getClave());
+			updateUser.setRol(user.getRol());
+			userRepository.save(updateUser);
+		}
+		
+	}
+
+	@Override
+	public void eliminarUsuario(int codusu) {
+		Usuarios deleteUser = userRepository.findOne(codusu);
+		
+		if(deleteUser != null) {
+			userRepository.delete(deleteUser);
+		}
+		
+	}
 	
 }
