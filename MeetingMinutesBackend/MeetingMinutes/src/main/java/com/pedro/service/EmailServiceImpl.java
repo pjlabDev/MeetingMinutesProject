@@ -240,9 +240,44 @@ public class EmailServiceImpl implements EmailService {
 	    catch (MessagingException me) {
 	        me.printStackTrace();
 	    }
+
+	}
+
+	@Override
+	public void enviarComentario(String nombre, String correo, String comentario) {
 		
+		String emisor = "vconvents@gmail.com";
+
+	    Properties props = System.getProperties();
+	    props.put("mail.smtp.host", "smtp.gmail.com");
+	    
+	    props.put("mail.smtp.user", emisor);
+	    
+	    props.put("mail.smtp.clave", "123456789#abc");
+	    
+	    props.put("mail.smtp.auth", "true");
+	    
+	    props.put("mail.smtp.starttls.enable", "true");
+	    
+	    props.put("mail.smtp.port", "587");
+
+	    Session session = Session.getDefaultInstance(props);
+	    MimeMessage message = new MimeMessage(session);
+
+	    try {
+	        message.setFrom(new InternetAddress(emisor));
+	        message.addRecipients(Message.RecipientType.TO, "vconvents@gmail.com");					
+	        message.setSubject("Comentario de usuario.");
+	        message.setText("Nombre del usuario: " + nombre + "\n" + "Correo: " + correo + "\n" + "Comentario: " + "\n" + comentario);
+	        Transport transport = session.getTransport("smtp");
+	        transport.connect("smtp.gmail.com", emisor, "123456789#abc");
+	        transport.sendMessage(message, message.getAllRecipients());
+	        transport.close();
+	    }
+	    catch (MessagingException me) {
+	        me.printStackTrace();
+	    }
 		
 	}
-	
 
 }

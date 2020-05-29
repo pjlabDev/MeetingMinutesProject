@@ -1,1 +1,56 @@
-<h1>Sobre nosotros</h1>
+<div class="container aboutus">
+    <h2>Sobre nosotros</h2>
+    <hr>
+    <b>MeetingMinutes</b>
+    <br>
+    <i>En nuestra página Ud. podrá organizar sus propias reuniones con las personas que desee.</i>
+    <br>
+    <br> Soy un estudiante de Desarrollo de Aplicaciones Web, he diseñado éste proyecto para que cualquier persona pueda organizar una reunión con su equipo de trabajo, en la que podrá añadir temas de discusión, archivos para compartir con los demás,
+    crear tareas y asignarlas a los participantes, etc. De esa reunión se puede generar un acta, exportado a un PDF para poder guardarlo o compartirlo con quien queramos. Y si estás buscando un lugar donde hacer todo lo anterior, éste es tu sitio y junto
+    a todos vosotros ayudaremos a mejorarlo todo lo posible.
+    <br>
+    <br>
+    <br>
+    <h2>Localización</h2>
+    <hr>
+    <div class="google-maps">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6321.237489418912!2d-5.828011172529944!3d37.611130968246556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd125bdabe44ec7b%3A0x942b64b42b28ffec!2s41320%20Cantillana%2C%20Sevilla!5e0!3m2!1ses!2ses!4v1590744491333!5m2!1ses!2ses"
+            width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+    </div>
+    <br>
+    <br>
+    <h2>Contáctanos</h2>
+    <hr>
+    <form [formGroup]="comentarioForm" method="POST" (ngSubmit)="enviarComentario(comentarioForm)">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input class="form-control" type="text" id="nombre" name="nombre" formControlName="nombre" placeholder="Nombre...">
+            <div class="alert alert-danger" *ngIf="(nombre.touched) && (nombre.invalid)" style="margin-top: 5px;">
+                <span *ngIf="nombre.errors.required">El nombre es un campo requerido</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo</label>
+            <input class="form-control" tpye="email" id="correo" name="correo" formControlName="correo" placeholder="Correo...">
+            <div class="alert alert-danger" *ngIf="(correo.touched) && (correo.invalid)" style="margin-top: 5px;">
+                <span *ngIf="correo.errors.required">El correo es un campo requerido</span>
+                <span *ngIf="correo.errors.pattern">
+                    El correo debe ser por ejemplo: ejemplo@ejemplo.com
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="comentarios">Comentarios</label>
+            <textarea class="form-control" id="comentarios" name="comentarios" formControlName="comentario" placeholder="Comentarios..." rows="5"></textarea>
+            <div class="alert alert-danger" *ngIf="(comentario.touched) && (comentario.invalid)" style="margin-top: 5px;">
+                <span *ngIf="comentario.errors.required">El comentario es un campo requerido</span>
+                <span *ngIf="comentario.errors.minlength">
+                    Longitud máxima del comentario: {{nombre.errors.minlength.requiredLength}}
+                </span>
+            </div>
+        </div>
+        <button [disabled]="!comentarioForm.valid" type="submit" class="btn btn-success">Enviar</button>
+    </form>
+    <hr>
+</div>
+<div style="height: 5rem;"></div>

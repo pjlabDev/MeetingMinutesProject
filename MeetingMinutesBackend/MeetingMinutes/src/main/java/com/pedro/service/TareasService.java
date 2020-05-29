@@ -21,4 +21,5 @@ public interface TareasService {
 	void saveTareasAntiguas(Tareas[] tareas, int codreunion);
 	Tareas getTareaByCodTarea(int codtarea);
 	void modificarTarea(Tareas tarea, int[] codusu);
+	void eliminarResponsable(Tareas tarea, int codusu);
 }

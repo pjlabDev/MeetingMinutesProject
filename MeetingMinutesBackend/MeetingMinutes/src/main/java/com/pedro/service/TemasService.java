@@ -23,5 +23,6 @@ public interface TemasService {
 	void saveTemaAntiguo(Temas[] tema, int codreunion);
 	Temas getTemaByCodTema(int codtema);
 	void modificarTema(Temas tema);
+	void añadirSeguimientoTemaCerrado(Temas tema);
 	
 }

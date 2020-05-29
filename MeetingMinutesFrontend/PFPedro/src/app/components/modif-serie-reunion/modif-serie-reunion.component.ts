@@ -20,33 +20,48 @@ export class ModifSerieReunionComponent implements OnInit {
   invitar = false;
   codigos: number[];
   modifSerieReunionForm = new FormGroup({
-    equipo: new FormControl('', [Validators.required]),
-    nombre: new FormControl('', [Validators.required]),
+    equipo: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(5)]),
     usuario: new FormControl(''),
     cerrado: new FormControl('', [Validators.required])
   });
 
-  constructor(public route: ActivatedRoute, private sr: SeriereunionService, private us: UsuarioService, private router: Router) { }
+  constructor(public route: ActivatedRoute, private sr: SeriereunionService, public us: UsuarioService, private router: Router) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
-      this.sr.getSerieReunionByCodSReunion(this.codsreunion).subscribe(data => {
-          this.serieReunion = data;
-      });
-      this.us.getUsuariosNotInSerieReunion(this.codsreunion).subscribe(data => {
-          this.usuarios = data;
-      });
+      this.getSerieReunion(this.codsreunion);
+      this.getUsuariosNotInSerieReunion(this.codsreunion);
+    });
+  }
+
+  getSerieReunion(id: number) {
+      this.sr.getSerieReunionByCodSReunion(id).subscribe(data => {
+        this.serieReunion = data;
+        this.equipo.setValue(this.serieReunion.equipo);
+        this.nombre.setValue(this.serieReunion.nombre);
+        this.cerrado.setValue(this.serieReunion.cerrado);
+    });
+  }
+
+  getUsuariosNotInSerieReunion(id: number) {
+    this.us.getUsuariosNotInSerieReunion(id).subscribe(data => {
+      this.usuarios = data;
     });
   }
 
   get diagnostic() { return JSON.stringify(this.serieReunion); }
 
-  modifSerieReunion(reunion: SerieReunion, form: NgForm) {
+  modifSerieReunion(form: NgForm) {
       this.codigos = form.value.usuario;
 
+      this.serieReunion.equipo = form.value.equipo;
+      this.serieReunion.nombre = form.value.nombre;
+      this.serieReunion.cerrado = form.value.cerrado;
+
       if (this.codigos.length > 0) {
-          this.sr.modifSerieReunionConInvitado(reunion, this.codigos).subscribe(data => {
+          this.sr.modifSerieReunionConInvitado(this.serieReunion, this.codigos).subscribe(data => {
             Swal.fire({
               icon: 'success',
               title: 'Seriereunion con mas invitados modificada con exito.',
@@ -64,7 +79,7 @@ export class ModifSerieReunionComponent implements OnInit {
           console.log('Error al modificar la reunion con mas invitados: ', error);
         });
       } else {
-        this.sr.modifSerieReunion(reunion).subscribe(data => {
+        this.sr.modifSerieReunion(this.serieReunion).subscribe(data => {
           Swal.fire({
             icon: 'success',
             title: 'Seriereunion modificada con éxito.',
@@ -84,4 +99,49 @@ export class ModifSerieReunionComponent implements OnInit {
       }
   }
 
+  eliminarParticipante(codusu: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'El participante se eliminará si aceptas.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        this.sr.eliminarParticipante(this.serieReunion, codusu).subscribe(data => {
+          Swal.fire(
+            'Eliminado!',
+            'Participante eliminado.',
+            'success'
+          );
+          this.getSerieReunion(this.codsreunion);
+          this.getUsuariosNotInSerieReunion(this.codsreunion);
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Lo sentimos, ha ocurrido un problema al borrar al participante',
+            text: 'Inténtelo de nuevo o mas tarde.',
+            timer: 1500
+          });
+          console.log('error eliminar participante: ', error);
+        });
+      }
+    });
+  }
+
+  get nombre() {
+    return this.modifSerieReunionForm.get('nombre');
+  }
+
+  get equipo() {
+    return this.modifSerieReunionForm.get('equipo');
+  }
+
+  get cerrado() {
+    return this.modifSerieReunionForm.get('cerrado');
+  }
+
 }
+

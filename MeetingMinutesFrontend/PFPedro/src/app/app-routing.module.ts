@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'reunion/:id/:idd', component: ReunionComponent, canActivate: [AuthGuard, LetrastwoGuard]},
   {path: 'acta/:id/:idd', component: ActaComponent, canActivate: [AuthGuard, RolGuard, LetrastwoGuard]},
   {path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard, RolGuard]},
-  { path: '**', redirectTo: 'home', pathMatch: 'full' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

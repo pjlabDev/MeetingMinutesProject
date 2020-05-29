@@ -53,4 +53,8 @@ export class TemasService {
     return this.http.put(`${this.baseUrl}` + 'modificarTema/', tema);
   }
 
+  addSeguimientoTemaCerrado(tema: Temas): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'addseguimiento', tema);
+  }
+
 }

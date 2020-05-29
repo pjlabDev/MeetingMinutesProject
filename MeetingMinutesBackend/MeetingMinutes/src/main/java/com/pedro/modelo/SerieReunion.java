@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+
 /**
  * @author Westermeyer
  *
@@ -40,7 +41,7 @@ public class SerieReunion {
 	@NotNull
 	private int Cerrado;
 	
-	@ManyToMany(targetEntity=Usuarios.class, cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.ALL}, targetEntity=Usuarios.class)
 	private Set<Usuarios> usuarios;
 	
 	

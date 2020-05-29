@@ -5,7 +5,7 @@
             <h3 style="text-align: center;">{{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
         </div>
         <div *ngIf="us.isUserAdminAndJefe()" class="col">
-            <a [routerLink]="['/', 'modifseriereunion', serieReunion.codSReunion]"><i class="fas fa-cogs fa-2x"></i></a>
+            <a [routerLink]="['/', 'modifseriereunion', serieReunion.codSReunion]" title="Modificar Serie Reunion"><i class="fas fa-cogs fa-2x"></i></a>
         </div>
     </div>
 </div>
@@ -21,13 +21,13 @@
     <div class="row justify-content-center">
         <div class="col-sm-2"></div>
         <div class="col">
-            <button type="button" class="btn btn-outline-primary" (click)="verReuniones()">Reuniones</button>
+            <button type="button" class="btn btn-outline-primary" (click)="verReuniones()" title="Ver Reuniones">Reuniones</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-outline-primary" (click)="verTemas()">Temas</button>
+            <button type="button" class="btn btn-outline-primary" (click)="verTemas()" title="Ver Temas">Temas</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-outline-primary" (click)="verTareas()">Tareas</button>
+            <button type="button" class="btn btn-outline-primary" (click)="verTareas()" title="Ver Tareas">Tareas</button>
         </div>
     </div>
 </div>
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="col" *ngIf="us.isUserAdminAndJefe()">
-            <button type="submit" class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['/', 'addreunion', serieReunion.codSReunion]"><i class="fas fa-plus"></i> Crear nueva reunion</button>
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['/', 'addreunion', serieReunion.codSReunion]" title="Crear nueva Reunion"><i class="fas fa-plus"></i> Crear nueva reunion</button>
         </div>
     </div>
     <br>
@@ -49,7 +49,7 @@
         <div *ngFor="let reu of reunion | filter:filtroBusqueda">
             <div class="card">
                 <div class="card-body">
-                    <a [routerLink]="['/', 'reunion', codsreunion, reu.codReunion]">{{reu.fecha}}</a>
+                    <a [routerLink]="['/', 'reunion', codsreunion, reu.codReunion]" title="Acceder a la Reunion">{{reu.fecha}}</a>
                     <hr>
                 </div>
             </div>
@@ -99,7 +99,7 @@
     <div class="modal-body">
         <div *ngIf="nomodificar && us.isUserAdminAndJefe()">
             <p>¿Desea modificar el tema?</p>
-            <button type="button" class="btn-sm btn-primary" (click)="siTema()">Si</button>
+            <button type="button" class="btn-sm btn-primary" (click)="siTema()" title="Modificar Tema">Si</button>
         </div>
         <br>
         <form [formGroup]="infoTemaForm" method="POST" (ngSubmit)="modificarTema(infoTemaForm, temaModal)">
@@ -161,7 +161,7 @@
     <div class="modal-body">
         <div *ngIf="nomodificar && us.isUserAdminAndJefe()">
             <p>¿Desea modificar la tarea?</p>
-            <button type="button" class="btn-sm btn-primary" (click)="siTarea()">Si</button>
+            <button type="button" class="btn-sm btn-primary" (click)="siTarea()" title="Modificar Tarea">Si</button>
         </div>
         <br>
         <form [formGroup]="infoTareaForm" method="POST" (ngSubmit)="modificarTarea(infoTareaForm, tareaModal)">
@@ -190,18 +190,30 @@
 
                 <label for="responsables">Responsables</label>
                 <div *ngFor="let user of tarea.usuarios">
-                    {{user.nombre}} - {{user.rol}}
+                    <div class="row">
+                        <div class="col">
+                            {{user.nombre}} - {{user.rol}}
+                        </div>
+                        <div class="col" *ngIf="us.isUserAdminAndJefe() && modificar">
+                            <button type="button" class="boton2" (click)="eliminarResponsableTarea(user.codUsu, tareaModal)"><i class="fas fa-times x"></i></button>
+                        </div>
+                    </div>
                 </div>
 
                 <br>
 
                 <div *ngIf="modificar">
-                    <label for="newresponsables">¿Añadir más responsables a la tarea?</label>
-                    <select multiple id="responsables" name="responsables" formControlName="responsablesTarea" class="form-control">
-                        <option *ngFor="let user of usuariosnotintarea" value="{{user.codUsu}}">
-                            {{user.nombre}}
-                        </option>
-                    </select>
+                    <div *ngIf="usuariosnotintarea.length == 0">
+                        <p>Debe invitar más usuarios a la serie de reuniones para poder añadirlos aquí.</p>
+                    </div>
+                    <div *ngIf="usuariosnotintarea.length > 0">
+                        <label for="newresponsables">¿Añadir más responsables a la tarea?</label>
+                        <select multiple id="responsables" name="responsables" formControlName="responsablesTarea" class="form-control">
+                            <option *ngFor="let user of usuariosnotintarea" value="{{user.codUsu}}">
+                                {{user.nombre}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

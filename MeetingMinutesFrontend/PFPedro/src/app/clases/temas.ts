@@ -7,5 +7,6 @@ export class Temas {
     decision: string;
     cerrado: number;
     reunion: Reunion;
+    seguimiento: string;
 
 }

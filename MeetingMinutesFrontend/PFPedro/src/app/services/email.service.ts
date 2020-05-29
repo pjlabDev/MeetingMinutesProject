@@ -25,4 +25,8 @@ export class EmailService {
     return this.http.get(`${this.baseUrl}` + 'enviartarea/' + codtarea);
   }
 
+  enviarComentario(nombre: string, correo: string, comentario: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}` + 'enviarcomentario/' + nombre + '/' + correo + '/' + comentario);
+  }
+
 }

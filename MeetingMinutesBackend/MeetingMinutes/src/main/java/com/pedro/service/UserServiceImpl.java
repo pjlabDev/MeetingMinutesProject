@@ -102,13 +102,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void eliminarUsuario(int codusu) {
+	public int eliminarUsuario(int codusu) {
 		Usuarios deleteUser = userRepository.findOne(codusu);
 		
 		if(deleteUser != null) {
-			userRepository.delete(deleteUser);
+			try {
+				userRepository.delete(deleteUser);
+				return 1;
+			} catch (Exception e) {
+				return 0;
+			}
 		}
-		
+		return 0;
 	}
 	
 }

@@ -18,5 +18,6 @@ public interface SerieReunionService {
 	SerieReunion getSerieReunionByCodReunion(int codsreunion);
 	void modificarSerieReunion(SerieReunion reunion);
 	void modificarSerieReunionInvitandoMasUsuarios(SerieReunion reunion, int[] codusu);
+	void eliminarParticipante(SerieReunion sr, int codusu);
 	
 }

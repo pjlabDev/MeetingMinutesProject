@@ -87,21 +87,21 @@ export class UsuariosComponent implements OnInit {
 
   eliminarUsuario(codusu: number) {
     this.us.eliminarUsuario(codusu).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario eliminado con éxito.',
-        showConfirmButton: false,
-        timer: 1500
-      });
-      this.getAllUsuarios();
-    }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Lo sentimos, ha ocurrido un problema al modificar el usuario',
-        text: 'Inténtelo de nuevo o mas tarde.',
-        timer: 1500
-      });
-      console.log(error);
+      if (data === 1) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Usuario eliminado con éxito.',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.getAllUsuarios();
+      } else if (data === 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Lo sentimos, ha ocurrido un problema al modificar el usuario',
+          text: 'Asegúrese de que el usuario no se encuentre en ninguna reunión o tenga asignada una tarea.',
+        });
+      }
     });
   }
 

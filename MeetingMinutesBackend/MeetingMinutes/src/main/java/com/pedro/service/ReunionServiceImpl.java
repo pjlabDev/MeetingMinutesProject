@@ -92,6 +92,22 @@ public class ReunionServiceImpl implements ReunionService {
 		}
 		
 		
+	}
+
+	@Override
+	public void eliminarParticipante(Reunion reunion, int codusu) {
+		
+		Reunion reu = rr.findOne(reunion.getCodReunion());
+		Usuarios us = userR.findOne(codusu);
+		
+		if(reu != null && us != null) {
+			
+			if(reu.getUsuarios().contains(us)) {
+				reu.getUsuarios().remove(us);
+			}
+			rr.save(reu);			
+		}
+		
 	}	
 	
 

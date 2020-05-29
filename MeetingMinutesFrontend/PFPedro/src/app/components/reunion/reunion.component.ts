@@ -69,9 +69,7 @@ export class ReunionComponent implements OnInit {
       this.getTemasAntiguosNoCerrados(this.codreunion, this.codsreunion);
       this.getUsuariosByCodReunion(this.codreunion);
       this.getArchivosByCodreunion(this.codreunion);
-      this.us.getUsuariosNotInReunion(this.codreunion, this.codsreunion).subscribe(data => {
-        this.usuariosNotInReunion = data;
-      });
+      this.getUsuariosNotInReunion(this.codreunion, this.codsreunion);
     });
   }
 
@@ -111,6 +109,12 @@ export class ReunionComponent implements OnInit {
           }, error => console.log('Error al guardar tema antiguo: ', error));
         }
       }
+    });
+  }
+
+  getUsuariosNotInReunion(id: number, idd: number) {
+    this.us.getUsuariosNotInReunion(id, idd).subscribe(data => {
+      this.usuariosNotInReunion = data;
     });
   }
 
@@ -219,7 +223,6 @@ export class ReunionComponent implements OnInit {
   verReunion(modal) {
     this.fecha.disable();
     this.fecha.setValue(this.reunion.fecha);
-
     this.modalService.open(modal);
   }
 
@@ -266,6 +269,40 @@ export class ReunionComponent implements OnInit {
     this.nomodificar = true;
     this.modificar = false;
     this.modalService.dismissAll(modal);
+    this.formReunion.reset();
+  }
+
+  eliminarParticipante(codusu: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'El participante se eliminará si aceptas.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        this.rs.eliminarParticipante(this.reunion, codusu).subscribe(data => {
+          Swal.fire(
+            'Eliminado!',
+            'Participante eliminado.',
+            'success'
+          );
+          this.getReunion(this.codreunion);
+          this.getUsuariosByCodReunion(this.codreunion);
+          this.getUsuariosNotInReunion(this.codreunion, this.codsreunion);
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Lo sentimos, ha ocurrido un problema al borrar al participante',
+            text: 'Inténtelo de nuevo o mas tarde.',
+            timer: 1500
+          });
+          console.log('error eliminar participante: ', error);
+        });
+      }
+    });
   }
 
   get fecha() {

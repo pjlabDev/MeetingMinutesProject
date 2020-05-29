@@ -88,8 +88,8 @@ public class UsuariosController {
 	}
 	
 	@DeleteMapping("/eliminarusuario/{codusu}")
-	public void eliminarUsuario(@PathVariable int codusu) {
-		us.eliminarUsuario(codusu);
+	public int eliminarUsuario(@PathVariable int codusu) {
+		return us.eliminarUsuario(codusu);
 	}
 	
 }

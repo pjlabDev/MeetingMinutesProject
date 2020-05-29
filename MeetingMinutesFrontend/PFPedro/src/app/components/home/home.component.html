@@ -1,7 +1,7 @@
 <div class="container registrar">
     <div *ngIf="us.isUserAdmin()">
-        <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/register" type="submit">Registrar <i class="fas fa-sign-out-alt"></i></button>
-        <button class="btn btn-outline-info" routerLink="/usuarios">Gestionar Usuarios <i class="fas fa-users"></i></button>
+        <button title="Registrar nuevos usuarios" class="btn btn-outline-success my-2 my-sm-0" routerLink="/register" type="submit">Registrar <i class="fas fa-sign-out-alt"></i></button>
+        <button title="Gestionar Usuarios de la aplicación" class="btn btn-outline-info" routerLink="/usuarios">Gestionar Usuarios <i class="fas fa-users"></i></button>
     </div>
 </div>
 <br><br>
@@ -10,13 +10,18 @@
     <br>
     <br>
     <div class="offset-7" *ngIf="us.isUserAdminAndJefe()">
-        <button class="btn btn-success my-2 my-sm-0" routerLink="/addseriereunion" type="submit"><i class="fas fa-plus"></i> Crear nueva serie reunion</button>
+        <button title="Crear Nueva Serie Reunión" class="btn btn-success my-2 my-sm-0" routerLink="/addseriereunion" type="submit"><i class="fas fa-plus"></i> Crear nueva serie reunion</button>
     </div>
     <br>
+    <div *ngIf="serieReuniones.length == 0">
+        <h3>Actualmente, no estás incluido en ninguna reunión {{usuario.nombre}}.</h3>
+        <h4>Esperamos verte pronto de nuevo.</h4>
+        <h4>Saludos.</h4>
+    </div>
     <div *ngFor="let serie of serieReuniones">
         <div class="row">
             <div class="col-6">
-                <a [routerLink]="['/', 'seriereunion', serie.codSReunion]">
+                <a [routerLink]="['/', 'seriereunion', serie.codSReunion]" title="Acceder a la Serie Reunión seleccionada">
                     <h3>{{serie.equipo}} - {{serie.nombre}}</h3>
                     <hr>
                 </a>

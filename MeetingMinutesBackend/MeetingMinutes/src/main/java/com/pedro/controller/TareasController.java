@@ -70,4 +70,9 @@ public class TareasController {
 		ts.modificarTarea(tarea, codusu);
 	}
 	
+	@PutMapping("/eliminarresponsable/{codusu}")
+	public void eliminarResponsable(@RequestBody Tareas tarea, @PathVariable int codusu) {
+		ts.eliminarResponsable(tarea, codusu);
+	}
+	
 }

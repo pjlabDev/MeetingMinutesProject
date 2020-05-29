@@ -33,6 +33,10 @@ export class TemasComponent implements OnInit {
     decision: new FormControl('', [Validators.required, Validators.maxLength(255)])
   });
 
+  seguimientoForm = new FormGroup({
+    seguimiento: new FormControl('', [Validators.required, Validators.maxLength(255)])
+  });
+
   temas: Temas[];
   temasAntiguos: Temas[];
   codsreunion: number;
@@ -204,6 +208,31 @@ export class TemasComponent implements OnInit {
     });
   }
 
+  addSeguimientoTemaCerrado(form: NgForm, modal) {
+    this.tema.seguimiento = form.value.seguimiento;
+    this.tema.codTema = this.codTema;
+
+    this.ts.addSeguimientoTemaCerrado(this.tema).subscribe(data => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Seguimiento para el tema añadida con éxito.',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.seguimientoForm.reset();
+      this.getTemas(this.codreunion);
+      this.modalService.dismissAll(modal);
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Lo sentimos, ha ocurrido un problema al añadir el seguimiento al tema',
+        text: 'Inténtelo de nuevo o mas tarde.',
+        timer: 1500
+      });
+      this.seguimientoForm.reset();
+    });
+  }
+
   get titulo() {
     return this.nuevoTemaform.get('titulo');
   }
@@ -214,6 +243,10 @@ export class TemasComponent implements OnInit {
 
   get dec() {
     return this.decisionForm.get('decision');
+  }
+
+  get seguimiento() {
+    return this.seguimientoForm.get('seguimiento');
   }
 
 }

@@ -45,4 +45,8 @@ export class TareasService {
     return this.http.put(`${this.baseUrl}` + 'modificartarea/' + codusu, tarea);
   }
 
+  eliminarResponsable(tarea: Tareas, codusu: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'eliminarresponsable/' + codusu, tarea);
+  }
+
 }

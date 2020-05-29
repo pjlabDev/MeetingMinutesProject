@@ -80,4 +80,9 @@ public class TemasController {
 		ts.modificarTema(tema);
 	}
 	
+	@PutMapping("/addseguimiento")
+	public void añadirSeguimientoTemaCerrado(@RequestBody Temas tema) {
+		ts.añadirSeguimientoTemaCerrado(tema);
+	}
+	
 }

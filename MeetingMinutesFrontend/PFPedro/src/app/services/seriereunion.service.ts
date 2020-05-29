@@ -33,5 +33,9 @@ export class SeriereunionService {
       return this.http.put(`${this.baseUrl}` + 'modifseriereunionconinvitado/' + codusu, reunion);
   }
 
+  eliminarParticipante(sr: SerieReunion, codusu: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'eliminarparticipante/' + codusu, sr);
+  }
+
 
 }

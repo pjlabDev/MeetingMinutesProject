@@ -15,23 +15,18 @@
                             <div *ngFor="let user of usuarios">
                                 {{user.nombre}} - {{user.rol}}
                             </div>
-                            <!-- <select multiple class="form-control col-sm-5" id="participantes" disabled>
-                                <option *ngFor="let user of usuarios" value="{{user.codUsu}}">
-                                    {{user.nombre}}
-                                </option>
-                            </select> -->
                         </div>
                     </div>
                     <div class="col" *ngIf="us.isUserAdminAndJefe()">
-                        <i class="fas fa-edit fa-2x modifReunion" (click)="verReunion(reunionModal)"></i>
+                        <i class="fas fa-edit fa-2x modifReunion" (click)="verReunion(reunionModal)" title="Ver información Reunion"></i>
                         <p> </p>
-                        <i class="far fa-envelope fa-2x sendAgenda" (click)="enviarAgenda()"></i>
+                        <i class="far fa-envelope fa-2x sendAgenda" (click)="enviarAgenda()" title="Enviar información de la Reunion vía Email"></i>
                     </div>
                 </div>
                 <br>
             </form>
             <br>
-            <button class="btn btn-success my-2 my-sm-0" (click)="submittedTrue()"><i class="fas fa-plus"></i> Adjuntar Archivo</button>
+            <button class="btn btn-success my-2 my-sm-0" (click)="submittedTrue()" title="Adjuntar archivo"><i class="fas fa-plus"></i> Adjuntar Archivo</button>
             <br>
             <br>
             <div *ngIf="adjuntar">
@@ -56,10 +51,10 @@
                     <li *ngFor="let arch of archivos">
                         <div class="row">
                             <div class="col-sm-4">
-                                <a style="color: rgb(17, 0, 255);" (click)="ejecutarArchivo(arch.codArchivo, arch.nombre)">{{arch.nombre}}</a>
+                                <a style="color: rgb(17, 0, 255);" (click)="ejecutarArchivo(arch.codArchivo, arch.nombre)" title="Descargar archivo">{{arch.nombre}}</a>
                             </div>
                             <div class="col">
-                                <button type="button" class="boton2" (click)="borrarArchivo(arch.codArchivo)"><i class="fas fa-times x"></i></button>
+                                <button type="button" class="boton2" (click)="borrarArchivo(arch.codArchivo)" title="Eliminar archivo"><i class="fas fa-times x"></i></button>
                             </div>
                         </div>
                     </li>
@@ -79,10 +74,10 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-2">
-            <button type="submit" class="btn btn-outline-dark my-2 my-sm-0" [routerLink]="['/', 'seriereunion', codsreunion]"><i class="fas fa-angle-left"></i> Volver</button>
+            <button type="submit" class="btn btn-outline-dark my-2 my-sm-0" [routerLink]="['/', 'seriereunion', codsreunion]" title="Volver al listado de Serie de Reuniones"><i class="fas fa-angle-left"></i> Volver</button>
         </div>
         <div class="col" *ngIf="us.isUserAdminAndJefe()">
-            <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/', 'acta', codsreunion, codreunion]"><i class="fas fa-pencil-alt"></i> Generar Acta</button>
+            <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/', 'acta', codsreunion, codreunion]" title="Generar Acta de la Reunion"><i class="fas fa-pencil-alt"></i> Generar Acta</button>
         </div>
     </div>
 </div>
@@ -94,7 +89,7 @@
     <div class="modal-body">
         <div *ngIf="nomodificar && us.isUserAdminAndJefe()">
             <p>¿Desea modificar la reunión?</p>
-            <button type="button" class="btn-sm btn-primary" (click)="siReunion()">Si</button>
+            <button type="button" class="btn-sm btn-primary" (click)="siReunion()" title="Modificar Reunion">Si</button>
         </div>
         <br>
         <form [formGroup]="formReunion" method="POST" (ngSubmit)="modificarReunion(formReunion, reunionModal)">
@@ -109,18 +104,30 @@
 
                 <label for="participantes">Participantes</label>
                 <div *ngFor="let user of usuarios">
-                    {{user.nombre}} - {{user.rol}}
+                    <div class="row">
+                        <div class="col">
+                            {{user.nombre}} - {{user.rol}}
+                        </div>
+                        <div class="col" *ngIf="modificar">
+                            <button type="button" class="boton2" (click)="eliminarParticipante(user.codUsu)"><i class="fas fa-times x"></i></button>
+                        </div>
+                    </div>
                 </div>
 
                 <br>
 
                 <div *ngIf="modificar">
-                    <label for="newparticipantes">¿Añadir más participantes a la reunión?</label>
-                    <select multiple id="newparticipantes" name="newparticipantes" formControlName="newparticipantes" class="form-control">
-                        <option *ngFor="let user of usuariosNotInReunion" value="{{user.codUsu}}">
-                            {{user.nombre}}
-                        </option>
-                    </select>
+                    <div *ngIf="usuariosNotInReunion.length == 0">
+                        <p>Debe invitar más usuarios a la serie de reuniones para poder invitarlos aquí.</p>
+                    </div>
+                    <div *ngIf="usuariosNotInReunion.length > 0">
+                        <label for="newparticipantes">¿Añadir más participantes a la reunión?</label>
+                        <select multiple id="newparticipantes" name="newparticipantes" formControlName="newparticipantes" class="form-control">
+                            <option *ngFor="let user of usuariosNotInReunion" value="{{user.codUsu}}">
+                                {{user.nombre}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
 
             </div>

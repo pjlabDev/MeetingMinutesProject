@@ -55,4 +55,9 @@ public class ReunionController {
 		rs.modificarReunion(reunion, codusu);
 	}
 	
+	@PutMapping("/eliminarparticipante/{codusu}")
+	public void eliminarParticipante(@RequestBody Reunion reunion, @PathVariable int codusu) {
+		rs.eliminarParticipante(reunion, codusu);
+	}
+	
 }

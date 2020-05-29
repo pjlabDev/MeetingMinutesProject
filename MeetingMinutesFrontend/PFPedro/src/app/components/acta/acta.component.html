@@ -101,9 +101,9 @@
                     </div>
                     <p style="white-space: pre-wrap; display: none;">{{conclus}}</p>
                 </div>
-                <button [disabled]="!nuevaActaForm.valid" type="submit" class="btn btn-success">Generar</button>
-                <button [disabled]="!nuevaActaForm.valid" type="button" class="btn btn-success" (click)="enviarActa(nuevaActaForm)">Enviar Acta E-mail</button>
-                <button type="button" [routerLink]="['/', 'reunion', codsreunion, codreunion]" class="btn btn-light">Cancelar</button>
+                <button [disabled]="!nuevaActaForm.valid" type="submit" class="btn btn-success" title="Generar acta">Generar</button>
+                <button [disabled]="!nuevaActaForm.valid" type="button" class="btn btn-success" (click)="enviarActa(nuevaActaForm)" title="Enviar acta vía Email">Enviar Acta E-mail</button>
+                <button type="button" [routerLink]="['/', 'reunion', codsreunion, codreunion]" class="btn btn-light" title="Cancelar generar Acta">Cancelar</button>
             </form>
         </div>
     </div>

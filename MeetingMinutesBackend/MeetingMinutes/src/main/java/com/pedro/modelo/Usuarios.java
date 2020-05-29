@@ -4,7 +4,6 @@
 package com.pedro.modelo;
 
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +40,7 @@ public class Usuarios {
 	@Column(name = "rol")
 	@NotNull
 	private Roles rol;
-
+	
 	/**
 	 * 
 	 */
@@ -104,6 +103,5 @@ public class Usuarios {
 	public void setRol(Roles rol) {
 		this.rol = rol;
 	}
-	
 
 }

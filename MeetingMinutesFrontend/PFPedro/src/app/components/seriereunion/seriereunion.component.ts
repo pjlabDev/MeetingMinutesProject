@@ -243,6 +243,45 @@ export class SeriereunionComponent implements OnInit {
 
   }
 
+  eliminarResponsableTarea(codusu: number, modal) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'El responsable se eliminará si aceptas.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        this.tarS.eliminarResponsable(this.tarea, codusu).subscribe(data => {
+          Swal.fire(
+            'Eliminado!',
+            'Responsable eliminado.',
+            'success'
+          );
+          this.tarS.getTareaByCodTarea(this.tarea.codTarea).subscribe(res => {
+            this.tarea = res;
+
+            this.tituloTarea.setValue(this.tarea.titulo);
+            this.descripTarea.setValue(this.tarea.descripcion);
+          });
+          this.us.getUsuariosNotInTarea(this.codsreunion, this.tarea.codTarea).subscribe(res2 => {
+            this.usuariosnotintarea = res2;
+          });
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Lo sentimos, ha ocurrido un problema al borrar al responsable.',
+            text: 'Inténtelo de nuevo o mas tarde.',
+            timer: 1500
+          });
+          console.log('error eliminar responsable: ', error);
+        });
+      }
+    });
+  }
+
   /** GET atributos del formulario para los TEMAS */
 
   get tituloTema() {

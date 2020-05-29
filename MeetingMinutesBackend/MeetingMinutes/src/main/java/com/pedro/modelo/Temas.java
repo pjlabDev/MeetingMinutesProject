@@ -47,6 +47,10 @@ public class Temas {
 	@NotNull
 	private int cerrado;
 	
+	@Lob
+	@Column(name = "seguimiento")
+	private String seguimiento;
+	
 	@ManyToMany(targetEntity=Reunion.class)
 	private Set<Reunion> reunion;
 
@@ -57,12 +61,13 @@ public class Temas {
 	 * 
 	 */
 	
-	public Temas(int codTema, String titulo, String info, String decision, int cerrado) {
+	public Temas(int codTema, String titulo, String info, String decision, int cerrado, String seguimiento) {
 		this.codTema = codTema;
 		this.titulo = titulo;
 		this.info = info;
 		this.decision = decision;
 		this.cerrado = cerrado;
+		this.seguimiento = seguimiento;
 	}
 	
 	public Temas() {
@@ -131,6 +136,14 @@ public class Temas {
 
 	public void setCerrado(int cerrado) {
 		this.cerrado = cerrado;
+	}
+
+	public String getSeguimiento() {
+		return seguimiento;
+	}
+
+	public void setSeguimiento(String seguimiento) {
+		this.seguimiento = seguimiento;
 	}
 
 }

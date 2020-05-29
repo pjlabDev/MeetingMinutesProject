@@ -42,4 +42,9 @@ public class EmailController {
 		es.enviarTarea(codtarea);
 	}
 	
+	@GetMapping("/enviarcomentario/{nombre}/{correo}/{comentario}")
+	public void enviarComentario(@PathVariable String nombre, @PathVariable String correo, @PathVariable String comentario) {
+		es.enviarComentario(nombre, correo, comentario);
+	}
+	
 }

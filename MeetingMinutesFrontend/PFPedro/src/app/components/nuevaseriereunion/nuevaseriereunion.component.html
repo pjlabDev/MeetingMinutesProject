@@ -16,7 +16,7 @@
             <div class="alert alert-danger" *ngIf="(nombre.touched) && (nombre.invalid)" style="margin-top: 5px;">
                 <span *ngIf="nombre.errors.required">El nombre es un campo requerido</span>
                 <span *ngIf="nombre.errors.minlength">
-                    Longitud máxima del nombre de usuario: {{nombre.errors.minlength.requiredLength}}
+                    Longitud máxima del nombre: {{nombre.errors.minlength.requiredLength}}
                 </span>
             </div>
         </div>

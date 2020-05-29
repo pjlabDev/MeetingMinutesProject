@@ -152,4 +152,22 @@ public class TemasServiceImpl implements TemasService {
 		
 	}
 
+	@Override
+	public void añadirSeguimientoTemaCerrado(Temas tema) {
+		
+		Temas segTema = tr.findOne(tema.getCodTema());
+		String seguimiento = "";
+		
+		if(segTema != null) {
+			if(segTema.getSeguimiento() == null) {
+				seguimiento = tema.getSeguimiento();
+			}else {
+				seguimiento = tema.getSeguimiento() + "\n" + tema.getSeguimiento();
+			}
+			segTema.setSeguimiento(seguimiento);
+			tr.save(segTema);
+		}
+		
+	}
+
 }

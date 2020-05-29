@@ -1,6 +1,6 @@
 <div class="container">
     <div *ngIf="us.isUserAdminAndJefe()">
-        <button class="btn btn-success my-2 my-sm-0" (click)="submittedTrue()"><i class="fas fa-plus"></i> Crear Tareas</button>
+        <button class="btn btn-success my-2 my-sm-0" (click)="submittedTrue()" title="Crear nueva tarea"><i class="fas fa-plus"></i> Crear Tareas</button>
     </div>
     <br>
     <br>
@@ -55,10 +55,10 @@
                             </div>
                             <div *ngIf="us.isUserAdminAndJefe()" class="col">
                                 <div class="dropdown">
-                                    <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                                    <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Desplegable con distintas acciones"><i class="fas fa-ellipsis-v"></i></button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" (click)="cerrarTareas(tar.codTarea)">Cerrar tarea</a>
-                                        <a class="dropdown-item" (click)="enviarTarea(tar.codTarea)">Enviar tarea</a>
+                                        <a class="dropdown-item" (click)="cerrarTareas(tar.codTarea)" title="Cerrar tarea seleccionada">Cerrar tarea</a>
+                                        <a class="dropdown-item" (click)="enviarTarea(tar.codTarea)" title="Enviar tarea vía Email">Enviar tarea</a>
                                     </div>
                                 </div>
                             </div>

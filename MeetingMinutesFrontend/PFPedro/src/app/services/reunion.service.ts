@@ -33,4 +33,8 @@ export class ReunionService {
     return this.http.put(`${this.baseUrl}` + 'modificarreunion/' + codusu, reunion);
   }
 
+  eliminarParticipante(reunion: Reunion, codusu: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}` + 'eliminarparticipante/' + codusu, reunion);
+  }
+
 }

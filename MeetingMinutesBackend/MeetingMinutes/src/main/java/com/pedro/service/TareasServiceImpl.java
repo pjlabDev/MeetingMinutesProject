@@ -136,5 +136,21 @@ public class TareasServiceImpl implements TareasService {
 		}
 		
 	}
+
+	@Override
+	public void eliminarResponsable(Tareas tarea, int codusu) {
+		
+		Tareas tar = tareasRepo.findOne(tarea.getCodTarea());
+		Usuarios us = ur.findOne(codusu);
+		
+		if(tar != null && us != null) {
+			
+			if(tar.getUsuarios().contains(us)) {
+				tar.getUsuarios().remove(us);
+			}
+			tareasRepo.save(tar);
+		}
+		
+	}
 	
 }

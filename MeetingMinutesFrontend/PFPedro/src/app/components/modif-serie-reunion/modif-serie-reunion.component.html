@@ -1,20 +1,45 @@
 <div class="container formRegister">
-    <form [formGroup]="modifSerieReunionForm" #reunionform="ngForm" (ngSubmit)="modifSerieReunion(serieReunion, modifSerieReunionForm)">
+    <form [formGroup]="modifSerieReunionForm" #reunionform="ngForm" (ngSubmit)="modifSerieReunion(modifSerieReunionForm)">
         <div class="form-group">
             <label for="equipo">Equipo</label>
-            <input type="text" class="form-control" id="equipo" formControlName="equipo" required [(ngModel)]="serieReunion.equipo" name="equipo">
+            <input type="text" class="form-control" id="equipo" formControlName="equipo" name="equipo">
+            <div class="alert alert-danger" *ngIf="(equipo.touched) && (equipo.invalid)" style="margin-top: 5px;">
+                <span *ngIf="equipo.errors.required">El correo es un campo requerido</span>
+                <span *ngIf="equipo.errors.minlength">
+                    Longitud máxima del nombre del equipo: {{equipo.errors.minlength.requiredLength}}
+                </span>
+            </div>
         </div>
         <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" formControlName="nombre" required [(ngModel)]="serieReunion.nombre" name="nombre">
+            <input type="text" class="form-control" id="nombre" formControlName="nombre" name="nombre">
+            <div class="alert alert-danger" *ngIf="(nombre.touched) && (nombre.invalid)" style="margin-top: 5px;">
+                <span *ngIf="nombre.errors.required">El nombre es un campo requerido</span>
+                <span *ngIf="nombre.errors.minlength">
+                    Longitud máxima del nombre: {{nombre.errors.minlength.requiredLength}}
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Participantes</label>
+            <div *ngFor="let user of serieReunion.usuarios">
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{user.nombre}} - {{user.rol}}
+                    </div>
+                    <div class="col" *ngIf="us.isUserAdminAndJefe()">
+                        <button type="button" class="boton2" (click)="eliminarParticipante(user.codUsu)"><i class="fas fa-times x"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
         <span>¿Desea invitar más usuarios a la reunión?</span>
         <div class="offset-2"></div>
-        <button class="btn btn-primary btn-sm" (click)="invitar = true" type="button">Si</button>
+        <button class="btn btn-primary btn-sm" (click)="invitar = true" type="button" title="Añadir más participantes">Si</button>
         <div *ngIf="invitar">
             <span>Mejor no</span>
             <div class="offset-2"></div>
-            <button class="btn btn-primary btn-sm" (click)="invitar = false" type="button">No</button>
+            <button class="btn btn-primary btn-sm" (click)="invitar = false" type="button" title="No añadir más participantes">No</button>
         </div>
         <div *ngIf="invitar" class="form-group">
             <label for="participantes">Invitar participantes</label>
@@ -27,7 +52,7 @@
         </div>
         <div class="form-group">
             <label for="cerrado">Cerrar Serie Reunion (0 abierta, 1 cerrada)</label>
-            <input type="number" class="form-control" id="cerrado" formControlName="cerrado" [(ngModel)]="serieReunion.cerrado" name="cerrado" max="1" min="0">
+            <input type="number" class="form-control" id="cerrado" formControlName="cerrado" name="cerrado" max="1" min="0">
         </div>
         <button [disabled]="!reunionform.valid" type="submit" class="btn btn-success">Modificar</button>
         <button type="button" [routerLink]="['/', 'seriereunion', codsreunion]" class="btn btn-light">Cancelar</button>

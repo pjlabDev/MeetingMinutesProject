@@ -24,6 +24,6 @@ public interface UserService {
 	List<Usuarios> getUsuariosNotInReunion(int codreunion, int codsreunion);
 	Usuarios getUserByCodUsu(int codusu);
 	void modificarUsuario(Usuarios user);
-	void eliminarUsuario(int codusu);
+	int eliminarUsuario(int codusu);
 	
 }

@@ -109,7 +109,7 @@ export class ActaComponent implements OnInit {
 
     this.codigos = form.value.asistentes;
 
-    let users = '';
+    const users = $('#asistentes option:selected').toArray().map(item => item.textContent).join();
 
     const titulo1 = document.getElementById('title').textContent;
     const titulo2 = document.getElementById('title2').textContent;
@@ -129,17 +129,7 @@ export class ActaComponent implements OnInit {
     doc.text(titulo1, 80, 20);
     doc.text(titulo2, 60, 30);
     doc.text(`FECHA: ${form.value.fecha}`, 10, 50);
-    if (this.codigos.length > 0) {
-      this.us.getUsuariosByCodUsu(this.codigos).subscribe(data => {
-        this.asistentes = data;
-        if (this.asistentes.length > 0) {
-          this.asistentes.forEach(res => {
-            users += res.nombre + ' - ' + res.rol + '\n';
-          });
-        }
-      });
-    }
-    doc.text('ASISTENTES: ' + '\n' + this.codigos, 10, 70);
+    doc.text('ASISTENTES: ' + '\n' + users, 10, 70, {width: margins.width});
     doc.fromHTML(document.getElementById('temasytareas'), 10, 90, {width: margins.width});
     doc.save(`${form.value.fecha}.pdf`);
   }

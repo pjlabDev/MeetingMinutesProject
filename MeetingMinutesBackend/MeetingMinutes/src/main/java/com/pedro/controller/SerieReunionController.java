@@ -55,4 +55,9 @@ public class SerieReunionController {
 		srService.modificarSerieReunionInvitandoMasUsuarios(reunion, codusu);
 	}
 	
+	@PutMapping("/eliminarparticipante/{codusu}")
+	public void eliminarParticipante(@RequestBody SerieReunion sr, @PathVariable int codusu) {
+		srService.eliminarParticipante(sr, codusu);
+	}
+	
 }

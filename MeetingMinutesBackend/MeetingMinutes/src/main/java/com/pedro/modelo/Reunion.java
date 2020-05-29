@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 /**
  * @author Westermeyer
  *
@@ -38,7 +39,7 @@ public class Reunion {
 	@OneToOne
 	private SerieReunion seriereunion;
 	
-	@ManyToMany(targetEntity=Usuarios.class, cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.ALL}, targetEntity=Usuarios.class)
 	private Set<Usuarios> usuarios;
 	
 	/**

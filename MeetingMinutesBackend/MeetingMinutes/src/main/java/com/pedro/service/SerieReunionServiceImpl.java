@@ -94,5 +94,20 @@ public class SerieReunionServiceImpl implements SerieReunionService {
 		}
 		
 	}
+
+	@Override
+	public void eliminarParticipante(SerieReunion sr, int codusu) {
+		
+		SerieReunion serieReun = srRepo.findOne(sr.getCodSReunion());
+		Usuarios us = userR.findOne(codusu);
+		
+		if(serieReun != null && us != null) {
+			
+			if(serieReun.getUsuarios().contains(us)) {
+				serieReun.getUsuarios().remove(us);
+			}
+			srRepo.save(serieReun);
+		}
+	}
 	
 }
