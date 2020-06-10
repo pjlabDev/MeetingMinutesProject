@@ -9,7 +9,6 @@ import { SerieReunion } from '../../clases/serie-reunion';
 import { Usuario } from '../../clases/usuario';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Acta } from '../../clases/acta';
-import { ActaService } from '../../services/acta.service';
 import Swal from 'sweetalert2';
 import { TareasService } from '../../services/tareas.service';
 import { Tareas } from '../../clases/tareas';
@@ -27,6 +26,9 @@ import { ImgDataServiceService } from '../../services/img-data-service.service';
   providers: [DatePipe]
 })
 export class ActaComponent implements OnInit {
+
+  /** Variables para guardar información */
+
   reunion: Reunion = new Reunion();
   serieReunion: SerieReunion = new SerieReunion();
   usuarios: Usuario[];
@@ -47,6 +49,8 @@ export class ActaComponent implements OnInit {
   codtemas: number[] = [];
   existeTema = false;
 
+  /** FormGroup para el formulario del acta */
+
   nuevaActaForm = new FormGroup({
     fecha: new FormControl('', [Validators.required]),
     asistentes: new FormControl('', [Validators.required]),
@@ -56,8 +60,11 @@ export class ActaComponent implements OnInit {
   conclus = '';
 
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
-              public ts: TemasService, public rs: ReunionService, public router: Router, public as: ActaService,
+              public ts: TemasService, public rs: ReunionService, public router: Router,
               public tarS: TareasService, public es: EmailService, public datepipe: DatePipe, public img: ImgDataServiceService) { }
+
+
+  /** Recoge la Serie de Reunion por codigo, la reunion, los usuarios de la reunion, los temas y las tareas, por codigo. */
 
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
@@ -105,7 +112,9 @@ export class ActaComponent implements OnInit {
     });
   }
 
-  generarActa(form: NgForm) {
+  /** Método para generar el PDF del acta con la librería JsPDF */
+
+  generarActa(form) {
 
     this.codigos = form.value.asistentes;
 
@@ -134,7 +143,9 @@ export class ActaComponent implements OnInit {
     doc.save(`${form.value.fecha}.pdf`);
   }
 
-  enviarActa(form: NgForm) {
+  /** Método para enviar el Acta por Email a los participantes que han asistido */
+
+  enviarActa(form) {
 
     if (this.temas !== undefined) {
       this.temas.forEach(res => {
@@ -173,6 +184,14 @@ export class ActaComponent implements OnInit {
 
   get conclusion() {
     return this.nuevaActaForm.get('conclusion');
+  }
+
+  get fecha() {
+    return this.nuevaActaForm.get('fecha');
+  }
+
+  get asistentesForm() {
+    return this.nuevaActaForm.get('asistentes');
   }
 
 }

@@ -18,8 +18,8 @@
                 <td>{{user.correo}}</td>
                 <td>{{user.clave}}</td>
                 <td>{{user.rol}}</td>
-                <td><button class="btn btn-primary" (click)="verUsuario(user.codUsu, userModal)">Modificar</button></td>
-                <td><button class="btn btn-danger" (click)="eliminarUsuario(user.codUsu)">Eliminar</button></td>
+                <td><button class="btn btn-primary" (click)="verUsuario(user.codUsu, userModal)" title="Modificar usuario">Modificar</button></td>
+                <td><button class="btn btn-danger" (click)="eliminarUsuario(user.codUsu)" title="Eliminar usuario">Eliminar</button></td>
             </tr>
         </tbody>
     </table>

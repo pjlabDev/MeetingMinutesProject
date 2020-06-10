@@ -24,8 +24,9 @@ export class LoginComponent implements OnInit {
     this.submitted = false;
   }
 
+  /** Método para loguearse un usuario */
 
-  userLogin(form: NgForm) {
+  userLogin(form) {
     this.us.loginUsuario(form.value.nombre, form.value.clave)
       .subscribe(data => {
         if (data === null) {

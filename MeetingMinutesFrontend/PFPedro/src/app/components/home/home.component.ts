@@ -12,15 +12,24 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class HomeComponent implements OnInit {
 
+  /** Variables para recoger los datos */
+
   usuario: Usuario = new Usuario();
   serieReuniones: SerieReunion[];
+
+  /** FormGroup asociado al fromulario del html */
+
   cerrarForm = new FormGroup({
     codsreunion: new FormControl(''),
   });
 
+  filtroBusqueda;
+
   constructor(public us: UsuarioService, public sr: SeriereunionService) {
     this.serieReuniones = [];
   }
+
+  /** Recogida de Serie de Reuniones por usuario */
 
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem('usuario'));

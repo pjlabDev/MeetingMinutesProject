@@ -55,6 +55,9 @@ export class SeriereunionComponent implements OnInit {
   constructor(public route: ActivatedRoute, private sr: SeriereunionService, public us: UsuarioService, public rs: ReunionService,
               public ts: TemasService, public tarS: TareasService, private modalService: NgbModal) { }
 
+  /** Recoge los datos necesarios para presentar los participantes, las reuniones, */
+  /** temas y tareas de la Serie de Reuniones en la que estamos actualmente */
+
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
@@ -82,17 +85,23 @@ export class SeriereunionComponent implements OnInit {
     });
   }
 
+  /** Método para visualizar las reuniones */
+
   verReuniones() {
     this.isTema = false;
     this.isTareas = false;
     this.isReunion = true;
   }
 
+  /** Método para visualizar los temas */
+
   verTemas() {
     this.isReunion = false;
     this.isTareas = false;
     this.isTema = true;
   }
+
+  /** Método para visualizar las tareas */
 
   verTareas() {
     this.isReunion = false;
@@ -141,6 +150,8 @@ export class SeriereunionComponent implements OnInit {
     this.modificar = false;
   }
 
+  /** Habilita los campos del formulario del modal para poder modificar los temas */
+
   siTema() {
     this.nomodificar = false;
     this.modificar = true;
@@ -150,7 +161,9 @@ export class SeriereunionComponent implements OnInit {
     this.decisionTema.enable();
   }
 
-  modificarTema(form: NgForm, modal) {
+  /** Método para modificar los temas */
+
+  modificarTema(form, modal) {
     this.tema.titulo = form.value.tituloTema;
     this.tema.etiqueta = form.value.etiquetaTema;
     this.tema.info = form.value.infoTema;
@@ -205,6 +218,8 @@ export class SeriereunionComponent implements OnInit {
     this.modificar = false;
   }
 
+  /** Habilita los campos para poder modificar la tarea */
+
   siTarea() {
     this.nomodificar = false;
     this.modificar = true;
@@ -212,7 +227,9 @@ export class SeriereunionComponent implements OnInit {
     this.descripTarea.enable();
   }
 
-  modificarTarea(form: NgForm, modal) {
+  /** Método para modificar la tarea */
+
+  modificarTarea(form, modal) {
     let codigos = [-1];
     this.tarea.titulo = form.value.tituloTarea;
     this.tarea.descripcion = form.value.descripTarea;
@@ -242,6 +259,8 @@ export class SeriereunionComponent implements OnInit {
     });
 
   }
+
+  /** Método para eliminar responsables de una tarea */
 
   eliminarResponsableTarea(codusu: number, modal) {
     Swal.fire({

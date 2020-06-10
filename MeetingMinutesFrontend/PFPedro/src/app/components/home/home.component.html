@@ -9,8 +9,15 @@
     <h1>Bienvenid@, aqui tienes tus series de reuniones {{usuario.nombre}}</h1>
     <br>
     <br>
-    <div class="offset-7" *ngIf="us.isUserAdminAndJefe()">
-        <button title="Crear Nueva Serie Reunión" class="btn btn-success my-2 my-sm-0" routerLink="/addseriereunion" type="submit"><i class="fas fa-plus"></i> Crear nueva serie reunion</button>
+    <div class="row">
+        <div class="col-9">
+            <div class="form-group">
+                <input type="search" class="form-control" name="filtro" autocomplete="off" placeholder="Buscar..." [(ngModel)]="filtroBusqueda">
+            </div>
+        </div>
+        <div class="col" *ngIf="us.isUserAdminAndJefe()">
+            <button title="Crear Nueva Serie Reunión" class="btn btn-success my-2 my-sm-0" routerLink="/addseriereunion" type="submit"><i class="fas fa-plus"></i> Crear nueva serie reunion</button>
+        </div>
     </div>
     <br>
     <div *ngIf="serieReuniones.length == 0">
@@ -18,13 +25,21 @@
         <h4>Esperamos verte pronto de nuevo.</h4>
         <h4>Saludos.</h4>
     </div>
-    <div *ngFor="let serie of serieReuniones">
+    <div *ngFor="let serie of serieReuniones | filter:filtroBusqueda">
         <div class="row">
             <div class="col-6">
-                <a [routerLink]="['/', 'seriereunion', serie.codSReunion]" title="Acceder a la Serie Reunión seleccionada">
-                    <h3>{{serie.equipo}} - {{serie.nombre}}</h3>
-                    <hr>
-                </a>
+                <div *ngIf="serie.cerrado == 0">
+                    <a [routerLink]="['/', 'seriereunion', serie.codSReunion]" title="Acceder a la Serie Reunión seleccionada">
+                        <h3>{{serie.equipo}} - {{serie.nombre}}</h3>
+                        <hr>
+                    </a>
+                </div>
+                <div *ngIf="serie.cerrado == 1">
+                    <a [routerLink]="['/', 'seriereunion', serie.codSReunion]" title="Acceder a la Serie Reunión seleccionada">
+                        <h3>{{serie.equipo}} - {{serie.nombre}} (CERRADA)</h3>
+                        <hr>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -8,6 +8,9 @@ import Swal from 'sweetalert2';
 })
 export class LetrasGuard implements CanActivate {
   constructor(private router: Router) { }
+
+  /** Método que nos ayudará a controlar que un usuario escriba bien la primera parte de la url sin numeros */
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 export class RolGuard implements CanActivate {
   constructor(private router: Router, private user: UsuarioService) { }
 
+  /** Método que nos controlará si un usuario tiene o no permiso para acceder a distintas secciones de la aplicación */
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

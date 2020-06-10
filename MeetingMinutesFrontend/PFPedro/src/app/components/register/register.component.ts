@@ -25,7 +25,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  addNewUsuario(form: NgForm) {
+  /** Método para registrar un nuevo usuario */
+
+  addNewUsuario(form) {
     this.usuario.correo = form.value.correo;
     this.usuario.nombre = form.value.nombre;
     this.usuario.clave = form.value.clave;
@@ -47,6 +49,8 @@ export class RegisterComponent implements OnInit {
       }, 3000);
     });
   }
+
+  /** Getters para recoger los campos del formulario */
 
   get correo() {
     return this.registerForm.get('correo');

@@ -1,11 +1,17 @@
-@media only screen and (max-width: 360px) {
-    .formNuevaReunion {
-        padding-top: 30%;
-    }
-}
-
 @media only screen and (min-width: 1445px) {
     .boton {
         margin-left: 400px;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .formNuevaReunion {
+        padding-top: 5%;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .formNuevaReunion {
+        padding-top: 20%;
     }
 }

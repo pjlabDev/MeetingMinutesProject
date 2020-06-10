@@ -41,7 +41,9 @@
                                     <button type="button" class="boton2 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Desplegable con distintas acciones"><i class="fas fa-ellipsis-v"></i></button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" (click)="verModal(tem.codTema, infoModal)" title="Añadir información al tema seleccionado">Añadir información</a>
-                                        <a class="dropdown-item" (click)="verModal(tem.codTema, decisionModal)" title="Añadir decisión al tema seleccionado">Añadir Decision</a>
+                                        <div *ngIf="tem.decision === null">
+                                            <a class="dropdown-item" (click)="verModal(tem.codTema, decisionModal)" title="Añadir decisión al tema seleccionado">Añadir Decision</a>
+                                        </div>
                                         <div *ngIf="us.isUserAdminAndJefe()">
                                             <a class="dropdown-item" (click)="cerrarTemas(tem.codTema)" title="Cerrar tema seleccionado">Cerrar tema</a>
                                         </div>
@@ -111,7 +113,7 @@
                         <div *ngIf="tem.seguimiento !== null">
                             <br>
                             <div id="accordion">
-                                <a data-toggle="collapse" [attr.data-target]="'#collapseThree' + tem.codTema" aria-expanded="true" aria-controls="collapseThree" title="Mostrar decisión del tema seleccionado"><b style="color: rgb(103, 0, 172);">SEGUIMIENTO    </b><i style="color: rgb(103, 0, 172);" class="fas fa-angle-double-down"></i></a>
+                                <a data-toggle="collapse" [attr.data-target]="'#collapseThree' + tem.codTema" aria-expanded="true" aria-controls="collapseThree" title="Mostrar seguimiento del tema seleccionado"><b style="color: rgb(103, 0, 172);">SEGUIMIENTO    </b><i style="color: rgb(103, 0, 172);" class="fas fa-angle-double-down"></i></a>
                             </div>
                             <div id="collapseThree{{tem.codTema}}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                                 <hr>

@@ -1,6 +1,12 @@
-@media only screen and (max-width: 360px) {
+@media screen and (max-width: 1160px) {
     .formNuevaReunion {
-        padding-top: 25%;
+        padding-top: 10%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .formNuevaReunion {
+        padding-top: 20%;
     }
 }
 

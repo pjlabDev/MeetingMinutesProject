@@ -9,6 +9,18 @@
     }
 }
 
+@media screen and (max-width: 1250px) {
+    .formularioLogin {
+        padding-top: 5%;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .formularioLogin {
+        padding-top: 20%;
+    }
+}
+
 .formularioLogin {
     h1 {
         text-align: center;

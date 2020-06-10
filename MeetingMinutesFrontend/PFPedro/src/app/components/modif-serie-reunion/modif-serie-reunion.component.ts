@@ -28,6 +28,8 @@ export class ModifSerieReunionComponent implements OnInit {
 
   constructor(public route: ActivatedRoute, private sr: SeriereunionService, public us: UsuarioService, private router: Router) { }
 
+  /** Recoge la serie de reuniones por codigo y los usuarios que no estén en ella */
+
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
@@ -51,9 +53,9 @@ export class ModifSerieReunionComponent implements OnInit {
     });
   }
 
-  get diagnostic() { return JSON.stringify(this.serieReunion); }
+  /** Método para modificar la Serie de Reunion */
 
-  modifSerieReunion(form: NgForm) {
+  modifSerieReunion(form) {
       this.codigos = form.value.usuario;
 
       this.serieReunion.equipo = form.value.equipo;
@@ -99,6 +101,8 @@ export class ModifSerieReunionComponent implements OnInit {
       }
   }
 
+  /** Método para eliminar participantes de la Serie de Reunion */
+
   eliminarParticipante(codusu: number) {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -130,6 +134,8 @@ export class ModifSerieReunionComponent implements OnInit {
       }
     });
   }
+
+  /** Geters para recoger los campos del formulario */
 
   get nombre() {
     return this.modifSerieReunionForm.get('nombre');

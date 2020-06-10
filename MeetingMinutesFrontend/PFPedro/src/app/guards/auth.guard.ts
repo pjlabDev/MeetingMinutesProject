@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router, private user: UsuarioService) { }
 
+  /** Método que nos ayudará a controlar que un usuario esté logueado para poder acceder a las pestañas de la aplicación */
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

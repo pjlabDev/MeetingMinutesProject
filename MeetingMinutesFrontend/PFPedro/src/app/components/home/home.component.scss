@@ -1,6 +1,15 @@
-@media only screen and (max-width: 360px) {
+@media screen and (max-width: 1110px) {
     .home {
-        padding-top: 15%;
+        padding-top: 5%;
+    }
+    .registrar {
+        padding-top: 5%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .home {
+        padding-top: 20%;
     }
     .registrar {
         padding-top: 20%;

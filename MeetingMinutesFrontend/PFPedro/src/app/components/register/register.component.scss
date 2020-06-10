@@ -1,6 +1,12 @@
-@media only screen and (max-width: 360px) {
+@media screen and (max-width: 1250px) {
     .formRegister {
-        padding-top: 25%;
+        padding-top: 5%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .formRegister {
+        padding-top: 20%;
     }
 }
 

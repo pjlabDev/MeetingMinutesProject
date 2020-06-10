@@ -34,6 +34,8 @@ export class TareasComponent implements OnInit {
 
   constructor(public route: ActivatedRoute, public us: UsuarioService, public ts: TareasService, public es: EmailService) { }
 
+  /** Recoge las tareas, las tareas antiguas no cerradas y los usuarios por codigo de reunion */
+
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
@@ -57,6 +59,8 @@ export class TareasComponent implements OnInit {
     });
   }
 
+  /** Las tareas de reuniones antiguas a la que estamos actualmente, las recoge y las añade a la reunión actual */
+
   getTareasAntiguasNoCerradas(id: number, id2: number) {
     this.ts.getTareasByCodReunionAntiguaAndNoCerrada(id, id2).subscribe(data => {
       if (data !== null && data.length !== 0) {
@@ -74,7 +78,9 @@ export class TareasComponent implements OnInit {
     this.submitted = true;
   }
 
-  crearTarea(form: NgForm) {
+  /** Método para crear una nueva tarea */
+
+  crearTarea(form) {
     this.tarea.titulo = form.value.titulo;
     this.tarea.descripcion = form.value.descripcion;
     this.codusu = form.value.responsables;
@@ -100,6 +106,8 @@ export class TareasComponent implements OnInit {
       console.log('Error al crear reunion', error);
     });
   }
+
+  /** Método para cerrar las tareas */
 
   cerrarTareas(codtarea: number) {
 
@@ -136,6 +144,8 @@ export class TareasComponent implements OnInit {
     });
   }
 
+  /** Método que envía las tareas por email a sus responsables */
+
   enviarTarea(codtarea: number) {
     Swal.fire({
       icon: 'success',
@@ -153,6 +163,8 @@ export class TareasComponent implements OnInit {
       console.log('error send tarea: ', error);
     });
   }
+
+  /** Getters para recoger los campos del formulario */
 
   get titulo() {
     return this.nuevaTareaForm.get('titulo');

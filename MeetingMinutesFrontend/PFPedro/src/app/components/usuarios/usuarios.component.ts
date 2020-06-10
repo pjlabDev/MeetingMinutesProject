@@ -27,6 +27,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor(public us: UsuarioService, private modalService: NgbModal) { }
 
+  /** Recoge todos los usuarios registrados */
+
   ngOnInit() {
     this.getAllUsuarios();
   }
@@ -36,6 +38,8 @@ export class UsuariosComponent implements OnInit {
       this.usuarios = data;
     });
   }
+
+  /** Abre el modal para modificar un usuario, y asigna los datos del usuario a los campos del formulario */
 
   verUsuario(id: number, modal) {
     this.us.getUserByCodUsu(id).subscribe(data => {
@@ -50,7 +54,9 @@ export class UsuariosComponent implements OnInit {
     this.modalService.open(modal);
   }
 
-  modificarUsuario(form: NgForm, modal) {
+  /** Método para modificar un usuario */
+
+  modificarUsuario(form, modal) {
     this.user.nombre = form.value.nombre;
     this.user.correo = form.value.correo;
     this.user.clave = form.value.clave;
@@ -80,10 +86,14 @@ export class UsuariosComponent implements OnInit {
 
   }
 
+  /** Cierra el modal y resetea el formulario */
+
   cerrarModalUser(modal) {
     this.modalService.dismissAll(modal);
     this.userForm.reset();
   }
+
+  /** Método para eliminar un usuario */
 
   eliminarUsuario(codusu: number) {
     this.us.eliminarUsuario(codusu).subscribe(data => {
@@ -104,6 +114,8 @@ export class UsuariosComponent implements OnInit {
       }
     });
   }
+
+  /** Getters para recoger los campos del formulario */
 
   get nombre() {
     return this.userForm.get('nombre');

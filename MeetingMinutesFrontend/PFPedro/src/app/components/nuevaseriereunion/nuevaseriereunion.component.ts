@@ -27,13 +27,17 @@ export class NuevaseriereunionComponent implements OnInit {
     this.usuarios = [];
   }
 
+  /** Recoge todos los usuarios registrados. */
+
   ngOnInit() {
     this.us.getAllUsuarios().subscribe(data => {
       this.usuarios = data;
     });
   }
 
-  crearSerieReunion(form: NgForm) {
+  /** Crea una nueva Serie de Reuniones */
+
+  crearSerieReunion(form) {
       this.serieReunion.equipo = form.value.equipo;
       this.serieReunion.nombre = form.value.nombre;
       this.codigos = form.value.usuario;
@@ -59,6 +63,8 @@ export class NuevaseriereunionComponent implements OnInit {
 
   }
 
+
+  /** Getters para recoger los campos del formulario */
 
   get equipo() {
     return this.newSerieReunionForm.get('equipo');

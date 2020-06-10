@@ -9,12 +9,14 @@ import { saveAs } from 'file-saver';
 })
 export class ArchivoService {
 
-  private baseUrl = 'http://localhost:8080/archivos/';
+  private baseUrl = 'https://mm-project.herokuapp.com/archivos/';
 
   extensiones: string[];
   extension: string;
 
   constructor(private http: HttpClient) { }
+
+  /** Método para enviar un archivo al Backend */
 
   adjuntarArchivo(nombre: string, archivo: File, codReunion: number): Observable<any> {
     const formData: FormData = new FormData();
@@ -29,9 +31,13 @@ export class ArchivoService {
     return this.http.request(req);
   }
 
+  /** Método para recibir los archivos desde el Backend */
+
   getArchivosByCodReunion(codreunion: number): Observable<any> {
     return this.http.get<Archivos>(`${this.baseUrl}` + 'listar/' + codreunion);
   }
+
+  /** Método que sirve para descargar el archivo seleccionado dependiendo de su extension */
 
   ejecutarArchivo(codarchivo: number, nombreArchivo: string) {
     this.extensiones = nombreArchivo.split('.');
@@ -60,32 +66,24 @@ export class ArchivoService {
     if (this.extension === 'pdf') {
       return this.http.get(`${this.baseUrl}verarchivo/${codarchivo}`, {responseType: 'arraybuffer'}).subscribe(data => {
         const file = new Blob([data], {type: 'application/pdf'});
-        /* const fileURL = URL.createObjectURL(file);
-        window.open(fileURL); */
         saveAs(file, nombreArchivo);
     });
 
     } else if (this.extension === 'jpg') {
       return this.http.get(`${this.baseUrl}verarchivo/${codarchivo}`, {responseType: 'arraybuffer'}).subscribe(data => {
         const file = new Blob([data], {type: 'image/jpg'});
-        /* const fileURL = URL.createObjectURL(file);
-        window.open(fileURL); */
         saveAs(file, nombreArchivo);
     });
 
     } else if (this.extension === 'png') {
       return this.http.get(`${this.baseUrl}verarchivo/${codarchivo}`, {responseType: 'arraybuffer'}).subscribe(data => {
         const file = new Blob([data], {type: 'image/png'});
-        /* const fileURL = URL.createObjectURL(file);
-        window.open(fileURL); */
         saveAs(file, nombreArchivo);
     });
 
     } else if (this.extension === 'txt') {
       return this.http.get(`${this.baseUrl}verarchivo/${codarchivo}`, {responseType: 'arraybuffer'}).subscribe(data => {
         const file = new Blob([data], {type: 'text/plain'});
-        /* const fileURL = URL.createObjectURL(file);
-        window.open(fileURL); */
         saveAs(file, nombreArchivo);
     });
 
@@ -116,6 +114,8 @@ export class ArchivoService {
     }
 
   }
+
+  /** Método para eliminar el archivo desde el Backend */
 
   borrarArchivo(codarchivo: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}` + 'borrar/' + codarchivo);

@@ -31,6 +31,8 @@ export class NuevareunionComponent implements OnInit {
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
               public ts: TemasService, public rs: ReunionService, public router: Router) { }
 
+  /** Recoge la Serie de Reunion y los usuarios participantes de la misma */
+
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
@@ -56,7 +58,9 @@ export class NuevareunionComponent implements OnInit {
     });
   }
 
-  crearReunion(form: NgForm) {
+  /** Método para crear una nueva Reunión */
+
+  crearReunion(form) {
     this.reunion.fecha = form.value.fecha;
     this.codigos = form.value.participantes;
     this.rs.crearReunion(this.reunion, this.codsreunion, this.codigos).subscribe(data => {

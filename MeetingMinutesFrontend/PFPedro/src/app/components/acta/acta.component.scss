@@ -1,3 +1,15 @@
+@media screen and (max-width: 1250px) {
+    .formNuevaActa {
+        padding-top: 5%;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .formNuevaActa {
+        padding-top: 20%;
+    }
+}
+
 .dropdown-toggle::after {
     content: none;
 }

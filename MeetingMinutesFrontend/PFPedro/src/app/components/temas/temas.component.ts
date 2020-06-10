@@ -47,6 +47,8 @@ export class TemasComponent implements OnInit {
   constructor(public route: ActivatedRoute, public us: UsuarioService, public sr: SeriereunionService,
               public ts: TemasService, private router: Router, private modalService: NgbModal) { }
 
+  /** Recoge los temas y los temas antiguos no cerrados */
+
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
@@ -66,6 +68,8 @@ export class TemasComponent implements OnInit {
       }
     });
   }
+
+  /** Los temas de reuniones antiguas a la que estamos actualmente, los recoge y los añade a la reunión actual */
 
   getTemasAntiguosNoCerrados(id: number, id2: number) {
     this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id, id2).subscribe(data => {
@@ -87,7 +91,9 @@ export class TemasComponent implements OnInit {
     this.submitted = true;
   }
 
-  crearTema(form: NgForm) {
+  /** Método para crear nuevos temas */
+
+  crearTema(form) {
     this.tema.titulo = form.value.titulo;
     this.tema.etiqueta = form.value.etiqueta;
     this.ts.crearTemas(this.tema, this.codreunion, this.codsreunion).subscribe(data => {
@@ -112,10 +118,14 @@ export class TemasComponent implements OnInit {
     });
   }
 
+  /** Abre el modal que seleccionemos */
+
   verModal(codTema: number, modal) {
     this.modalService.open(modal);
     this.codTema = codTema;
   }
+
+  /** Cierra el modal y resetea los formularios */
 
   cerrarModal(modal) {
     this.infoForm.reset();
@@ -123,7 +133,9 @@ export class TemasComponent implements OnInit {
     this.modalService.dismissAll(modal);
   }
 
-  addInfoTema(form: NgForm, modal) {
+  /** Método para añadir información al tema que seleccionemos */
+
+  addInfoTema(form, modal) {
     this.tema.info = form.value.info;
     this.ts.añadirInfoTema(this.tema, this.codTema).subscribe(data => {
       Swal.fire({
@@ -148,7 +160,9 @@ export class TemasComponent implements OnInit {
 
   }
 
-  addDecisionTema(form: NgForm, modal) {
+  /** Método para añadir una decisión al tema que seleccionemos */
+
+  addDecisionTema(form, modal) {
     this.tema.decision = form.value.decision;
     this.ts.añadirDecisionTemas(this.tema, this.codTema).subscribe(data => {
       Swal.fire({
@@ -172,6 +186,8 @@ export class TemasComponent implements OnInit {
     });
 
   }
+
+  /** Método para cerrar temas */
 
   cerrarTemas(codtema: number) {
 
@@ -208,7 +224,9 @@ export class TemasComponent implements OnInit {
     });
   }
 
-  addSeguimientoTemaCerrado(form: NgForm, modal) {
+  /** Método para añadir un seguimiento a un tema cerrado */
+
+  addSeguimientoTemaCerrado(form, modal) {
     this.tema.seguimiento = form.value.seguimiento;
     this.tema.codTema = this.codTema;
 
@@ -232,6 +250,8 @@ export class TemasComponent implements OnInit {
       this.seguimientoForm.reset();
     });
   }
+
+  /** Getters para recoger los campos del formulario */
 
   get titulo() {
     return this.nuevoTemaform.get('titulo');

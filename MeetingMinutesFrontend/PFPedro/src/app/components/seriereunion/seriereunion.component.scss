@@ -1,12 +1,9 @@
-.styleSerieReunion {
-    padding-top: 20%;
+.styleBTNGROUP {
+    padding-top: 15%;
 }
 
-@media only screen and (max-width: 360px) {
+@media screen and (max-width: 980px) {
     .titleSerieReunion {
-        padding-top: 25%;
-    }
-    .styleSerieReunion {
         padding-top: 20%;
     }
 }

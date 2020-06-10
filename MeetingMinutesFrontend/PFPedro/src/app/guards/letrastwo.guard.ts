@@ -8,6 +8,9 @@ import Swal from 'sweetalert2';
 })
 export class LetrastwoGuard implements CanActivate {
   constructor(private router: Router) { }
+
+  /** Método que nos ayudará a controlar que un usuario escriba bien la segunda parte de la url sin letras */
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

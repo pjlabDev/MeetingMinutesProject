@@ -1,4 +1,4 @@
-<div class="container formNuevaReunion" id="contenido">
+<div class="container formNuevaActa" id="contenido">
     <h3 style="text-align: center;" id="title">Acta Reunión Equipo</h3>
     <h3 style="text-align: center;" id="title2">{{serieReunion.equipo}} - {{serieReunion.nombre}}</h3>
     <br>
@@ -10,6 +10,9 @@
                         <div class="form-group">
                             <label for="fecha">Fecha</label>
                             <input type="date" class="form-control col-sm-3" formControlName="fecha" id="fecha" placeholder="Fecha...">
+                            <div class="alert alert-danger" *ngIf="(fecha.touched) && (fecha.invalid)" style="margin-top: 5px;">
+                                <span *ngIf="fecha.errors.required">La fecha es un campo requerido</span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="asistentes">Marcar asistentes</label>
@@ -18,6 +21,9 @@
                                     {{user.nombre}}
                                 </option>
                             </select>
+                            <div class="alert alert-danger" *ngIf="(asistentesForm.touched) && (asistentesForm.invalid)" style="margin-top: 5px;">
+                                <span *ngIf="asistentesForm.errors.required">Marcar los asistentes es un campo requerido</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,6 +52,11 @@
                                         <hr>
                                         <b>Decisión:</b>
                                         <p>{{tem.decision}}</p>
+                                    </div>
+                                    <div *ngIf="tem.seguimiento !== null">
+                                        <hr>
+                                        <b>Seguimiento:</b>
+                                        <p>{{tem.seguimiento}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +100,7 @@
                     </div>
                     <br>
                     <br>
-                    <h3>Conclusión Final</h3>
+                    <h3>REDACTAR ACTA</h3>
                     <div class="form-group">
                         <textarea id="conclusion" name="conclusion" formControlName="conclusion" class="form-control" rows="10" placeholder="Escriba la conclusión final..." [(ngModel)]="conclus"></textarea>
                         <div class="alert alert-danger" *ngIf="(conclusion.touched) && (conclusion.invalid)" style="margin-top: 5px;">
@@ -103,7 +114,11 @@
                 </div>
                 <button [disabled]="!nuevaActaForm.valid" type="submit" class="btn btn-success" title="Generar acta">Generar</button>
                 <button [disabled]="!nuevaActaForm.valid" type="button" class="btn btn-success" (click)="enviarActa(nuevaActaForm)" title="Enviar acta vía Email">Enviar Acta E-mail</button>
-                <button type="button" [routerLink]="['/', 'reunion', codsreunion, codreunion]" class="btn btn-light" title="Cancelar generar Acta">Cancelar</button>
+                <button type="button" [routerLink]="['/', 'reunion', codsreunion, codreunion]" class="btn btn-light" title="Cancelar generar Acta">Volver</button>
+                <br>
+                <div *ngIf="!nuevaActaForm.valid">
+                    <small>Para generar el acta deberá ingresar los campos fecha, asistentes y la conclusión final.</small>
+                </div>
             </form>
         </div>
     </div>

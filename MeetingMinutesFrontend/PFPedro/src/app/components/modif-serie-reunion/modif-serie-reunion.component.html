@@ -1,4 +1,5 @@
-<div class="container formRegister">
+<div class="container formModSerieReunion">
+    <h3 style="text-align: center;">Modificar Serie de Reunión</h3>
     <form [formGroup]="modifSerieReunionForm" #reunionform="ngForm" (ngSubmit)="modifSerieReunion(modifSerieReunionForm)">
         <div class="form-group">
             <label for="equipo">Equipo</label>
@@ -28,18 +29,18 @@
                         {{user.nombre}} - {{user.rol}}
                     </div>
                     <div class="col" *ngIf="us.isUserAdminAndJefe()">
-                        <button type="button" class="boton2" (click)="eliminarParticipante(user.codUsu)"><i class="fas fa-times x"></i></button>
+                        <button type="button" class="boton2" (click)="eliminarParticipante(user.codUsu)" title="Eliminar participante Serie Reunión"><i class="fas fa-times x"></i></button>
                     </div>
                 </div>
             </div>
         </div>
         <span>¿Desea invitar más usuarios a la reunión?</span>
         <div class="offset-2"></div>
-        <button class="btn btn-primary btn-sm" (click)="invitar = true" type="button" title="Añadir más participantes">Si</button>
+        <button class="btn btn-primary btn-sm" (click)="invitar = true" type="button" title="Añadir más participantes" title="Añadir más participantes">Si</button>
         <div *ngIf="invitar">
             <span>Mejor no</span>
             <div class="offset-2"></div>
-            <button class="btn btn-primary btn-sm" (click)="invitar = false" type="button" title="No añadir más participantes">No</button>
+            <button class="btn btn-primary btn-sm" (click)="invitar = false" type="button" title="No añadir más participantes" title="No añadir más participantes">No</button>
         </div>
         <div *ngIf="invitar" class="form-group">
             <label for="participantes">Invitar participantes</label>
@@ -54,8 +55,8 @@
             <label for="cerrado">Cerrar Serie Reunion (0 abierta, 1 cerrada)</label>
             <input type="number" class="form-control" id="cerrado" formControlName="cerrado" name="cerrado" max="1" min="0">
         </div>
-        <button [disabled]="!reunionform.valid" type="submit" class="btn btn-success">Modificar</button>
-        <button type="button" [routerLink]="['/', 'seriereunion', codsreunion]" class="btn btn-light">Cancelar</button>
+        <button [disabled]="!reunionform.valid" type="submit" class="btn btn-success" title="Modificar Serie Reunión">Modificar</button>
+        <button type="button" [routerLink]="['/', 'seriereunion', codsreunion]" class="btn btn-light" title="Cancelar modificación">Cancelar</button>
     </form>
 </div>
 <div style="height: 25rem;"></div>

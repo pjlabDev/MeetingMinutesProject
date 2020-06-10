@@ -59,6 +59,8 @@ export class ReunionComponent implements OnInit {
               public ts: TemasService, public rs: ReunionService, public router: Router, public es: EmailService,
               public datepipe: DatePipe, public as: ArchivoService, private modalService: NgbModal) { }
 
+  /** Recoge todos los datos correspondientes para la reunión */
+
   ngOnInit() {
     this.route.paramMap.subscribe(response => {
       this.codsreunion = parseInt(response.get('id'), 10);
@@ -99,6 +101,8 @@ export class ReunionComponent implements OnInit {
     });
   }
 
+  /** Recoge los temas de reuniones antiguas no cerradas para añadirlos a la reunión en la que estamos actualmente. */
+
   getTemasAntiguosNoCerrados(id: number, id2: number) {
     this.ts.getTemasByCodReunionAntiguaAndNoCerrado(id, id2).subscribe(data => {
       if (data !== null && data.length !== 0) {
@@ -117,6 +121,8 @@ export class ReunionComponent implements OnInit {
       this.usuariosNotInReunion = data;
     });
   }
+
+  /** Envia los datos de la reunión a los participantes de la misma */
 
   enviarAgenda() {
     this.fechaReunion = this.datepipe.transform(this.reunion.fecha, 'dd-MM-yyyy');
@@ -143,9 +149,13 @@ export class ReunionComponent implements OnInit {
     this.adjuntar = true;
   }
 
+  /** Guarda en variable el archivo que hemos seleccionado el campo del formulario */
+
   selectFile(event) {
     this.archivosSeleccionados = event.target.files;
   }
+
+  /** Guarda en base de datos el archivo que hemos seleccionado */
 
   guardarArchivo() {
     this.archivoEnCruso = this.archivosSeleccionados.item(0);
@@ -172,6 +182,8 @@ export class ReunionComponent implements OnInit {
     });
   }
 
+  /** Recibe los archivos de la reunión en la que estamos actualmente */
+
   getArchivosByCodreunion(id: number) {
     this.as.getArchivosByCodReunion(id).subscribe(data => {
       if (data !== null && data.length !== 0) {
@@ -185,9 +197,13 @@ export class ReunionComponent implements OnInit {
     });
   }
 
+  /** Al hacer clic en el archivo, podremos descargarlo */
+
   ejecutarArchivo(id: number, nombreArchivo: string) {
     this.as.ejecutarArchivo(id, nombreArchivo);
   }
+
+  /** Elimina el archivo de la reunión */
 
   borrarArchivo(codarchivo: number) {
     Swal.fire({
@@ -220,11 +236,15 @@ export class ReunionComponent implements OnInit {
     });
   }
 
+  /** Abre modal para ver la reunión */
+
   verReunion(modal) {
     this.fecha.disable();
     this.fecha.setValue(this.reunion.fecha);
     this.modalService.open(modal);
   }
+
+  /** Nos habilita el campo fecha para poder modificar la reunión */
 
   siReunion() {
     this.nomodificar = false;
@@ -232,7 +252,9 @@ export class ReunionComponent implements OnInit {
     this.fecha.enable();
   }
 
-  modificarReunion(form: NgForm, modal) {
+  /** Método para modificar la reunión */
+
+  modificarReunion(form, modal) {
 
     this.reunion.fecha = form.value.fecha;
 
@@ -265,12 +287,16 @@ export class ReunionComponent implements OnInit {
 
   }
 
+  /** Cierra el modal de la reunión */
+
   cerrarModalReunion(modal) {
     this.nomodificar = true;
     this.modificar = false;
     this.modalService.dismissAll(modal);
     this.formReunion.reset();
   }
+
+  /** Método para eliminar participante de la reunión que estamos modificando */
 
   eliminarParticipante(codusu: number) {
     Swal.fire({

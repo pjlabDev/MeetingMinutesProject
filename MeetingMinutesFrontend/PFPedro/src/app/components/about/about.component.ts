@@ -21,7 +21,7 @@ export class AboutComponent implements OnInit {
   ngOnInit() {
   }
 
-  enviarComentario(form: NgForm) {
+  enviarComentario(form) {
 
     const nombre = form.value.nombre;
 

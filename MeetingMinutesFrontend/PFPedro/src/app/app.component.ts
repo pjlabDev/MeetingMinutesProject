@@ -14,6 +14,8 @@ export class AppComponent {
               private router: Router) { }
 
 
+  /** Método para cerrar sesión en la página */
+
   logout() {
     this.us.logOut();
     this.router.navigate(['login']);
