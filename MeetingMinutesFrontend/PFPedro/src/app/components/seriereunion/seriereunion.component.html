@@ -128,25 +128,43 @@
 
                 <br>
 
-                <label for="info">Información</label>
-                <textarea id="info" name="info" class="form-control" formControlName="infoTema" placeholder="Escriba la información del tema..."></textarea>
-                <div class="alert alert-danger" *ngIf="(infoTema.touched) && (infoTema.invalid)" style="margin-top: 5px;">
-                    <span *ngIf="infoTema.errors.required">La información es un campo requerido</span>
-                    <span *ngIf="infoTema.errors.maxlength">
-                    Longitud máxima de carácteres: {{infoTema.errors.maxlength.requiredLength}}
+                <div *ngIf="tema.info !== null">
+                    <label for="info">Información</label>
+                    <textarea id="info" name="info" class="form-control" formControlName="infoTema" placeholder="Escriba la información del tema..."></textarea>
+                    <div class="alert alert-danger" *ngIf="(infoTema.touched) && (infoTema.invalid)" style="margin-top: 5px;">
+                        <span *ngIf="infoTema.errors.required">La información es un campo requerido</span>
+                        <span *ngIf="infoTema.errors.maxlength">
+                        Longitud máxima de carácteres: {{infoTema.errors.maxlength.requiredLength}}
                     </span>
+                    </div>
                 </div>
 
                 <br>
 
-                <label for="decision">Decision</label>
-                <textarea id="decision" name="decision" class="form-control" formControlName="decisionTema" placeholder="Escriba la decision del tema..."></textarea>
-                <div class="alert alert-danger" *ngIf="(decisionTema.touched) && (decisionTema.invalid)" style="margin-top: 5px;">
-                    <span *ngIf="decisionTema.errors.required">La decisión es un campo requerido</span>
-                    <span *ngIf="decisionTema.errors.maxlength">
+                <div *ngIf="tema.decision !== null">
+                    <label for="decision">Decision</label>
+                    <textarea id="decision" name="decision" class="form-control" formControlName="decisionTema" placeholder="Escriba la decision del tema..."></textarea>
+                    <div class="alert alert-danger" *ngIf="(decisionTema.touched) && (decisionTema.invalid)" style="margin-top: 5px;">
+                        <span *ngIf="decisionTema.errors.required">La decisión es un campo requerido</span>
+                        <span *ngIf="decisionTema.errors.maxlength">
                         Longitud máxima de carácteres: {{decisionTema.errors.maxlength.requiredLength}}
                     </span>
+                    </div>
                 </div>
+
+                <br>
+
+                <div *ngIf="tema.seguimiento !== null">
+                    <label for="seguimiento">Seguimiento</label>
+                    <textarea id="seguimiento" name="seguimiento" class="form-control" formControlName="seguimientoTema" placeholder="Escriba el seguimiento del tema..."></textarea>
+                    <div class="alert alert-danger" *ngIf="(seguimientoTema.touched) && (seguimientoTema.invalid)" style="margin-top: 5px;">
+                        <span *ngIf="seguimientoTema.errors.required">El seguimiento es un campo requerido</span>
+                        <span *ngIf="seguimientoTema.errors.maxlength">
+                        Longitud máxima de carácteres: {{seguimientoTema.errors.maxlength.requiredLength}}
+                    </span>
+                    </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button *ngIf="modificar" [disabled]="!infoTemaForm.valid" type="submit" class="btn btn-success">Añadir</button>

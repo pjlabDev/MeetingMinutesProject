@@ -37,7 +37,8 @@ export class SeriereunionComponent implements OnInit {
     tituloTema: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     etiquetaTema: new FormControl('', [Validators.required]),
     infoTema: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-    decisionTema: new FormControl('', [Validators.required, Validators.maxLength(255)])
+    decisionTema: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+    seguimientoTema: new FormControl('', [Validators.required, Validators.maxLength(255)])
   });
   tema: Temas = new Temas();
 
@@ -134,11 +135,27 @@ export class SeriereunionComponent implements OnInit {
       this.etiquetaTema.disable();
       this.infoTema.disable();
       this.decisionTema.disable();
+      this.seguimientoTema.disable();
 
       this.tituloTema.setValue(this.tema.titulo);
       this.etiquetaTema.setValue(this.tema.etiqueta);
       this.infoTema.setValue(this.tema.info);
       this.decisionTema.setValue(this.tema.decision);
+      this.seguimientoTema.setValue(this.tema.seguimiento);
+
+      if (this.tema.info === null) {
+        this.infoTema.setValidators([Validators.maxLength(255)]);
+      }
+
+      if (this.tema.decision === null) {
+        this.decisionTema.setValidators([Validators.maxLength(255)]);
+      }
+
+      if (this.tema.seguimiento === null) {
+        this.seguimientoTema.setValidators([Validators.maxLength(255)]);
+      }
+
+
     });
     this.modalService.open(modal);
   }
@@ -159,6 +176,7 @@ export class SeriereunionComponent implements OnInit {
     this.etiquetaTema.enable();
     this.infoTema.enable();
     this.decisionTema.enable();
+    this.seguimientoTema.enable();
   }
 
   /** Método para modificar los temas */
@@ -168,6 +186,7 @@ export class SeriereunionComponent implements OnInit {
     this.tema.etiqueta = form.value.etiquetaTema;
     this.tema.info = form.value.infoTema;
     this.tema.decision = form.value.decisionTema;
+    this.tema.seguimiento = form.value.seguimientoTema;
 
     this.ts.modificarTema(this.tema).subscribe(data => {
       Swal.fire({
@@ -317,6 +336,10 @@ export class SeriereunionComponent implements OnInit {
 
   get decisionTema() {
     return this.infoTemaForm.get('decisionTema');
+  }
+
+  get seguimientoTema() {
+    return this.infoTemaForm.get('seguimientoTema');
   }
 
   /** GET atributos del formulario para las TAREAS */
