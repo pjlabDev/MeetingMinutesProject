@@ -210,6 +210,7 @@ public class TemasServiceImpl implements TemasService {
 			updateTema.setInfo(tema.getInfo());
 			updateTema.setEtiqueta(tema.getEtiqueta());
 			updateTema.setDecision(tema.getDecision());
+			updateTema.setSeguimiento(tema.getSeguimiento());
 			tr.save(updateTema);
 			
 		}
@@ -229,9 +230,9 @@ public class TemasServiceImpl implements TemasService {
 		
 		if(segTema != null) {
 			if(segTema.getSeguimiento() == null) {
-				seguimiento = tema.getSeguimiento();
+				seguimiento += tema.getSeguimiento();
 			}else {
-				seguimiento = tema.getSeguimiento() + "\n" + tema.getSeguimiento();
+				seguimiento += segTema.getSeguimiento() + "\n" + tema.getSeguimiento();
 			}
 			segTema.setSeguimiento(seguimiento);
 			tr.save(segTema);
