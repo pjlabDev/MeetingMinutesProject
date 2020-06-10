@@ -23,21 +23,32 @@ import com.pedro.repository.TemasRepository;
 import com.pedro.repository.UserRepository;
 
 /**
- * @author Westermeyer
+ * The Class EmailServiceImpl.
  *
+ * @author Westermeyer
  */
 @Service
 public class EmailServiceImpl implements EmailService {
 
+	/** The userR. */
 	@Autowired
 	UserRepository userR;
 	
+	/** The tr. */
 	@Autowired
 	TemasRepository tr;
 	
+	/** The taR. */
 	@Autowired
 	TareasRepository taR;
 	
+	/**
+	 * Enviar agenda.
+	 *
+	 * @param receptores the receptores
+	 * @param fechaReunion the fecha reunion
+	 * @param tema the tema
+	 */
 	@Override
 	public void enviarAgenda(int[] receptores, String fechaReunion, Temas[] tema) {
 		
@@ -94,6 +105,15 @@ public class EmailServiceImpl implements EmailService {
 		
 	}
 
+	/**
+	 * Enviar acta.
+	 *
+	 * @param receptores the receptores
+	 * @param fechaActa the fecha acta
+	 * @param codtema the codtema
+	 * @param codtarea the codtarea
+	 * @param conclusion the conclusion
+	 */
 	@Override
 	public void enviarActa(int[] receptores, String fechaActa, int[] codtema, int[] codtarea, String conclusion) {
 		
@@ -197,6 +217,11 @@ public class EmailServiceImpl implements EmailService {
 		
 	}
 
+	/**
+	 * Enviar tarea.
+	 *
+	 * @param codtarea the codtarea
+	 */
 	@Override
 	public void enviarTarea(int codtarea) {
 		
@@ -243,6 +268,13 @@ public class EmailServiceImpl implements EmailService {
 
 	}
 
+	/**
+	 * Enviar comentario.
+	 *
+	 * @param nombre the nombre
+	 * @param correo the correo
+	 * @param comentario the comentario
+	 */
 	@Override
 	public void enviarComentario(String nombre, String correo, String comentario) {
 		

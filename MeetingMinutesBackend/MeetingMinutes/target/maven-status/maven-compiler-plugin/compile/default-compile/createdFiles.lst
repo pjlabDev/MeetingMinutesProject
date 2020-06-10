@@ -1,9 +1,0 @@
-com\pedro\service\PeliculaServiceImpl.class
-com\pedro\controller\HomeController.class
-com\pedro\application\SpringApplicationLuncher.class
-com\pedro\repository\PeliculaDaoImpl.class
-com\pedro\modelo\Usuario.class
-com\pedro\modelo\Pelicula.class
-com\pedro\modelo\Pelusua.class
-com\pedro\repository\PeliculaDao.class
-com\pedro\service\PeliculaService.class

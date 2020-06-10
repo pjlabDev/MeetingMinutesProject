@@ -20,29 +20,48 @@ import com.pedro.repository.TareasRepository;
 import com.pedro.repository.UserRepository;
 
 /**
- * @author Westermeyer
+ * The Class TareasServiceImpl.
  *
+ * @author Westermeyer
  */
 @Service
 public class TareasServiceImpl implements TareasService {
 
+	/** The tareasRepo. */
 	@Autowired
 	TareasRepository tareasRepo;
 	
+	/** The rr. */
 	@Autowired
 	ReunionRepository rr;
 	
+	/** The sr. */
 	@Autowired
 	SerieReunionRepository sr;
 
+	/** The ur. */
 	@Autowired
 	UserRepository ur;
 
+	/**
+	 * Gets the tareas by cod reunion.
+	 *
+	 * @param codreunion the codreunion
+	 * @return the tareas by cod reunion
+	 */
 	@Override
 	public List<Tareas> getTareasByCodReunion(int codreunion) {
 		return tareasRepo.getTareasByCodReunion(codreunion);
 	}
 
+	/**
+	 * Crear tareas.
+	 *
+	 * @param tarea the tarea
+	 * @param codreunion the codreunion
+	 * @param codusu the codusu
+	 * @param codsreunion the codsreunion
+	 */
 	@Override
 	public void crearTareas(Tareas tarea, int codreunion, int[] codusu, int codsreunion) {
 		Set<Usuarios> usuario = new HashSet<>();
@@ -71,11 +90,22 @@ public class TareasServiceImpl implements TareasService {
 		
 	}
 
+	/**
+	 * Gets the all tareas by cod S reunion.
+	 *
+	 * @param codsreunion the codsreunion
+	 * @return the all tareas by cod S reunion
+	 */
 	@Override
 	public List<Tareas> getAllTareasByCodSReunion(int codsreunion) {
 		return tareasRepo.getAllTareasByCodSReunion(codsreunion);
 	}
 
+	/**
+	 * Cerrar tareas.
+	 *
+	 * @param tarea the tarea
+	 */
 	@Override
 	public void cerrarTareas(Tareas tarea) {
 		
@@ -88,11 +118,24 @@ public class TareasServiceImpl implements TareasService {
 		
 	}
 
+	/**
+	 * Gets the tareas by cod reunion antigua and no cerrada.
+	 *
+	 * @param codreunion the codreunion
+	 * @param codsreunion the codsreunion
+	 * @return the tareas by cod reunion antigua and no cerrada
+	 */
 	@Override
 	public List<Tareas> getTareasByCodReunionAntiguaAndNoCerrada(int codreunion, int codsreunion) {
 		return tareasRepo.getTareasByCodReunionAntiguaAndNoCerrada(codreunion, codsreunion);
 	}
 
+	/**
+	 * Save tareas antiguas.
+	 *
+	 * @param tareas the tareas
+	 * @param codreunion the codreunion
+	 */
 	@Override
 	public void saveTareasAntiguas(Tareas[] tareas, int codreunion) {
 		
@@ -109,11 +152,23 @@ public class TareasServiceImpl implements TareasService {
 
 	}
 
+	/**
+	 * Gets the tarea by cod tarea.
+	 *
+	 * @param codtarea the codtarea
+	 * @return the tarea by cod tarea
+	 */
 	@Override
 	public Tareas getTareaByCodTarea(int codtarea) {
 		return tareasRepo.getTareaByCodTarea(codtarea);
 	}
 
+	/**
+	 * Modificar tarea.
+	 *
+	 * @param tarea the tarea
+	 * @param codusu the codusu
+	 */
 	@Override
 	public void modificarTarea(Tareas tarea, int[] codusu) {
 		
@@ -137,6 +192,12 @@ public class TareasServiceImpl implements TareasService {
 		
 	}
 
+	/**
+	 * Eliminar responsable.
+	 *
+	 * @param tarea the tarea
+	 * @param codusu the codusu
+	 */
 	@Override
 	public void eliminarResponsable(Tareas tarea, int codusu) {
 		

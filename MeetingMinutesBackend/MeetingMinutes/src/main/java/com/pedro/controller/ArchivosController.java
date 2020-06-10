@@ -21,19 +21,30 @@ import com.pedro.modelo.Archivos;
 import com.pedro.service.ArchivosService;
 
 /**
- * @author Westermeyer
+ * The Class ArchivosController.
  *
+ * @author Westermeyer
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://mmfront-project.herokuapp.com")
 @RequestMapping(value="/archivos")
 public class ArchivosController {
 
+	/** The as. */
 	@Autowired
 	ArchivosService as;	
 	
+	/**
+	 * Método que recibe un archivo junto con su nombre y el codigo de reunion 
+	 * para posteriormente guardarlo en base de datos.
+	 *
+	 * @param archivo the archivo
+	 * @param nombre the nombre
+	 * @param codReunion the cod reunion
+	 */
+	
 	@PostMapping("/adjuntar/{nombre}/{codReunion}")
-	public void enviarAgenda(@RequestParam("archivo") MultipartFile archivo, @PathVariable String nombre, @PathVariable int codReunion) {
+	public void adjuntarArchivo(@RequestParam("archivo") MultipartFile archivo, @PathVariable String nombre, @PathVariable int codReunion) {
 		try {
 			
 			as.adjuntarArchivo(archivo, nombre, codReunion);
@@ -43,15 +54,35 @@ public class ArchivosController {
 		}
 	}
 	
+	/**
+	 * Método para recibir los archivos por código de reunion.
+	 *
+	 * @param codreunion the codreunion
+	 * @return the archivos by cod reunion
+	 */
+	
 	@GetMapping("/listar/{codreunion}")
 	public List<Archivos> getArchivosByCodReunion(@PathVariable int codreunion) {
 		return as.getArchivosByCodReunion(codreunion);
 	}
 	
+	/**
+	 * Método para obtener el archivo por su código.
+	 *
+	 * @param codarchivo the codarchivo
+	 * @return the archivo by cod archivo
+	 */
+	
 	@GetMapping("/verarchivo/{codarchivo}")
-	public byte[] ejecutarArchivo(@PathVariable int codarchivo) {
-		return as.ejecutarArchivo(codarchivo);
+	public byte[] getArchivoByCodArchivo(@PathVariable int codarchivo) {
+		return as.getArchivoByCodArchivo(codarchivo);
 	}
+	
+	/**
+	 * Método para eliminar un archivo de la reunion.
+	 *
+	 * @param codarchivo the codarchivo
+	 */
 	
 	@DeleteMapping("/borrar/{codarchivo}")
 	public void borrarArchivo(@PathVariable int codarchivo) {

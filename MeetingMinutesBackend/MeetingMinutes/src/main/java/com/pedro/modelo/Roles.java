@@ -4,7 +4,14 @@
 package com.pedro.modelo;
 
 /**
- * @author Westermeyer
+ * The Enum Roles.
  *
+ * @author Westermeyer
  */
-public enum Roles {ADMINISTRADOR,USUARIO,JEFEREUNION}
+public enum Roles {
+/** The administrador. */
+ADMINISTRADOR,
+/** The usuario. */
+USUARIO,
+/** The jefereunion. */
+JEFEREUNION}

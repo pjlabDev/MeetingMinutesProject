@@ -16,24 +16,39 @@ import com.pedro.repository.SerieReunionRepository;
 import com.pedro.repository.UserRepository;
 
 /**
- * @author Westermeyer
+ * The Class SerieReunionServiceImpl.
  *
+ * @author Westermeyer
  */
 
 @Service
 public class SerieReunionServiceImpl implements SerieReunionService {
 
+	/** The srRepo. */
 	@Autowired
 	SerieReunionRepository srRepo;
 	
+	/** The userR. */
 	@Autowired
 	UserRepository userR;
 	
+	/**
+	 * Gets the serie reunion by usuario.
+	 *
+	 * @param codusu the codusu
+	 * @return the serie reunion by usuario
+	 */
 	@Override
 	public List<SerieReunion> getSerieReunionByUsuario(int codusu) {
 		return srRepo.getSerieReunionByUsuario(codusu);
 	}
 
+	/**
+	 * Crear serie reunion.
+	 *
+	 * @param reunion the reunion
+	 * @param codusu the codusu
+	 */
 	@Override
 	public void crearSerieReunion(SerieReunion reunion, int[] codusu) {
 		
@@ -51,11 +66,22 @@ public class SerieReunionServiceImpl implements SerieReunionService {
 		
 	}
 
+	/**
+	 * Gets the serie reunion by cod reunion.
+	 *
+	 * @param codsreunion the codsreunion
+	 * @return the serie reunion by cod reunion
+	 */
 	@Override
 	public SerieReunion getSerieReunionByCodReunion(int codsreunion) {
 		return srRepo.getSerieReunionByCodReunion(codsreunion);
 	}
 
+	/**
+	 * Modificar serie reunion.
+	 *
+	 * @param reunion the reunion
+	 */
 	@Override
 	public void modificarSerieReunion(SerieReunion reunion) {
 		SerieReunion serieReunion = srRepo.findOne(reunion.getCodSReunion());
@@ -71,6 +97,12 @@ public class SerieReunionServiceImpl implements SerieReunionService {
 		
 	}
 
+	/**
+	 * Modificar serie reunion invitando mas usuarios.
+	 *
+	 * @param reunion the reunion
+	 * @param codusu the codusu
+	 */
 	@Override
 	public void modificarSerieReunionInvitandoMasUsuarios(SerieReunion reunion, int[] codusu) {
 		
@@ -95,6 +127,12 @@ public class SerieReunionServiceImpl implements SerieReunionService {
 		
 	}
 
+	/**
+	 * Eliminar participante.
+	 *
+	 * @param sr the sr
+	 * @param codusu the codusu
+	 */
 	@Override
 	public void eliminarParticipante(SerieReunion sr, int codusu) {
 		

@@ -18,31 +18,54 @@ import com.pedro.repository.SerieReunionRepository;
 import com.pedro.repository.TemasRepository;
 
 /**
- * @author Westermeyer
+ * The Class TemasServiceImpl.
  *
+ * @author Westermeyer
  */
 @Service
 public class TemasServiceImpl implements TemasService {
 
+	/** The tr. */
 	@Autowired
 	private TemasRepository tr;
 	
+	/** The rr. */
 	@Autowired
 	private ReunionRepository rr;
 	
+	/** The sr. */
 	@Autowired
 	private SerieReunionRepository sr;
 
+	/**
+	 * Gets the temas by cod reunion.
+	 *
+	 * @param codreunion the codreunion
+	 * @return the temas by cod reunion
+	 */
 	@Override
 	public List<Temas> getTemasByCodReunion(int codreunion) {
 		return tr.getTemasByCodReunion(codreunion);
 	}
 
+	/**
+	 * Gets the all temas by cod S reunion.
+	 *
+	 * @param codsreunion the codsreunion
+	 * @return the all temas by cod S reunion
+	 */
 	@Override
 	public List<Temas> getAllTemasByCodSReunion(int codsreunion) {
 		return tr.getAllTemasByCodSReunion(codsreunion);
 	}
 	
+	/**
+	 * Crear temas.
+	 *
+	 * @param tema the tema
+	 * @param codreunion the codreunion
+	 * @param codsreunion the codsreunion
+	 */
 	@Override
 	public void crearTemas(Temas tema, int codreunion, int codsreunion) {
 		
@@ -66,6 +89,12 @@ public class TemasServiceImpl implements TemasService {
 		
 	}
 
+	/**
+	 * Añadir info tema.
+	 *
+	 * @param tema the tema
+	 * @param codTema the cod tema
+	 */
 	@Override
 	public void añadirInfoTema(Temas tema, int codTema) {
 		
@@ -84,6 +113,12 @@ public class TemasServiceImpl implements TemasService {
 		
 	}
 
+	/**
+	 * Añadir decision tema.
+	 *
+	 * @param tema the tema
+	 * @param codTema the cod tema
+	 */
 	@Override
 	public void añadirDecisionTema(Temas tema, int codTema) {
 		
@@ -96,6 +131,11 @@ public class TemasServiceImpl implements TemasService {
 				
 	}
 
+	/**
+	 * Cerrar temas.
+	 *
+	 * @param tema the tema
+	 */
 	@Override
 	public void cerrarTemas(Temas tema) {
 		
@@ -108,11 +148,24 @@ public class TemasServiceImpl implements TemasService {
 		
 	}
 
+	/**
+	 * Gets the temas by cod reunion antigua and no cerrado.
+	 *
+	 * @param codreunion the codreunion
+	 * @param codsreunion the codsreunion
+	 * @return the temas by cod reunion antigua and no cerrado
+	 */
 	@Override
 	public List<Temas> getTemasByCodReunionAntiguaAndNoCerrado(int codreunion, int codsreunion) {
 		return tr.getTemasByCodReunionAntiguaAndNoCerrado(codreunion, codsreunion);
 	}
 
+	/**
+	 * Save tema antiguo.
+	 *
+	 * @param tema the tema
+	 * @param codreunion the codreunion
+	 */
 	@Override
 	public void saveTemaAntiguo(Temas[] tema, int codreunion) {
 		
@@ -130,11 +183,22 @@ public class TemasServiceImpl implements TemasService {
 		
 	}
 
+	/**
+	 * Gets the tema by cod tema.
+	 *
+	 * @param codtema the codtema
+	 * @return the tema by cod tema
+	 */
 	@Override
 	public Temas getTemaByCodTema(int codtema) {
 		return tr.getTemaByCodTema(codtema);
 	}
 
+	/**
+	 * Modificar tema.
+	 *
+	 * @param tema the tema
+	 */
 	@Override
 	public void modificarTema(Temas tema) {
 		
@@ -152,6 +216,11 @@ public class TemasServiceImpl implements TemasService {
 		
 	}
 
+	/**
+	 * Añadir seguimiento tema cerrado.
+	 *
+	 * @param tema the tema
+	 */
 	@Override
 	public void añadirSeguimientoTemaCerrado(Temas tema) {
 		

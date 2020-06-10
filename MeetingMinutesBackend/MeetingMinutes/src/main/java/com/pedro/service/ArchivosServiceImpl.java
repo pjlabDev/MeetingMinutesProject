@@ -16,18 +16,29 @@ import com.pedro.repository.ArchivosRepository;
 import com.pedro.repository.ReunionRepository;
 
 /**
- * @author Westermeyer
+ * The Class ArchivosServiceImpl.
  *
+ * @author Westermeyer
  */
 @Service
 public class ArchivosServiceImpl implements ArchivosService {
 	
+	/** The arR. */
 	@Autowired
 	ArchivosRepository arR;
 	
+	/** The rr. */
 	@Autowired
 	ReunionRepository rr;
 	
+	/**
+	 * Adjuntar archivo.
+	 *
+	 * @param archivo the archivo
+	 * @param nombre the nombre
+	 * @param codReunion the cod reunion
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Override
 	public void adjuntarArchivo(MultipartFile archivo, String nombre, int codReunion) throws IOException {
 		
@@ -43,17 +54,34 @@ public class ArchivosServiceImpl implements ArchivosService {
 		
 	}
 
+	/**
+	 * Gets the archivos by cod reunion.
+	 *
+	 * @param codreunion the codreunion
+	 * @return the archivos by cod reunion
+	 */
 	@Override
 	public List<Archivos> getArchivosByCodReunion(int codreunion) {
 		return arR.getArchivosByCodReunion(codreunion);
 	}
 
 
+	/**
+	 * Gets the archivo by cod archivo.
+	 *
+	 * @param codarchivo the codarchivo
+	 * @return the archivo by cod archivo
+	 */
 	@Override
-	public byte[] ejecutarArchivo(int codarchivo) {
+	public byte[] getArchivoByCodArchivo(int codarchivo) {
 		return arR.getArchivoByCodArchivo(codarchivo);
 	}
 
+	/**
+	 * Borrar archivo.
+	 *
+	 * @param codarchivo the codarchivo
+	 */
 	@Override
 	public void borrarArchivo(int codarchivo) {
 		
