@@ -9,3 +9,12 @@ $backRep: no-repeat;
     background-repeat: $backRep;
     background-size: $backgSize;
 }
+
+.footerPolicy {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.829);
+    color: rgb(255, 255, 255);
+    font-size: medium;
+}

@@ -24,6 +24,22 @@
         </div>
     </nav>
 
+    <div *ngIf="policy == true">
+        <br><br>
+        <div>
+            <header class="footerPolicy">
+                <br><br> POLÍTICA DE PRIVACIDAD MEETING MINUTES te informa sobre su Política de Privacidad respecto del tratamiento y protección de los datos de carácter personal de los usuarios y clientes que puedan ser recabados por la navegación o
+                contratación de servicios a través del sitio Web https://mmfront-project.herokuapp.com. En este sentido, el titular (en adelante MM) garantiza el cumplimiento de la normativa vigente en materia de protección de datos personales, reflejada
+                en la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y de Garantía de Derechos Digitales (LOPD GDD). Cumple también con el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016
+                relativo a la protección de las personas físicas (RGPD). El uso de sitio Web implica la aceptación de esta Política de Privacidad así como las condiciones incluidas en el Aviso Legal. <u style="color: rgb(98, 98, 255);"><a (click)="leerMas()">Click aquí para leer más.</a></u>
+                <div class="container">
+                    <button type="button" class="btn btn-outline-primary" (click)="aceptarNoAceptar()" title="Aceptar política de privacidad">Acepto</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="aceptarNoAceptar()" title="No aceptar política de privacidad">No Acepto</button>
+                </div>
+            </header>
+        </div>
+    </div>
+
     <div class="container" style="padding-top: 5%;">
         <router-outlet></router-outlet>
     </div>
